@@ -71,10 +71,10 @@
 	--popover-foreground: #1a1a1a;
 	--primary: #0055ff; /* Accent Blue */
 	--primary-foreground: #ffffff;
-  --secondary: #e8e3d8;          /* warm gray, selaras dgn #f5f0e8 */
-  --secondary-foreground: #1a1a1a;
-  --muted: #ede8df;              /* warm muted, bukan cool gray */
-  --muted-foreground: #5a5550;   /* warm dark gray, bukan cool #424754 */
+	--secondary: #e8e3d8; /* warm gray, selaras dgn #f5f0e8 */
+	--secondary-foreground: #1a1a1a;
+	--muted: #ede8df; /* warm muted, bukan cool gray */
+	--muted-foreground: #5a5550; /* warm dark gray, bukan cool #424754 */
 	--accent: #ffcc00; /* Accent Yellow */
 	--accent-foreground: #1a1a1a;
 	--destructive: #e63b2e; /* Bauhaus Red */
