@@ -11,7 +11,7 @@ import {
     Warning,
 } from '@phosphor-icons/react'
 import { useState } from 'react'
-import { z } from 'zod/v4'
+import { z } from 'zod'
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
 
