@@ -1,0 +1,158 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/jetbrains-mono";
+/* Pastikan kamu sudah menginstal font ini: pnpm add @fontsource-variable/inter @fontsource-variable/space-grotesk */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Custom Shadows untuk efek Neo-Brutalist */
+    --shadow-brutal: 4px 4px 0px 0px var(--color-foreground);
+    --shadow-brutal-sm: 2px 2px 0px 0px var(--color-foreground);
+    --shadow-brutal-lg: 6px 6px 0px 0px var(--color-foreground);
+
+    /* Shadcn UI Variable Mappings */
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    
+    /* Radius presisi 4px sesuai desain */
+    --radius-sm: calc(var(--radius) - 2px);
+    --radius-md: var(--radius);
+    --radius-lg: calc(var(--radius) + 2px);
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-2xl: calc(var(--radius) + 8px);
+    --radius-3xl: calc(var(--radius) + 12px);
+    --radius-4xl: calc(var(--radius) + 16px);
+}
+
+:root {
+	/* LIGHT MODE: Neo-Brutalist (Kertas hangat, kontras garis hitam pekat) */
+	--background: #f5f0e8;
+	--foreground: #1a1a1a;
+	--card: #ffffff;
+	--card-foreground: #1a1a1a;
+	--popover: #ffffff;
+	--popover-foreground: #1a1a1a;
+	--primary: #0055ff; /* Accent Blue */
+	--primary-foreground: #ffffff;
+  --secondary: #e8e3d8;          /* warm gray, selaras dgn #f5f0e8 */
+  --secondary-foreground: #1a1a1a;
+  --muted: #ede8df;              /* warm muted, bukan cool gray */
+  --muted-foreground: #5a5550;   /* warm dark gray, bukan cool #424754 */
+	--accent: #ffcc00; /* Accent Yellow */
+	--accent-foreground: #1a1a1a;
+	--destructive: #e63b2e; /* Bauhaus Red */
+	--destructive-foreground: #ffffff;
+	--border: #1a1a1a; /* Garis tebal kontras tinggi */
+	--input: #1a1a1a;
+	--ring: #0055ff;
+
+	/* Strict 4px radius untuk sudut tajam yang modern */
+	--radius: 0.25rem;
+
+	--sidebar: #ffffff;
+	--sidebar-foreground: #1a1a1a;
+	--sidebar-primary: #0055ff;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #e0e3e5;
+	--sidebar-accent-foreground: #1a1a1a;
+	--sidebar-border: #1a1a1a;
+	--sidebar-ring: #0055ff;
+}
+
+.dark {
+	/* DARK MODE: Precision & Logic (Deep slate, garis tipis, minimalis teknis) */
+	--background: #101415;
+	--foreground: #e0e3e5;
+	--card: #191c1e; /* surface-container-low */
+	--card-foreground: #e0e3e5;
+	--popover: #1d2022;
+	--popover-foreground: #e0e3e5;
+	--primary: #adc6ff; /* Electric Blue */
+	--primary-foreground: #002e6a;
+	--secondary: #272a2c;
+	--secondary-foreground: #c2c6d6;
+	--muted: #1d2022;
+	--muted-foreground: #8c909f;
+	--accent: #323537;
+	--accent-foreground: #e0e3e5;
+	--destructive: #ffb4ab;
+	--destructive-foreground: #690005;
+	--border: #323537; /* Outline halus */
+	--input: #323537;
+	--ring: #adc6ff;
+
+	--sidebar: #101415;
+	--sidebar-foreground: #e0e3e5;
+	--sidebar-primary: #adc6ff;
+	--sidebar-primary-foreground: #002e6a;
+	--sidebar-accent: #272a2c;
+	--sidebar-accent-foreground: #e0e3e5;
+	--sidebar-border: #323537;
+	--sidebar-ring: #adc6ff;
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	body {
+		/* Menggunakan font-sans (Inter) sebagai standar pembacaan jarak panjang */
+		@apply bg-background text-foreground font-sans antialiased;
+	}
+
+	/* Mengaplikasikan Space Grotesk ke semua elemen heading */
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-heading tracking-tight;
+	}
+
+	/* JetBrains Mono untuk code block atau elemen label spesifik */
+	code,
+	pre,
+	kbd,
+	samp {
+		@apply font-mono;
+	}
+}
