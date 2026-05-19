@@ -17,7 +17,7 @@ import { z } from 'zod/v4'
 
 const contactSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
-    email: z.email('Invalid email address'),
+    email: z.string().email('Invalid email address'),
     phone: z.string().optional(),
     message: z.string().min(10, 'Message must be at least 10 characters'),
 })
@@ -234,7 +234,7 @@ export function RouteComponent() {
                                 {/* Email */}
                                 <form.Field
                                     name="email"
-                                    validators={{ onBlur: z.email('Invalid email address') }}
+                                        validators={{ onBlur: z.string().email('Invalid email address') }}
                                 >
                                     {(field) => (
                                         <div className="flex flex-col gap-1.5">
