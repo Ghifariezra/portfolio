@@ -1,5 +1,4 @@
 import { useForm } from '@tanstack/react-form'
-import { zodValidator } from '@tanstack/zod-form-adapter'
 import {
     CheckCircle,
     EnvelopeSimple,
@@ -126,16 +125,15 @@ export function RouteComponent() {
     const [submitted, setSubmitted] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const form = useForm<ContactForm>({
+    const form = useForm({
         defaultValues: {
             name: '',
             email: '',
             phone: '',
             message: '',
-        },
-        validatorAdapter: zodValidator(),
+        } as ContactForm, // Cast defaultValues to your inferred Zod type
         validators: {
-            onSubmit: contactSchema,
+            onChange: contactSchema, // Often better to use onChange for real-time validation, or keep onSubmit
         },
         onSubmit: async () => {
             setLoading(true)
