@@ -22,7 +22,6 @@
 		"@tanstack/react-query": "^5.100.11",
 		"@tanstack/react-query-devtools": "^5.100.11",
 		"@tanstack/react-router": "^1.170.4",
-		"@tanstack/zod-form-adapter": "^0.42.1",
 		"axios": "^1.16.1",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
@@ -45,6 +44,7 @@
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react": "^6.0.1",
+		"esbuild": "^0.28.0",
 		"typescript": "~6.0.2",
 		"vite": "^8.0.12"
 	}
