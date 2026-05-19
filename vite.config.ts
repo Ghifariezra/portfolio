@@ -24,8 +24,7 @@ function dropConsolePlugin() {
 }
 
 export default defineConfig({
-	base: "/",
-
+  base: "/portfolio/",
 	plugins: [
 		dropConsolePlugin(),
 		TanStackRouterVite({ autoCodeSplitting: true }),
