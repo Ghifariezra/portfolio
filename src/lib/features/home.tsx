@@ -3,11 +3,11 @@ import {
 	ArrowUpRight,
 	CheckCircle,
 	Code,
-	Stack,
-	Wrench,
-	Spinner,
 	GithubLogo,
 	LinkedinLogo,
+	Spinner,
+	Stack,
+	Wrench,
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { publicActions } from "@/lib/actions/public.action";
@@ -21,7 +21,11 @@ export function RouteComponent() {
 	if (isLoading || !data) {
 		return (
 			<div className="flex h-[70vh] w-full items-center justify-center flex-col gap-4">
-				<Spinner size={40} className="animate-spin text-primary" weight="bold" />
+				<Spinner
+					size={40}
+					className="animate-spin text-primary"
+					weight="bold"
+				/>
 				<p className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground animate-pulse">
 					Loading Workspace...
 				</p>
@@ -58,7 +62,8 @@ export function RouteComponent() {
 
 						{/* 3. Deskripsi Singkat */}
 						<p className="font-sans text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed whitespace-pre-wrap">
-							{hero?.about_me || "Software Developer specializing in high-performance web applications, scalable backend architectures, and elegant user interfaces."}
+							{hero?.about_me ||
+								"Software Developer specializing in high-performance web applications, scalable backend architectures, and elegant user interfaces."}
 						</p>
 
 						{/* 4. Tombol Aksi & Sosial Media */}
@@ -84,12 +89,22 @@ export function RouteComponent() {
 							{/* Social Links Dinamis */}
 							<div className="flex gap-3 ml-2">
 								{hero?.github && (
-									<a href={hero.github} target="_blank" rel="noreferrer" className="w-12 h-12 flex items-center justify-center border-2 border-border rounded-md hover:bg-foreground hover:text-background transition-colors shadow-brutal-sm dark:shadow-none">
+									<a
+										href={hero.github}
+										target="_blank"
+										rel="noreferrer"
+										className="w-12 h-12 flex items-center justify-center border-2 border-border rounded-md hover:bg-foreground hover:text-background transition-colors shadow-brutal-sm dark:shadow-none"
+									>
 										<GithubLogo weight="fill" className="w-6 h-6" />
 									</a>
 								)}
 								{hero?.linkedin && (
-									<a href={hero.linkedin} target="_blank" rel="noreferrer" className="w-12 h-12 flex items-center justify-center border-2 border-border rounded-md hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-colors shadow-brutal-sm dark:shadow-none">
+									<a
+										href={hero.linkedin}
+										target="_blank"
+										rel="noreferrer"
+										className="w-12 h-12 flex items-center justify-center border-2 border-border rounded-md hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-colors shadow-brutal-sm dark:shadow-none"
+									>
 										<LinkedinLogo weight="fill" className="w-6 h-6" />
 									</a>
 								)}
@@ -131,12 +146,17 @@ export function RouteComponent() {
 						<div className="flex flex-wrap gap-2 relative z-10">
 							{skills?.languages?.length > 0 ? (
 								skills.languages.map((tech) => (
-									<span key={tech} className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50">
+									<span
+										key={tech}
+										className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50"
+									>
 										{tech}
 									</span>
 								))
 							) : (
-								<span className="text-muted-foreground font-mono text-xs">No data yet.</span>
+								<span className="text-muted-foreground font-mono text-xs">
+									No data yet.
+								</span>
 							)}
 						</div>
 					</div>
@@ -152,12 +172,17 @@ export function RouteComponent() {
 						<div className="flex flex-wrap gap-2 relative z-10">
 							{skills?.frameworks?.length > 0 ? (
 								skills.frameworks.map((tech) => (
-									<span key={tech} className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50">
+									<span
+										key={tech}
+										className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50"
+									>
 										{tech}
 									</span>
 								))
 							) : (
-								<span className="text-muted-foreground font-mono text-xs">No data yet.</span>
+								<span className="text-muted-foreground font-mono text-xs">
+									No data yet.
+								</span>
 							)}
 						</div>
 					</div>
@@ -173,12 +198,17 @@ export function RouteComponent() {
 						<div className="flex flex-wrap gap-2 relative z-10">
 							{skills?.tools?.length > 0 ? (
 								skills.tools.map((tech) => (
-									<span key={tech} className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50">
+									<span
+										key={tech}
+										className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50"
+									>
 										{tech}
 									</span>
 								))
 							) : (
-								<span className="text-muted-foreground font-mono text-xs">No data yet.</span>
+								<span className="text-muted-foreground font-mono text-xs">
+									No data yet.
+								</span>
 							)}
 						</div>
 					</div>
@@ -203,12 +233,18 @@ export function RouteComponent() {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					{featured_projects?.length > 0 ? (
 						featured_projects.map((project) => (
-							<div key={project.id} className="bg-card border-2 border-border rounded-lg p-6 flex flex-col hover:border-foreground transition-all group hover:shadow-brutal dark:hover:shadow-none dark:hover:border-primary/50">
+							<div
+								key={project.id}
+								className="bg-card border-2 border-border rounded-lg p-6 flex flex-col hover:border-foreground transition-all group hover:shadow-brutal dark:hover:shadow-none dark:hover:border-primary/50"
+							>
 								<div className="flex justify-between items-start mb-4">
-									<span className={`font-sans text-xs font-semibold px-2 py-1 rounded inline-flex items-center gap-1.5 ${project.development_status === "Completed"
-											? "bg-muted text-foreground"
-											: "bg-secondary text-secondary-foreground"
-										}`}>
+									<span
+										className={`font-sans text-xs font-semibold px-2 py-1 rounded inline-flex items-center gap-1.5 ${
+											project.development_status === "Completed"
+												? "bg-muted text-foreground"
+												: "bg-secondary text-secondary-foreground"
+										}`}
+									>
 										{project.development_status !== "Completed" ? (
 											<span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
 										) : (
@@ -244,7 +280,7 @@ export function RouteComponent() {
 									</div>
 									<div className="h-1.5 w-full bg-muted rounded-full overflow-hidden border border-border/50">
 										<div
-											className={`h-full rounded-full ${project.progress >= 100 ? 'bg-foreground' : 'bg-primary'}`}
+											className={`h-full rounded-full ${project.progress >= 100 ? "bg-foreground" : "bg-primary"}`}
 											style={{ width: `${project.progress}%` }}
 										></div>
 									</div>
@@ -263,14 +299,18 @@ export function RouteComponent() {
 											</div>
 										))
 									) : (
-										<span className="font-mono text-xs text-muted-foreground font-semibold">No tags attached</span>
+										<span className="font-mono text-xs text-muted-foreground font-semibold">
+											No tags attached
+										</span>
 									)}
 								</div>
 							</div>
 						))
 					) : (
 						<div className="col-span-1 md:col-span-2 p-8 border-2 border-dashed border-border rounded-lg text-center bg-muted/50">
-							<p className="font-mono text-sm text-muted-foreground uppercase tracking-widest">No featured projects yet.</p>
+							<p className="font-mono text-sm text-muted-foreground uppercase tracking-widest">
+								No featured projects yet.
+							</p>
 						</div>
 					)}
 				</div>
@@ -286,7 +326,9 @@ export function RouteComponent() {
 				<div className="flex flex-col gap-6">
 					{recent_blogs?.length > 0 ? (
 						recent_blogs.map((blog) => {
-							const date = new Date(blog.published_at || blog.created_at).toLocaleDateString("en-US", {
+							const date = new Date(
+								blog.published_at || blog.created_at
+							).toLocaleDateString("en-US", {
 								month: "short",
 								day: "numeric",
 								year: "numeric",
@@ -306,14 +348,18 @@ export function RouteComponent() {
 											{blog.title}
 										</h3>
 										<p className="font-sans text-base text-muted-foreground line-clamp-2">
-											{blog.description || "Click to read more about this topic..."}
+											{blog.description ||
+												"Click to read more about this topic..."}
 										</p>
 
 										{/* Tampilkan Tag Bahasa jika ada */}
 										{blog.tags && blog.tags.length > 0 && (
 											<div className="mt-3 flex gap-2">
-												{blog.tags.map(t => (
-													<span key={t.id} className="font-mono text-[10px] uppercase font-bold px-2 py-0.5 bg-muted text-muted-foreground rounded">
+												{blog.tags.map((t) => (
+													<span
+														key={t.id}
+														className="font-mono text-[10px] uppercase font-bold px-2 py-0.5 bg-muted text-muted-foreground rounded"
+													>
 														{t.name}
 													</span>
 												))}
@@ -325,7 +371,9 @@ export function RouteComponent() {
 						})
 					) : (
 						<div className="p-8 border-2 border-dashed border-border rounded-lg text-center bg-muted/50">
-							<p className="font-mono text-sm text-muted-foreground uppercase tracking-widest">No recent notes published.</p>
+							<p className="font-mono text-sm text-muted-foreground uppercase tracking-widest">
+								No recent notes published.
+							</p>
 						</div>
 					)}
 				</div>

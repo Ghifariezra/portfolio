@@ -1,6 +1,12 @@
-import { ArrowUpRight, Code, GithubLogo, Globe, Spinner, Image as ImageIcon } from "@phosphor-icons/react";
-import { useState, useMemo } from "react";
+import {
+	ArrowUpRight,
+	GithubLogo,
+	Globe,
+	Image as ImageIcon,
+	Spinner,
+} from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { publicActions } from "@/lib/actions/public.action";
 import type { ProjectListItem } from "../../schemas/project.schema";
 
@@ -8,7 +14,9 @@ import type { ProjectListItem } from "../../schemas/project.schema";
 
 function StatusBadge({ status }: { status: string }) {
 	// Penentuan warna dinamis berdasarkan nama status
-	const isCompleted = status.toLowerCase().includes("completed") || status.toLowerCase().includes("stable");
+	const isCompleted =
+		status.toLowerCase().includes("completed") ||
+		status.toLowerCase().includes("stable");
 	const isArchived = status.toLowerCase().includes("archived");
 
 	let colorClass = "text-primary bg-primary/10 border border-primary/20";
@@ -23,7 +31,9 @@ function StatusBadge({ status }: { status: string }) {
 	}
 
 	return (
-		<span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded font-mono text-[11px] font-semibold tracking-wider uppercase ${colorClass}`}>
+		<span
+			className={`inline-flex items-center gap-1.5 px-2 py-1 rounded font-mono text-[11px] font-semibold tracking-wider uppercase ${colorClass}`}
+		>
 			<span className={`w-1.5 h-1.5 rounded-full ${dotClass}`} />
 			{status}
 		</span>
@@ -45,7 +55,9 @@ function ProgressBar({
 				<span className="font-mono text-[11px] text-muted-foreground tracking-wider uppercase">
 					Completion
 				</span>
-				<span className={`font-mono text-[11px] font-semibold ${isCompleted ? "text-foreground" : "text-primary"}`}>
+				<span
+					className={`font-mono text-[11px] font-semibold ${isCompleted ? "text-foreground" : "text-primary"}`}
+				>
 					{progress}%
 				</span>
 			</div>
@@ -72,7 +84,10 @@ function ProjectCard({ project }: { project: ProjectListItem }) {
 	return (
 		<article className="group flex flex-col bg-card border-2 border-border rounded-lg overflow-hidden transition-all duration-300 hover:border-foreground hover:-translate-y-1 hover:shadow-brutal dark:hover:shadow-none">
 			{/* Thumbnail Image */}
-			<Link to={`/projects/${project.slug}`} className="h-48 w-full relative bg-muted overflow-hidden border-b-2 border-border block outline-none focus-visible:border-primary">
+			<Link
+				to={`/projects/${project.slug}`}
+				className="h-48 w-full relative bg-muted overflow-hidden border-b-2 border-border block outline-none focus-visible:border-primary"
+			>
 				{project.image ? (
 					<img
 						src={project.image}
@@ -104,7 +119,11 @@ function ProjectCard({ project }: { project: ProjectListItem }) {
 								aria-label="External Link"
 								className="text-muted-foreground hover:text-primary transition-colors bg-background p-1.5 rounded-md border-2 border-border shadow-brutal-sm hover:translate-x-0.5 hover:-translate-y-0.5"
 							>
-								{project.embed_type === 'github' ? <GithubLogo size={16} weight="bold" /> : <ArrowUpRight size={16} weight="bold" />}
+								{project.embed_type === "github" ? (
+									<GithubLogo size={16} weight="bold" />
+								) : (
+									<ArrowUpRight size={16} weight="bold" />
+								)}
 							</a>
 						)}
 					</div>
@@ -142,7 +161,9 @@ function ProjectCard({ project }: { project: ProjectListItem }) {
 							</span>
 						))
 					) : (
-						<span className="font-mono text-[10px] text-muted-foreground font-bold tracking-wider uppercase">No tags</span>
+						<span className="font-mono text-[10px] text-muted-foreground font-bold tracking-wider uppercase">
+							No tags
+						</span>
 					)}
 				</div>
 			</div>
@@ -165,10 +186,11 @@ function FilterButton({
 		<button
 			type="button"
 			onClick={onClick}
-			className={`px-5 py-2 rounded-md font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer border-2 ${active
+			className={`px-5 py-2 rounded-md font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer border-2 ${
+				active
 					? "bg-primary text-primary-foreground border-primary shadow-brutal-sm dark:shadow-none translate-x-0.5 translate-y-0.5"
 					: "border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground shadow-brutal-sm dark:shadow-none hover:translate-x-0.5 hover:translate-y-0.5"
-				}`}
+			}`}
 		>
 			{children}
 		</button>
@@ -186,7 +208,7 @@ export function RouteComponent() {
 
 	// Ekstrak status unik untuk membuat filter bar dinamis
 	const availableStatuses = useMemo(() => {
-		const statuses = projects.map(p => p.development_status);
+		const statuses = projects.map((p) => p.development_status);
 		const unique = Array.from(new Set(statuses));
 		return ["All", ...unique];
 	}, [projects]);
@@ -194,19 +216,23 @@ export function RouteComponent() {
 	// Lakukan filtering data
 	const filteredProjects = useMemo(() => {
 		if (activeFilter === "All") return projects;
-		return projects.filter(p => p.development_status === activeFilter);
+		return projects.filter((p) => p.development_status === activeFilter);
 	}, [projects, activeFilter]);
 
 	// Hitung jumlah untuk tiap filter
 	const getCount = (status: string) => {
 		if (status === "All") return projects.length;
-		return projects.filter(p => p.development_status === status).length;
+		return projects.filter((p) => p.development_status === status).length;
 	};
 
 	if (isLoading) {
 		return (
 			<div className="flex h-[70vh] w-full items-center justify-center flex-col gap-4">
-				<Spinner size={40} className="animate-spin text-primary" weight="bold" />
+				<Spinner
+					size={40}
+					className="animate-spin text-primary"
+					weight="bold"
+				/>
 				<p className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground animate-pulse">
 					Fetching Projects...
 				</p>
@@ -233,13 +259,14 @@ export function RouteComponent() {
 
 			{/* Filter Bar (Dinamis dari Database) */}
 			<div className="flex flex-wrap items-center gap-3 pb-6 border-b-2 border-border mb-6">
-				{availableStatuses.map(status => (
+				{availableStatuses.map((status) => (
 					<FilterButton
 						key={status}
 						active={activeFilter === status}
 						onClick={() => setActiveFilter(status)}
 					>
-						{status} <span className="ml-1.5 opacity-60">({getCount(status)})</span>
+						{status}{" "}
+						<span className="ml-1.5 opacity-60">({getCount(status)})</span>
 					</FilterButton>
 				))}
 			</div>

@@ -36,10 +36,9 @@ export class ProjectService extends BaseService {
 	}
 
 	public async deleteProjectImage(url: string): Promise<AppResponse> {
-		return this.api.post<unknown, AppResponse>(
-			"/projects/remove-image",
-			{ url }
-		);
+		return this.api.post<unknown, AppResponse>("/projects/remove-image", {
+			url,
+		});
 	}
 
 	public async getProjects(): Promise<AppResponse> {

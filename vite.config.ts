@@ -55,7 +55,7 @@ export default defineConfig({
 			"@blocknote/mantine",
 			"@blocknote/code-block", // tambah — dipakai langsung
 			"shiki",
-			"shiki/core",            // tambah — Shiki v4 split entry point
+			"shiki/core", // tambah — Shiki v4 split entry point
 			"@shikijs/core",
 			"@shikijs/engine-javascript",
 		],
@@ -65,7 +65,7 @@ export default defineConfig({
 	build: {
 		target: "esnext",
 		minify: "esbuild",
-		cssMinify: "esbuild",       // lebih eksplisit dari `true`
+		cssMinify: "esbuild", // lebih eksplisit dari `true`
 		sourcemap: false,
 		reportCompressedSize: false, // skip kalkulasi gzip saat build → lebih cepat
 		chunkSizeWarningLimit: 1000,
@@ -96,7 +96,8 @@ export default defineConfig({
 						id.includes("shiki") ||
 						id.includes("@shikijs") ||
 						id.includes("prosemirror")
-					) return "editor-vendor";
+					)
+						return "editor-vendor";
 
 					// Router — pisah karena sering update
 					if (id.includes("@tanstack/react-router")) return "router";
@@ -107,7 +108,8 @@ export default defineConfig({
 					// React core — paling stabil, cache lama
 					// react-dom dicek dulu sebelum react/ agar tidak overlap
 					if (id.includes("react-dom")) return "react-vendor";
-					if (id.includes("/react/") || id.includes("/react@")) return "react-vendor";
+					if (id.includes("/react/") || id.includes("/react@"))
+						return "react-vendor";
 
 					// Icons — besar tapi jarang berubah
 					if (id.includes("@phosphor-icons")) return "icons";
@@ -120,10 +122,12 @@ export default defineConfig({
 						id.includes("class-variance-authority") ||
 						id.includes("next-themes") ||
 						id.includes("sonner")
-					) return "ui-vendor";
+					)
+						return "ui-vendor";
 
 					// State & validation
-					if (id.includes("zustand") || id.includes("zod")) return "state-vendor";
+					if (id.includes("zustand") || id.includes("zod"))
+						return "state-vendor";
 
 					// Motion
 					if (id.includes("motion")) return "motion";

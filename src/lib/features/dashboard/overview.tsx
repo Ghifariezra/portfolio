@@ -2,24 +2,31 @@ import {
 	ArrowsCounterClockwise,
 	CalendarCheck,
 	CheckCircle,
+	DownloadSimple,
 	EnvelopeSimple,
 	FolderOpen,
 	NotePencil,
 	PlusCircle,
+	Spinner,
 	Timer,
 	WarningCircle,
 	XCircle,
-	Spinner,
-	DownloadSimple
 } from "@phosphor-icons/react";
-import { analyticsActions, analyticsKeys } from "@/lib/actions/analytics.action";
 import { useQueryClient } from "@tanstack/react-query";
+import {
+	analyticsActions,
+	analyticsKeys,
+} from "@/lib/actions/analytics.action";
 
 export function RouteComponent() {
 	const queryClient = useQueryClient();
 
 	// 1. Panggil Hook Analytics
-	const { data: response, isLoading, isRefetching } = analyticsActions.useGetOverview();
+	const {
+		data: response,
+		isLoading,
+		isRefetching,
+	} = analyticsActions.useGetOverview();
 	const data = response?.data;
 
 	// 2. Handler untuk tombol Refresh Manual
@@ -30,7 +37,11 @@ export function RouteComponent() {
 	if (isLoading || !data) {
 		return (
 			<div className="flex h-[60vh] items-center justify-center flex-col gap-4">
-				<Spinner size={40} className="animate-spin text-primary" weight="bold" />
+				<Spinner
+					size={40}
+					className="animate-spin text-primary"
+					weight="bold"
+				/>
 				<p className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground animate-pulse">
 					Loading System Data...
 				</p>
@@ -59,7 +70,11 @@ export function RouteComponent() {
 						disabled={isRefetching}
 						className="h-10 px-4 rounded-md bg-secondary text-secondary-foreground border-2 dark:border border-border shadow-brutal-sm dark:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all font-mono text-[11px] font-bold uppercase tracking-widest flex items-center gap-2 cursor-pointer disabled:opacity-50"
 					>
-						<ArrowsCounterClockwise size={16} weight="bold" className={isRefetching ? "animate-spin" : ""} />
+						<ArrowsCounterClockwise
+							size={16}
+							weight="bold"
+							className={isRefetching ? "animate-spin" : ""}
+						/>
 						Refresh
 					</button>
 					<button
@@ -173,7 +188,6 @@ export function RouteComponent() {
 
 			{/* ================= LAYOUT GRID: CONTENT ================= */}
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
 				{/* --- Recent Activity (Col-Span 2) --- */}
 				<div className="lg:col-span-2 flex flex-col">
 					<div className="flex items-center justify-between mb-4">
@@ -185,8 +199,13 @@ export function RouteComponent() {
 					<div className="bg-card border-2 dark:border border-border rounded-md overflow-hidden shadow-brutal dark:shadow-none flex-1">
 						{recentActivities.length === 0 ? (
 							<div className="p-12 text-center flex flex-col items-center justify-center gap-3">
-								<CheckCircle size={32} className="text-muted-foreground opacity-50" />
-								<span className="font-mono text-sm uppercase tracking-widest text-muted-foreground">No recent activities.</span>
+								<CheckCircle
+									size={32}
+									className="text-muted-foreground opacity-50"
+								/>
+								<span className="font-mono text-sm uppercase tracking-widest text-muted-foreground">
+									No recent activities.
+								</span>
 							</div>
 						) : (
 							<div className="divide-y-2 dark:divide-y divide-border">
@@ -195,33 +214,57 @@ export function RouteComponent() {
 									let Icon = CheckCircle;
 									let iconColor = "text-muted-foreground";
 
-									if (activity.type === 'batch_job') {
-										if (activity.status === 'success') { Icon = CheckCircle; iconColor = "text-green-500"; }
-										if (activity.status === 'failed') { Icon = XCircle; iconColor = "text-destructive"; }
-										if (activity.status === 'pending') { Icon = Timer; iconColor = "text-accent"; }
-									} else if (activity.type === 'schedule') {
-										Icon = CalendarCheck; iconColor = "text-muted-foreground";
-									} else if (activity.type === 'message') {
-										Icon = WarningCircle; iconColor = "text-accent";
-									} else if (activity.type === 'draft') {
-										Icon = PlusCircle; iconColor = "text-primary";
+									if (activity.type === "batch_job") {
+										if (activity.status === "success") {
+											Icon = CheckCircle;
+											iconColor = "text-green-500";
+										}
+										if (activity.status === "failed") {
+											Icon = XCircle;
+											iconColor = "text-destructive";
+										}
+										if (activity.status === "pending") {
+											Icon = Timer;
+											iconColor = "text-accent";
+										}
+									} else if (activity.type === "schedule") {
+										Icon = CalendarCheck;
+										iconColor = "text-muted-foreground";
+									} else if (activity.type === "message") {
+										Icon = WarningCircle;
+										iconColor = "text-accent";
+									} else if (activity.type === "draft") {
+										Icon = PlusCircle;
+										iconColor = "text-primary";
 									}
 
 									return (
-										<div key={activity.activity_id} className="flex items-start gap-4 p-5 hover:bg-muted/30 transition-colors group">
+										<div
+											key={activity.activity_id}
+											className="flex items-start gap-4 p-5 hover:bg-muted/30 transition-colors group"
+										>
 											<div className="mt-0.5 p-1.5 rounded-md border-2 dark:border border-border bg-background shadow-brutal-sm dark:shadow-none group-hover:-translate-y-px transition-transform">
 												<Icon size={18} className={iconColor} weight="bold" />
 											</div>
 											<div className="flex-1 min-w-0">
 												<p className="font-sans text-sm text-foreground leading-relaxed">
-													<strong className="font-bold">{activity.title}</strong> — {activity.description}
+													<strong className="font-bold">
+														{activity.title}
+													</strong>{" "}
+													— {activity.description}
 												</p>
 												<p className="font-mono text-[10px] text-muted-foreground mt-2 uppercase tracking-widest font-bold">
-													{new Date(activity.created_at).toLocaleString('en-GB', {
-														month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-													})}
+													{new Date(activity.created_at).toLocaleString(
+														"en-GB",
+														{
+															month: "short",
+															day: "numeric",
+															hour: "2-digit",
+															minute: "2-digit",
+														}
+													)}
 													<span className="mx-2">•</span>
-													{activity.type.replace('_', ' ')}
+													{activity.type.replace("_", " ")}
 												</p>
 											</div>
 										</div>
@@ -245,14 +288,35 @@ export function RouteComponent() {
 							</p>
 							<div className="space-y-4">
 								{[
-									{ label: "Draft", count: metrics.publish_status_summary.draft, color: "text-muted-foreground" },
-									{ label: "Scheduled", count: metrics.publish_status_summary.scheduled, color: "text-accent" },
-									{ label: "Published", count: metrics.publish_status_summary.published, color: "text-green-500" },
-									{ label: "Archived", count: metrics.publish_status_summary.archived, color: "text-destructive" },
+									{
+										label: "Draft",
+										count: metrics.publish_status_summary.draft,
+										color: "text-muted-foreground",
+									},
+									{
+										label: "Scheduled",
+										count: metrics.publish_status_summary.scheduled,
+										color: "text-accent",
+									},
+									{
+										label: "Published",
+										count: metrics.publish_status_summary.published,
+										color: "text-green-500",
+									},
+									{
+										label: "Archived",
+										count: metrics.publish_status_summary.archived,
+										color: "text-destructive",
+									},
 								].map(({ label, count, color }) => (
-									<div key={label} className="flex items-center justify-between group">
+									<div
+										key={label}
+										className="flex items-center justify-between group"
+									>
 										<span className="font-mono text-[11px] font-bold text-foreground uppercase tracking-widest flex items-center gap-2">
-											<div className={`w-2 h-2 rounded-full border border-border ${color.replace('text-', 'bg-')}`} />
+											<div
+												className={`w-2 h-2 rounded-full border border-border ${color.replace("text-", "bg-")}`}
+											/>
 											{label}
 										</span>
 										<span className={`font-heading text-xl font-bold ${color}`}>
@@ -272,9 +336,21 @@ export function RouteComponent() {
 						<div className="bg-card border-2 dark:border border-border rounded-md p-6 shadow-brutal dark:shadow-none flex-1">
 							<div className="space-y-6">
 								{[
-									{ label: "Success", val: metrics.batch_jobs_summary.success, color: "bg-green-500" },
-									{ label: "Pending", val: metrics.batch_jobs_summary.pending, color: "bg-accent" },
-									{ label: "Failed", val: metrics.batch_jobs_summary.failed, color: "bg-destructive" },
+									{
+										label: "Success",
+										val: metrics.batch_jobs_summary.success,
+										color: "bg-green-500",
+									},
+									{
+										label: "Pending",
+										val: metrics.batch_jobs_summary.pending,
+										color: "bg-accent",
+									},
+									{
+										label: "Failed",
+										val: metrics.batch_jobs_summary.failed,
+										color: "bg-destructive",
+									},
 								].map(({ label, val, color }) => {
 									const total = metrics.batch_jobs_summary.total || 1;
 									const pct = Math.round((val / total) * 100);

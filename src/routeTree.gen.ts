@@ -8,423 +8,423 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
-import { Route as NotesIndexRouteImport } from './routes/notes/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
-import { Route as NotesSlugRouteImport } from './routes/notes/$slug'
-import { Route as DashboardTaxonomiesRouteImport } from './routes/dashboard/taxonomies'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
-import { Route as DashboardCollaboratorsRouteImport } from './routes/dashboard/collaborators'
-import { Route as AuthAdminRouteImport } from './routes/auth/admin'
-import { Route as DashboardProjectsIndexRouteImport } from './routes/dashboard/projects/index'
-import { Route as DashboardPostsIndexRouteImport } from './routes/dashboard/posts/index'
-import { Route as DashboardProjectsCreateRouteImport } from './routes/dashboard/projects/create'
-import { Route as DashboardPostsCreateRouteImport } from './routes/dashboard/posts/create'
-import { Route as DashboardProjectsEditProjectIdRouteImport } from './routes/dashboard/projects/edit/$projectId'
-import { Route as DashboardPostsEditPostIdRouteImport } from './routes/dashboard/posts/edit/$postId'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as AuthAdminRouteImport } from "./routes/auth/admin";
+import { Route as ContactRouteImport } from "./routes/contact";
+import { Route as DashboardRouteImport } from "./routes/dashboard";
+import { Route as DashboardCollaboratorsRouteImport } from "./routes/dashboard/collaborators";
+import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
+import { Route as DashboardPostsCreateRouteImport } from "./routes/dashboard/posts/create";
+import { Route as DashboardPostsEditPostIdRouteImport } from "./routes/dashboard/posts/edit/$postId";
+import { Route as DashboardPostsIndexRouteImport } from "./routes/dashboard/posts/index";
+import { Route as DashboardProjectsCreateRouteImport } from "./routes/dashboard/projects/create";
+import { Route as DashboardProjectsEditProjectIdRouteImport } from "./routes/dashboard/projects/edit/$projectId";
+import { Route as DashboardProjectsIndexRouteImport } from "./routes/dashboard/projects/index";
+import { Route as DashboardSettingsRouteImport } from "./routes/dashboard/settings";
+import { Route as DashboardTaxonomiesRouteImport } from "./routes/dashboard/taxonomies";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as NotesSlugRouteImport } from "./routes/notes/$slug";
+import { Route as NotesIndexRouteImport } from "./routes/notes/index";
+import { Route as ProjectsSlugRouteImport } from "./routes/projects/$slug";
+import { Route as ProjectsIndexRouteImport } from "./routes/projects/index";
 
 const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/dashboard",
+	path: "/dashboard",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/contact",
+	path: "/contact",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/",
+	path: "/",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
-  id: '/projects/',
-  path: '/projects/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/projects/",
+	path: "/projects/",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const NotesIndexRoute = NotesIndexRouteImport.update({
-  id: '/notes/',
-  path: '/notes/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/notes/",
+	path: "/notes/",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/",
+	path: "/",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
-  id: '/projects/$slug',
-  path: '/projects/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/projects/$slug",
+	path: "/projects/$slug",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const NotesSlugRoute = NotesSlugRouteImport.update({
-  id: '/notes/$slug',
-  path: '/notes/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/notes/$slug",
+	path: "/notes/$slug",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardTaxonomiesRoute = DashboardTaxonomiesRouteImport.update({
-  id: '/taxonomies',
-  path: '/taxonomies',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/taxonomies",
+	path: "/taxonomies",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/settings",
+	path: "/settings",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardCollaboratorsRoute = DashboardCollaboratorsRouteImport.update({
-  id: '/collaborators',
-  path: '/collaborators',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/collaborators",
+	path: "/collaborators",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const AuthAdminRoute = AuthAdminRouteImport.update({
-  id: '/auth/admin',
-  path: '/auth/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/auth/admin",
+	path: "/auth/admin",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardProjectsIndexRoute = DashboardProjectsIndexRouteImport.update({
-  id: '/projects/',
-  path: '/projects/',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/projects/",
+	path: "/projects/",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardPostsIndexRoute = DashboardPostsIndexRouteImport.update({
-  id: '/posts/',
-  path: '/posts/',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/posts/",
+	path: "/posts/",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardProjectsCreateRoute = DashboardProjectsCreateRouteImport.update({
-  id: '/projects/create',
-  path: '/projects/create',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/projects/create",
+	path: "/projects/create",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardPostsCreateRoute = DashboardPostsCreateRouteImport.update({
-  id: '/posts/create',
-  path: '/posts/create',
-  getParentRoute: () => DashboardRoute,
-} as any)
+	id: "/posts/create",
+	path: "/posts/create",
+	getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardProjectsEditProjectIdRoute =
-  DashboardProjectsEditProjectIdRouteImport.update({
-    id: '/projects/edit/$projectId',
-    path: '/projects/edit/$projectId',
-    getParentRoute: () => DashboardRoute,
-  } as any)
+	DashboardProjectsEditProjectIdRouteImport.update({
+		id: "/projects/edit/$projectId",
+		path: "/projects/edit/$projectId",
+		getParentRoute: () => DashboardRoute,
+	} as any);
 const DashboardPostsEditPostIdRoute =
-  DashboardPostsEditPostIdRouteImport.update({
-    id: '/posts/edit/$postId',
-    path: '/posts/edit/$postId',
-    getParentRoute: () => DashboardRoute,
-  } as any)
+	DashboardPostsEditPostIdRouteImport.update({
+		id: "/posts/edit/$postId",
+		path: "/posts/edit/$postId",
+		getParentRoute: () => DashboardRoute,
+	} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/auth/admin': typeof AuthAdminRoute
-  '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
-  '/notes/$slug': typeof NotesSlugRoute
-  '/projects/$slug': typeof ProjectsSlugRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/notes/': typeof NotesIndexRoute
-  '/projects/': typeof ProjectsIndexRoute
-  '/dashboard/posts/create': typeof DashboardPostsCreateRoute
-  '/dashboard/projects/create': typeof DashboardProjectsCreateRoute
-  '/dashboard/posts/': typeof DashboardPostsIndexRoute
-  '/dashboard/projects/': typeof DashboardProjectsIndexRoute
-  '/dashboard/posts/edit/$postId': typeof DashboardPostsEditPostIdRoute
-  '/dashboard/projects/edit/$projectId': typeof DashboardProjectsEditProjectIdRoute
+	"/": typeof IndexRoute;
+	"/contact": typeof ContactRoute;
+	"/dashboard": typeof DashboardRouteWithChildren;
+	"/auth/admin": typeof AuthAdminRoute;
+	"/dashboard/collaborators": typeof DashboardCollaboratorsRoute;
+	"/dashboard/settings": typeof DashboardSettingsRoute;
+	"/dashboard/taxonomies": typeof DashboardTaxonomiesRoute;
+	"/notes/$slug": typeof NotesSlugRoute;
+	"/projects/$slug": typeof ProjectsSlugRoute;
+	"/dashboard/": typeof DashboardIndexRoute;
+	"/notes/": typeof NotesIndexRoute;
+	"/projects/": typeof ProjectsIndexRoute;
+	"/dashboard/posts/create": typeof DashboardPostsCreateRoute;
+	"/dashboard/projects/create": typeof DashboardProjectsCreateRoute;
+	"/dashboard/posts/": typeof DashboardPostsIndexRoute;
+	"/dashboard/projects/": typeof DashboardProjectsIndexRoute;
+	"/dashboard/posts/edit/$postId": typeof DashboardPostsEditPostIdRoute;
+	"/dashboard/projects/edit/$projectId": typeof DashboardProjectsEditProjectIdRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/auth/admin': typeof AuthAdminRoute
-  '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
-  '/notes/$slug': typeof NotesSlugRoute
-  '/projects/$slug': typeof ProjectsSlugRoute
-  '/dashboard': typeof DashboardIndexRoute
-  '/notes': typeof NotesIndexRoute
-  '/projects': typeof ProjectsIndexRoute
-  '/dashboard/posts/create': typeof DashboardPostsCreateRoute
-  '/dashboard/projects/create': typeof DashboardProjectsCreateRoute
-  '/dashboard/posts': typeof DashboardPostsIndexRoute
-  '/dashboard/projects': typeof DashboardProjectsIndexRoute
-  '/dashboard/posts/edit/$postId': typeof DashboardPostsEditPostIdRoute
-  '/dashboard/projects/edit/$projectId': typeof DashboardProjectsEditProjectIdRoute
+	"/": typeof IndexRoute;
+	"/contact": typeof ContactRoute;
+	"/auth/admin": typeof AuthAdminRoute;
+	"/dashboard/collaborators": typeof DashboardCollaboratorsRoute;
+	"/dashboard/settings": typeof DashboardSettingsRoute;
+	"/dashboard/taxonomies": typeof DashboardTaxonomiesRoute;
+	"/notes/$slug": typeof NotesSlugRoute;
+	"/projects/$slug": typeof ProjectsSlugRoute;
+	"/dashboard": typeof DashboardIndexRoute;
+	"/notes": typeof NotesIndexRoute;
+	"/projects": typeof ProjectsIndexRoute;
+	"/dashboard/posts/create": typeof DashboardPostsCreateRoute;
+	"/dashboard/projects/create": typeof DashboardProjectsCreateRoute;
+	"/dashboard/posts": typeof DashboardPostsIndexRoute;
+	"/dashboard/projects": typeof DashboardProjectsIndexRoute;
+	"/dashboard/posts/edit/$postId": typeof DashboardPostsEditPostIdRoute;
+	"/dashboard/projects/edit/$projectId": typeof DashboardProjectsEditProjectIdRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/auth/admin': typeof AuthAdminRoute
-  '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
-  '/notes/$slug': typeof NotesSlugRoute
-  '/projects/$slug': typeof ProjectsSlugRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/notes/': typeof NotesIndexRoute
-  '/projects/': typeof ProjectsIndexRoute
-  '/dashboard/posts/create': typeof DashboardPostsCreateRoute
-  '/dashboard/projects/create': typeof DashboardProjectsCreateRoute
-  '/dashboard/posts/': typeof DashboardPostsIndexRoute
-  '/dashboard/projects/': typeof DashboardProjectsIndexRoute
-  '/dashboard/posts/edit/$postId': typeof DashboardPostsEditPostIdRoute
-  '/dashboard/projects/edit/$projectId': typeof DashboardProjectsEditProjectIdRoute
+	__root__: typeof rootRouteImport;
+	"/": typeof IndexRoute;
+	"/contact": typeof ContactRoute;
+	"/dashboard": typeof DashboardRouteWithChildren;
+	"/auth/admin": typeof AuthAdminRoute;
+	"/dashboard/collaborators": typeof DashboardCollaboratorsRoute;
+	"/dashboard/settings": typeof DashboardSettingsRoute;
+	"/dashboard/taxonomies": typeof DashboardTaxonomiesRoute;
+	"/notes/$slug": typeof NotesSlugRoute;
+	"/projects/$slug": typeof ProjectsSlugRoute;
+	"/dashboard/": typeof DashboardIndexRoute;
+	"/notes/": typeof NotesIndexRoute;
+	"/projects/": typeof ProjectsIndexRoute;
+	"/dashboard/posts/create": typeof DashboardPostsCreateRoute;
+	"/dashboard/projects/create": typeof DashboardProjectsCreateRoute;
+	"/dashboard/posts/": typeof DashboardPostsIndexRoute;
+	"/dashboard/projects/": typeof DashboardProjectsIndexRoute;
+	"/dashboard/posts/edit/$postId": typeof DashboardPostsEditPostIdRoute;
+	"/dashboard/projects/edit/$projectId": typeof DashboardProjectsEditProjectIdRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/contact'
-    | '/dashboard'
-    | '/auth/admin'
-    | '/dashboard/collaborators'
-    | '/dashboard/settings'
-    | '/dashboard/taxonomies'
-    | '/notes/$slug'
-    | '/projects/$slug'
-    | '/dashboard/'
-    | '/notes/'
-    | '/projects/'
-    | '/dashboard/posts/create'
-    | '/dashboard/projects/create'
-    | '/dashboard/posts/'
-    | '/dashboard/projects/'
-    | '/dashboard/posts/edit/$postId'
-    | '/dashboard/projects/edit/$projectId'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/contact'
-    | '/auth/admin'
-    | '/dashboard/collaborators'
-    | '/dashboard/settings'
-    | '/dashboard/taxonomies'
-    | '/notes/$slug'
-    | '/projects/$slug'
-    | '/dashboard'
-    | '/notes'
-    | '/projects'
-    | '/dashboard/posts/create'
-    | '/dashboard/projects/create'
-    | '/dashboard/posts'
-    | '/dashboard/projects'
-    | '/dashboard/posts/edit/$postId'
-    | '/dashboard/projects/edit/$projectId'
-  id:
-    | '__root__'
-    | '/'
-    | '/contact'
-    | '/dashboard'
-    | '/auth/admin'
-    | '/dashboard/collaborators'
-    | '/dashboard/settings'
-    | '/dashboard/taxonomies'
-    | '/notes/$slug'
-    | '/projects/$slug'
-    | '/dashboard/'
-    | '/notes/'
-    | '/projects/'
-    | '/dashboard/posts/create'
-    | '/dashboard/projects/create'
-    | '/dashboard/posts/'
-    | '/dashboard/projects/'
-    | '/dashboard/posts/edit/$postId'
-    | '/dashboard/projects/edit/$projectId'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths:
+		| "/"
+		| "/contact"
+		| "/dashboard"
+		| "/auth/admin"
+		| "/dashboard/collaborators"
+		| "/dashboard/settings"
+		| "/dashboard/taxonomies"
+		| "/notes/$slug"
+		| "/projects/$slug"
+		| "/dashboard/"
+		| "/notes/"
+		| "/projects/"
+		| "/dashboard/posts/create"
+		| "/dashboard/projects/create"
+		| "/dashboard/posts/"
+		| "/dashboard/projects/"
+		| "/dashboard/posts/edit/$postId"
+		| "/dashboard/projects/edit/$projectId";
+	fileRoutesByTo: FileRoutesByTo;
+	to:
+		| "/"
+		| "/contact"
+		| "/auth/admin"
+		| "/dashboard/collaborators"
+		| "/dashboard/settings"
+		| "/dashboard/taxonomies"
+		| "/notes/$slug"
+		| "/projects/$slug"
+		| "/dashboard"
+		| "/notes"
+		| "/projects"
+		| "/dashboard/posts/create"
+		| "/dashboard/projects/create"
+		| "/dashboard/posts"
+		| "/dashboard/projects"
+		| "/dashboard/posts/edit/$postId"
+		| "/dashboard/projects/edit/$projectId";
+	id:
+		| "__root__"
+		| "/"
+		| "/contact"
+		| "/dashboard"
+		| "/auth/admin"
+		| "/dashboard/collaborators"
+		| "/dashboard/settings"
+		| "/dashboard/taxonomies"
+		| "/notes/$slug"
+		| "/projects/$slug"
+		| "/dashboard/"
+		| "/notes/"
+		| "/projects/"
+		| "/dashboard/posts/create"
+		| "/dashboard/projects/create"
+		| "/dashboard/posts/"
+		| "/dashboard/projects/"
+		| "/dashboard/posts/edit/$postId"
+		| "/dashboard/projects/edit/$projectId";
+	fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ContactRoute: typeof ContactRoute
-  DashboardRoute: typeof DashboardRouteWithChildren
-  AuthAdminRoute: typeof AuthAdminRoute
-  NotesSlugRoute: typeof NotesSlugRoute
-  ProjectsSlugRoute: typeof ProjectsSlugRoute
-  NotesIndexRoute: typeof NotesIndexRoute
-  ProjectsIndexRoute: typeof ProjectsIndexRoute
+	IndexRoute: typeof IndexRoute;
+	ContactRoute: typeof ContactRoute;
+	DashboardRoute: typeof DashboardRouteWithChildren;
+	AuthAdminRoute: typeof AuthAdminRoute;
+	NotesSlugRoute: typeof NotesSlugRoute;
+	ProjectsSlugRoute: typeof ProjectsSlugRoute;
+	NotesIndexRoute: typeof NotesIndexRoute;
+	ProjectsIndexRoute: typeof ProjectsIndexRoute;
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects/': {
-      id: '/projects/'
-      path: '/projects'
-      fullPath: '/projects/'
-      preLoaderRoute: typeof ProjectsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notes/': {
-      id: '/notes/'
-      path: '/notes'
-      fullPath: '/notes/'
-      preLoaderRoute: typeof NotesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/projects/$slug': {
-      id: '/projects/$slug'
-      path: '/projects/$slug'
-      fullPath: '/projects/$slug'
-      preLoaderRoute: typeof ProjectsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notes/$slug': {
-      id: '/notes/$slug'
-      path: '/notes/$slug'
-      fullPath: '/notes/$slug'
-      preLoaderRoute: typeof NotesSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/taxonomies': {
-      id: '/dashboard/taxonomies'
-      path: '/taxonomies'
-      fullPath: '/dashboard/taxonomies'
-      preLoaderRoute: typeof DashboardTaxonomiesRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/collaborators': {
-      id: '/dashboard/collaborators'
-      path: '/collaborators'
-      fullPath: '/dashboard/collaborators'
-      preLoaderRoute: typeof DashboardCollaboratorsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/auth/admin': {
-      id: '/auth/admin'
-      path: '/auth/admin'
-      fullPath: '/auth/admin'
-      preLoaderRoute: typeof AuthAdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/projects/': {
-      id: '/dashboard/projects/'
-      path: '/projects'
-      fullPath: '/dashboard/projects/'
-      preLoaderRoute: typeof DashboardProjectsIndexRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/posts/': {
-      id: '/dashboard/posts/'
-      path: '/posts'
-      fullPath: '/dashboard/posts/'
-      preLoaderRoute: typeof DashboardPostsIndexRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/projects/create': {
-      id: '/dashboard/projects/create'
-      path: '/projects/create'
-      fullPath: '/dashboard/projects/create'
-      preLoaderRoute: typeof DashboardProjectsCreateRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/posts/create': {
-      id: '/dashboard/posts/create'
-      path: '/posts/create'
-      fullPath: '/dashboard/posts/create'
-      preLoaderRoute: typeof DashboardPostsCreateRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/projects/edit/$projectId': {
-      id: '/dashboard/projects/edit/$projectId'
-      path: '/projects/edit/$projectId'
-      fullPath: '/dashboard/projects/edit/$projectId'
-      preLoaderRoute: typeof DashboardProjectsEditProjectIdRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/posts/edit/$postId': {
-      id: '/dashboard/posts/edit/$postId'
-      path: '/posts/edit/$postId'
-      fullPath: '/dashboard/posts/edit/$postId'
-      preLoaderRoute: typeof DashboardPostsEditPostIdRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/dashboard": {
+			id: "/dashboard";
+			path: "/dashboard";
+			fullPath: "/dashboard";
+			preLoaderRoute: typeof DashboardRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/contact": {
+			id: "/contact";
+			path: "/contact";
+			fullPath: "/contact";
+			preLoaderRoute: typeof ContactRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/": {
+			id: "/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof IndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/projects/": {
+			id: "/projects/";
+			path: "/projects";
+			fullPath: "/projects/";
+			preLoaderRoute: typeof ProjectsIndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/notes/": {
+			id: "/notes/";
+			path: "/notes";
+			fullPath: "/notes/";
+			preLoaderRoute: typeof NotesIndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/dashboard/": {
+			id: "/dashboard/";
+			path: "/";
+			fullPath: "/dashboard/";
+			preLoaderRoute: typeof DashboardIndexRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/projects/$slug": {
+			id: "/projects/$slug";
+			path: "/projects/$slug";
+			fullPath: "/projects/$slug";
+			preLoaderRoute: typeof ProjectsSlugRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/notes/$slug": {
+			id: "/notes/$slug";
+			path: "/notes/$slug";
+			fullPath: "/notes/$slug";
+			preLoaderRoute: typeof NotesSlugRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/dashboard/taxonomies": {
+			id: "/dashboard/taxonomies";
+			path: "/taxonomies";
+			fullPath: "/dashboard/taxonomies";
+			preLoaderRoute: typeof DashboardTaxonomiesRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/dashboard/settings": {
+			id: "/dashboard/settings";
+			path: "/settings";
+			fullPath: "/dashboard/settings";
+			preLoaderRoute: typeof DashboardSettingsRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/dashboard/collaborators": {
+			id: "/dashboard/collaborators";
+			path: "/collaborators";
+			fullPath: "/dashboard/collaborators";
+			preLoaderRoute: typeof DashboardCollaboratorsRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/auth/admin": {
+			id: "/auth/admin";
+			path: "/auth/admin";
+			fullPath: "/auth/admin";
+			preLoaderRoute: typeof AuthAdminRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/dashboard/projects/": {
+			id: "/dashboard/projects/";
+			path: "/projects";
+			fullPath: "/dashboard/projects/";
+			preLoaderRoute: typeof DashboardProjectsIndexRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/dashboard/posts/": {
+			id: "/dashboard/posts/";
+			path: "/posts";
+			fullPath: "/dashboard/posts/";
+			preLoaderRoute: typeof DashboardPostsIndexRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/dashboard/projects/create": {
+			id: "/dashboard/projects/create";
+			path: "/projects/create";
+			fullPath: "/dashboard/projects/create";
+			preLoaderRoute: typeof DashboardProjectsCreateRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/dashboard/posts/create": {
+			id: "/dashboard/posts/create";
+			path: "/posts/create";
+			fullPath: "/dashboard/posts/create";
+			preLoaderRoute: typeof DashboardPostsCreateRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/dashboard/projects/edit/$projectId": {
+			id: "/dashboard/projects/edit/$projectId";
+			path: "/projects/edit/$projectId";
+			fullPath: "/dashboard/projects/edit/$projectId";
+			preLoaderRoute: typeof DashboardProjectsEditProjectIdRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+		"/dashboard/posts/edit/$postId": {
+			id: "/dashboard/posts/edit/$postId";
+			path: "/posts/edit/$postId";
+			fullPath: "/dashboard/posts/edit/$postId";
+			preLoaderRoute: typeof DashboardPostsEditPostIdRouteImport;
+			parentRoute: typeof DashboardRoute;
+		};
+	}
 }
 
 interface DashboardRouteChildren {
-  DashboardCollaboratorsRoute: typeof DashboardCollaboratorsRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardTaxonomiesRoute: typeof DashboardTaxonomiesRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardPostsCreateRoute: typeof DashboardPostsCreateRoute
-  DashboardProjectsCreateRoute: typeof DashboardProjectsCreateRoute
-  DashboardPostsIndexRoute: typeof DashboardPostsIndexRoute
-  DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute
-  DashboardPostsEditPostIdRoute: typeof DashboardPostsEditPostIdRoute
-  DashboardProjectsEditProjectIdRoute: typeof DashboardProjectsEditProjectIdRoute
+	DashboardCollaboratorsRoute: typeof DashboardCollaboratorsRoute;
+	DashboardSettingsRoute: typeof DashboardSettingsRoute;
+	DashboardTaxonomiesRoute: typeof DashboardTaxonomiesRoute;
+	DashboardIndexRoute: typeof DashboardIndexRoute;
+	DashboardPostsCreateRoute: typeof DashboardPostsCreateRoute;
+	DashboardProjectsCreateRoute: typeof DashboardProjectsCreateRoute;
+	DashboardPostsIndexRoute: typeof DashboardPostsIndexRoute;
+	DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute;
+	DashboardPostsEditPostIdRoute: typeof DashboardPostsEditPostIdRoute;
+	DashboardProjectsEditProjectIdRoute: typeof DashboardProjectsEditProjectIdRoute;
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardCollaboratorsRoute: DashboardCollaboratorsRoute,
-  DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardTaxonomiesRoute: DashboardTaxonomiesRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
-  DashboardPostsCreateRoute: DashboardPostsCreateRoute,
-  DashboardProjectsCreateRoute: DashboardProjectsCreateRoute,
-  DashboardPostsIndexRoute: DashboardPostsIndexRoute,
-  DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
-  DashboardPostsEditPostIdRoute: DashboardPostsEditPostIdRoute,
-  DashboardProjectsEditProjectIdRoute: DashboardProjectsEditProjectIdRoute,
-}
+	DashboardCollaboratorsRoute: DashboardCollaboratorsRoute,
+	DashboardSettingsRoute: DashboardSettingsRoute,
+	DashboardTaxonomiesRoute: DashboardTaxonomiesRoute,
+	DashboardIndexRoute: DashboardIndexRoute,
+	DashboardPostsCreateRoute: DashboardPostsCreateRoute,
+	DashboardProjectsCreateRoute: DashboardProjectsCreateRoute,
+	DashboardPostsIndexRoute: DashboardPostsIndexRoute,
+	DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
+	DashboardPostsEditPostIdRoute: DashboardPostsEditPostIdRoute,
+	DashboardProjectsEditProjectIdRoute: DashboardProjectsEditProjectIdRoute,
+};
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
-)
+	DashboardRouteChildren
+);
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  ContactRoute: ContactRoute,
-  DashboardRoute: DashboardRouteWithChildren,
-  AuthAdminRoute: AuthAdminRoute,
-  NotesSlugRoute: NotesSlugRoute,
-  ProjectsSlugRoute: ProjectsSlugRoute,
-  NotesIndexRoute: NotesIndexRoute,
-  ProjectsIndexRoute: ProjectsIndexRoute,
-}
+	IndexRoute: IndexRoute,
+	ContactRoute: ContactRoute,
+	DashboardRoute: DashboardRouteWithChildren,
+	AuthAdminRoute: AuthAdminRoute,
+	NotesSlugRoute: NotesSlugRoute,
+	ProjectsSlugRoute: ProjectsSlugRoute,
+	NotesIndexRoute: NotesIndexRoute,
+	ProjectsIndexRoute: ProjectsIndexRoute,
+};
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();

@@ -17,6 +17,7 @@
 		"@blocknote/core": "^0.51.2",
 		"@blocknote/mantine": "^0.51.2",
 		"@blocknote/react": "^0.51.2",
+		"@dagrejs/dagre": "^3.0.0",
 		"@floating-ui/react": "^0.27.19",
 		"@fontsource-variable/inter": "^5.2.8",
 		"@fontsource-variable/jetbrains-mono": "^5.2.8",

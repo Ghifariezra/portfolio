@@ -1,6 +1,12 @@
-import { ArrowRight, CaretLeft, CaretRight, Spinner, Article } from "@phosphor-icons/react";
-import { useState, useMemo } from "react";
+import {
+	ArrowRight,
+	Article,
+	CaretLeft,
+	CaretRight,
+	Spinner,
+} from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { publicActions } from "@/lib/actions/public.action";
 import type { BlogListItem } from "../../schemas/blog.schema";
 
@@ -21,10 +27,11 @@ function CategoryChip({
 		<button
 			type="button"
 			onClick={onClick}
-			className={`px-4 py-1.5 rounded-md font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer border-2 ${active
+			className={`px-4 py-1.5 rounded-md font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer border-2 ${
+				active
 					? "bg-primary text-primary-foreground border-primary shadow-brutal-sm dark:shadow-none translate-x-0.5 translate-y-0.5"
 					: "bg-card text-muted-foreground border-border hover:border-foreground hover:text-foreground shadow-brutal-sm dark:shadow-none hover:translate-x-0.5 hover:translate-y-0.5"
-				}`}
+			}`}
 		>
 			{label}
 		</button>
@@ -33,14 +40,18 @@ function CategoryChip({
 
 function NoteCard({ blog }: { blog: BlogListItem }) {
 	// 1. Format Tanggal
-	const date = new Date(blog.published_at || blog.created_at).toLocaleDateString("en-US", {
+	const date = new Date(
+		blog.published_at || blog.created_at
+	).toLocaleDateString("en-US", {
 		month: "short",
 		day: "numeric",
 		year: "numeric",
 	});
 
 	// 2. Tentukan "Kategori Utama" (Gunakan tipe bahasa atau tag pertama)
-	const primaryCategory = blog.type_language || (blog.tags && blog.tags.length > 0 ? blog.tags[0].name : "General");
+	const primaryCategory =
+		blog.type_language ||
+		(blog.tags && blog.tags.length > 0 ? blog.tags[0].name : "General");
 
 	// 3. Estimasi Waktu Baca (Asumsi 200 kata per menit)
 	const textContent = blog.content || blog.description || "";
@@ -95,7 +106,9 @@ function NoteCard({ blog }: { blog: BlogListItem }) {
 							</span>
 						))
 					) : (
-						<span className="font-mono text-[10px] text-muted-foreground tracking-wider">No tags</span>
+						<span className="font-mono text-[10px] text-muted-foreground tracking-wider">
+							No tags
+						</span>
 					)}
 				</div>
 				<Link
@@ -146,8 +159,10 @@ export function RouteComponent() {
 
 	// 2. Ekstrak Kategori Unik Dinamis (Menggunakan tipe bahasa atau tag pertama)
 	const availableCategories = useMemo(() => {
-		const categories = notes.map(n =>
-			n.type_language || (n.tags && n.tags.length > 0 ? n.tags[0].name : "General")
+		const categories = notes.map(
+			(n) =>
+				n.type_language ||
+				(n.tags && n.tags.length > 0 ? n.tags[0].name : "General")
 		);
 		const unique = Array.from(new Set(categories));
 		return ["All", ...unique];
@@ -156,8 +171,10 @@ export function RouteComponent() {
 	// 3. Filter berdasarkan Kategori
 	const filtered = useMemo(() => {
 		if (activeCategory === "All") return notes;
-		return notes.filter(n => {
-			const cat = n.type_language || (n.tags && n.tags.length > 0 ? n.tags[0].name : "General");
+		return notes.filter((n) => {
+			const cat =
+				n.type_language ||
+				(n.tags && n.tags.length > 0 ? n.tags[0].name : "General");
 			return cat === activeCategory;
 		});
 	}, [notes, activeCategory]);
@@ -177,7 +194,11 @@ export function RouteComponent() {
 	if (isLoading) {
 		return (
 			<div className="flex h-[70vh] w-full items-center justify-center flex-col gap-4">
-				<Spinner size={40} className="animate-spin text-primary" weight="bold" />
+				<Spinner
+					size={40}
+					className="animate-spin text-primary"
+					weight="bold"
+				/>
 				<p className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground animate-pulse">
 					Fetching Notes...
 				</p>
@@ -222,7 +243,10 @@ export function RouteComponent() {
 				</div>
 			) : (
 				<div className="grow flex flex-col items-center justify-center py-24 border-2 border-dashed border-border rounded-lg bg-muted/50 text-center">
-					<Article size={48} className="text-muted-foreground mb-4 opacity-50" />
+					<Article
+						size={48}
+						className="text-muted-foreground mb-4 opacity-50"
+					/>
 					<p className="font-heading text-xl font-bold text-foreground mb-2">
 						No notes found.
 					</p>

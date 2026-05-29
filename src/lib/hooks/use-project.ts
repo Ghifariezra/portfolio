@@ -39,7 +39,11 @@ export function useProjectForm(
 			collaborator_ids: defaultValues?.collaborator_ids || [],
 			// ── Schedule fields ──
 			_schedule_id: defaultSchedule?.id || undefined,
-			_publish_status: (defaultSchedule?.publish_status || "draft") as "draft" | "scheduled" | "published" | "archived",
+			_publish_status: (defaultSchedule?.publish_status || "draft") as
+				| "draft"
+				| "scheduled"
+				| "published"
+				| "archived",
 			_publish_date: defaultSchedule?.publish_date || null,
 			_scheduled_at: defaultSchedule?.scheduled_at || null,
 		} as UpsertProjectForm & {
@@ -112,7 +116,10 @@ export function useProjectForm(
 
 				if (tag_ids?.length > 0) {
 					sideEffects.push(
-						assignTagsMutation.mutateAsync({ resource_id: newProjectId, tag_ids })
+						assignTagsMutation.mutateAsync({
+							resource_id: newProjectId,
+							tag_ids,
+						})
 					);
 				}
 
