@@ -35,6 +35,7 @@ export function RouteComponent() {
 
 	// Ekstrak data dari response
 	const { hero, skills, featured_projects, recent_blogs } = data;
+	console.log("Home Content:", data); // Debug: Cek struktur data yang diterima
 
 	return (
 		<div className="grow w-full max-w-300 mx-auto px-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -254,8 +255,8 @@ export function RouteComponent() {
 									</span>
 
 									<a
-										href={project.embed_url || `/projects/${project.slug}`}
-										target={project.embed_url ? "_blank" : "_self"}
+										href={`/projects/${project.slug}`}
+										// target={project.embed_url ? "_blank" : "_self"}
 										rel="noreferrer"
 										className="text-muted-foreground hover:text-primary transition-colors bg-background p-1.5 rounded-md border-2 border-border shadow-brutal-sm group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
 									>
@@ -337,7 +338,7 @@ export function RouteComponent() {
 							return (
 								<Link
 									key={blog.id}
-									to={`/notes`} // Ubah sesuai struktur route kamu (misal: /notes/$slug)
+									to={`/notes/${blog.slug}` as string}
 									className="group border-l-4 border-border pl-6 py-2 hover:border-primary transition-colors cursor-pointer flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 relative outline-none focus-visible:border-primary"
 								>
 									<div className="font-mono text-sm font-semibold text-muted-foreground min-w-30 group-hover:text-foreground transition-colors">
