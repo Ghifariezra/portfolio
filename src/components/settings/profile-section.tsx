@@ -46,11 +46,11 @@ export function ProfileSection({ form }: ProfileSectionProps) {
 									className="h-10 w-full rounded-md border-2 dark:border border-border bg-background px-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
 								/>
 								{field.state.meta.errors.length > 0 && (
-    <p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
-        {/* The ?. operator handles the case where the error object might be undefined */}
-        {(field.state.meta.errors[0] as any)?.message}
-    </p>
-)}
+									<p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
+										{/* The ?. operator handles the case where the error object might be undefined */}
+										{(field.state.meta.errors[0] as any)?.message}
+									</p>
+								)}
 							</div>
 						)}
 					</form.Field>
@@ -75,11 +75,11 @@ export function ProfileSection({ form }: ProfileSectionProps) {
 									className="h-10 w-full rounded-md border-2 dark:border border-border bg-background px-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
 								/>
 								{field.state.meta.errors.length > 0 && (
-    <p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
-        {/* The ?. operator handles the case where the error object might be undefined */}
-        {(field.state.meta.errors[0] as any)?.message}
-    </p>
-)}
+									<p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
+										{/* The ?. operator handles the case where the error object might be undefined */}
+										{(field.state.meta.errors[0] as any)?.message}
+									</p>
+								)}
 							</div>
 						)}
 					</form.Field>
@@ -107,11 +107,11 @@ export function ProfileSection({ form }: ProfileSectionProps) {
 									className="h-10 w-full rounded-md border-2 dark:border border-border bg-background px-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
 								/>
 								{field.state.meta.errors.length > 0 && (
-    <p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
-        {/* The ?. operator handles the case where the error object might be undefined */}
-        {(field.state.meta.errors[0] as any)?.message}
-    </p>
-)}
+									<p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
+										{/* The ?. operator handles the case where the error object might be undefined */}
+										{(field.state.meta.errors[0] as any)?.message}
+									</p>
+								)}
 							</div>
 						)}
 					</form.Field>
@@ -136,11 +136,11 @@ export function ProfileSection({ form }: ProfileSectionProps) {
 									className="h-10 w-full rounded-md border-2 dark:border border-border bg-background px-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
 								/>
 								{field.state.meta.errors.length > 0 && (
-    <p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
-        {/* The ?. operator handles the case where the error object might be undefined */}
-        {(field.state.meta.errors[0] as any)?.message}
-    </p>
-)}
+									<p className="font-mono text-[10px] text-destructive uppercase tracking-widest">
+										{/* The ?. operator handles the case where the error object might be undefined */}
+										{(field.state.meta.errors[0] as any)?.message}
+									</p>
+								)}
 							</div>
 						)}
 					</form.Field>

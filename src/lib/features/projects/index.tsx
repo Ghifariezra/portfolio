@@ -131,7 +131,10 @@ function ProjectCard({ project }: { project: ProjectListItem }) {
 
 				{/* Title & Description */}
 				<div>
-					<Link to={`/projects/${project.slug}` as string} className="outline-none">
+					<Link
+						to={`/projects/${project.slug}` as string}
+						className="outline-none"
+					>
 						<h2 className="font-heading text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-200">
 							{project.title}
 						</h2>

@@ -3,6 +3,13 @@ import type { BlogListItem } from "../schemas/blog.schema";
 import type { ProjectListItem } from "../schemas/project.schema";
 import { BaseService } from "./base.service";
 
+export interface CertificateItem {
+	id: string;
+	name: string;
+	type_certified: string;
+	image: string | null;
+}
+
 export interface HomeSkills {
 	languages: string[];
 	frameworks: string[];
@@ -22,6 +29,7 @@ export interface HomeHero {
 export interface HomeContentResponse {
 	hero: HomeHero | null;
 	skills: HomeSkills;
+	certificates: CertificateItem[];
 	featured_projects: ProjectListItem[];
 	recent_blogs: BlogListItem[];
 }
