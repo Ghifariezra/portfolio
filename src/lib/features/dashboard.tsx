@@ -117,7 +117,7 @@ export function RouteComponent() {
 									className="w-full flex items-center gap-3 px-3 py-2 font-mono font-medium rounded-md border-2 border-transparent transition-all"
 								>
 									<Link
-										to="/dashboard/posts/"
+										to="/dashboard/posts"
 										activeProps={{
 											className:
 												"bg-secondary text-secondary-foreground font-bold shadow-brutal-sm dark:shadow-none dark:border-border hover:opacity-90",

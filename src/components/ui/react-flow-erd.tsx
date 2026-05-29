@@ -12,7 +12,7 @@ import {
 } from "@xyflow/react";
 import { LayoutGrid, Maximize, Minus, Plus } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
-import DatabaseSchemaDemo from "./DatabaseSchema";
+import DatabaseSchema from "../shared/database";
 
 // ============================================================
 // CONSTANTS
@@ -23,7 +23,7 @@ const NODE_HEADER_HEIGHT = 44;
 const GAP_V = 40;
 const GAP_H = 200;
 
-const nodeTypes = { databaseSchema: DatabaseSchemaDemo };
+const nodeTypes = { databaseSchema: DatabaseSchema };
 
 // ============================================================
 // PURE LAYOUT HELPERS — defined at module level, never inside render

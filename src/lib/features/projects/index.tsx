@@ -85,7 +85,7 @@ function ProjectCard({ project }: { project: ProjectListItem }) {
 		<article className="group flex flex-col bg-card border-2 border-border rounded-lg overflow-hidden transition-all duration-300 hover:border-foreground hover:-translate-y-1 hover:shadow-brutal dark:hover:shadow-none">
 			{/* Thumbnail Image */}
 			<Link
-				to={`/projects/${project.slug}`}
+				to={`/projects/${project.slug}` as string}
 				className="h-48 w-full relative bg-muted overflow-hidden border-b-2 border-border block outline-none focus-visible:border-primary"
 			>
 				{project.image ? (
@@ -131,7 +131,7 @@ function ProjectCard({ project }: { project: ProjectListItem }) {
 
 				{/* Title & Description */}
 				<div>
-					<Link to={`/projects/${project.slug}`} className="outline-none">
+					<Link to={`/projects/${project.slug}` as string} className="outline-none">
 						<h2 className="font-heading text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-200">
 							{project.title}
 						</h2>

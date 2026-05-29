@@ -68,7 +68,7 @@ function NoteCard({ blog }: { blog: BlogListItem }) {
 			</div>
 
 			{/* Title */}
-			<Link to={`/notes/${blog.slug}`} className="outline-none">
+			<Link to={`/notes/${blog.slug}` as string} className="outline-none">
 				<h2 className="font-heading text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-200 line-clamp-2 leading-snug">
 					{blog.title}
 				</h2>
@@ -112,7 +112,7 @@ function NoteCard({ blog }: { blog: BlogListItem }) {
 					)}
 				</div>
 				<Link
-					to={`/notes/${blog.slug}`}
+					to={`/notes/${blog.slug}` as string}
 					className="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-primary hover:text-primary/80 transition-colors tracking-wider uppercase shrink-0 bg-primary/10 px-2 py-1 rounded"
 					aria-label={`Read ${blog.title}`}
 				>
