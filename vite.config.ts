@@ -25,7 +25,7 @@ function dropConsolePlugin() {
 }
 
 export default defineConfig({
-	base: "portfolio/",
+	base: "/",
 
 	plugins: [
 		dropConsolePlugin(),
