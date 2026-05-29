@@ -18,9 +18,12 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"style": {
-				"noUselessElse": "error",
-				"useConst": "error"
+			"correctness": {
+				"noUnusedVariables": "error",
+				"noUnusedImports": {
+					"fix": "safe",
+					"level": "error"
+				}
 			}
 		}
 	},

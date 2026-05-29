@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { RouteComponent } from "@/lib/features/notes";
 
-export const Route = createFileRoute("/notes")({
+export const Route = createFileRoute("/notes/")({
 	head: () => ({
 		meta: [
 			{

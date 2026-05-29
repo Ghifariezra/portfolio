@@ -3,47 +3,112 @@ import {
 	ArrowUpRight,
 	CheckCircle,
 	Code,
-	Stack, // Mengganti Layers menjadi Stack
+	Stack,
 	Wrench,
+	Spinner,
+	GithubLogo,
+	LinkedinLogo,
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
+import { publicActions } from "@/lib/actions/public.action";
 
 export function RouteComponent() {
+	// 1. Panggil Hook untuk mengambil data Home Content
+	const { data: response, isLoading } = publicActions.useGetHomeContent();
+	const data = response?.data;
+
+	// 2. Loading State
+	if (isLoading || !data) {
+		return (
+			<div className="flex h-[70vh] w-full items-center justify-center flex-col gap-4">
+				<Spinner size={40} className="animate-spin text-primary" weight="bold" />
+				<p className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground animate-pulse">
+					Loading Workspace...
+				</p>
+			</div>
+		);
+	}
+
+	// Ekstrak data dari response
+	const { hero, skills, featured_projects, recent_blogs } = data;
+
 	return (
-		<div className="grow w-full max-w-300 mx-auto px-6">
+		<div className="grow w-full max-w-300 mx-auto px-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
 			{/* ─── HERO SECTION ─── */}
-			<section className="mt-24 md:mt-32 mb-20 flex flex-col items-start">
-				<div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-muted border border-border mb-6">
+			<section className="mt-24 md:mt-32 mb-20">
+				<div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-muted border-2 dark:border border-border mb-8 shadow-brutal-sm dark:shadow-none">
 					<span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-					<span className="font-sans text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+					<span className="font-sans text-xs font-bold uppercase tracking-widest text-foreground">
 						Available for new opportunities
 					</span>
 				</div>
 
-				<h1 className="font-heading text-4xl md:text-6xl font-bold text-foreground mb-6 max-w-4xl tracking-tight leading-tight">
-					Architecting robust systems with technical precision.
-				</h1>
+				<div className="flex flex-col-reverse lg:flex-row gap-12 lg:items-center">
+					{/* Teks Hero */}
+					<div className="flex-1 flex flex-col items-start">
+						{/* 1. Sapaan & Nama sebagai H1 yang besar dan tegas */}
+						<h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 tracking-tight leading-tight">
+							Hi, I'm {hero?.fullname || "Ghifari Ezra"}.
+						</h1>
 
-				<p className="font-sans text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed">
-					Software Developer specializing in high-performance web applications,
-					scalable backend architectures, and elegant user interfaces. Building
-					solutions that bridge logic and human experience.
-				</p>
+						{/* 2. Role diposisikan sebagai H2 dengan aksen Neo-Brutalist */}
+						<h2 className="font-mono text-lg md:text-xl font-bold text-foreground mb-6 bg-primary/10 px-3 py-1.5 border-l-4 border-primary inline-block shadow-sm">
+							{hero?.role || "Software Developer"}
+						</h2>
 
-				<div className="flex flex-wrap gap-4">
-					<Link
-						to="/projects"
-						className="inline-flex items-center justify-center px-6 h-12 bg-primary text-primary-foreground font-sans font-medium rounded hover:bg-primary/90 transition-colors duration-200 shadow-brutal dark:shadow-none"
-					>
-						View Projects
-					</Link>
-					<Link
-						to="/contact"
-						className="inline-flex items-center justify-center px-6 h-12 border-2 border-border text-foreground font-sans font-medium rounded hover:bg-muted transition-colors duration-200 group shadow-brutal dark:shadow-none"
-					>
-						<ArrowRight className="mr-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-						Contact Me
-					</Link>
+						{/* 3. Deskripsi Singkat */}
+						<p className="font-sans text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed whitespace-pre-wrap">
+							{hero?.about_me || "Software Developer specializing in high-performance web applications, scalable backend architectures, and elegant user interfaces."}
+						</p>
+
+						{/* 4. Tombol Aksi & Sosial Media */}
+						<div className="flex flex-wrap items-center gap-4">
+							<Link
+								to="/projects"
+								className="inline-flex items-center justify-center px-6 h-12 bg-primary text-primary-foreground font-sans font-bold rounded hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 border-2 dark:border border-border shadow-brutal dark:shadow-none"
+							>
+								View Projects
+							</Link>
+
+							{hero?.cv_url && (
+								<a
+									href={hero.cv_url}
+									target="_blank"
+									rel="noreferrer"
+									className="inline-flex items-center justify-center px-6 h-12 bg-secondary text-secondary-foreground font-sans font-bold rounded hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 border-2 dark:border border-border shadow-brutal dark:shadow-none"
+								>
+									Download CV <ArrowRight className="ml-2 w-5 h-5" />
+								</a>
+							)}
+
+							{/* Social Links Dinamis */}
+							<div className="flex gap-3 ml-2">
+								{hero?.github && (
+									<a href={hero.github} target="_blank" rel="noreferrer" className="w-12 h-12 flex items-center justify-center border-2 border-border rounded-md hover:bg-foreground hover:text-background transition-colors shadow-brutal-sm dark:shadow-none">
+										<GithubLogo weight="fill" className="w-6 h-6" />
+									</a>
+								)}
+								{hero?.linkedin && (
+									<a href={hero.linkedin} target="_blank" rel="noreferrer" className="w-12 h-12 flex items-center justify-center border-2 border-border rounded-md hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-colors shadow-brutal-sm dark:shadow-none">
+										<LinkedinLogo weight="fill" className="w-6 h-6" />
+									</a>
+								)}
+							</div>
+						</div>
+					</div>
+
+					{/* Foto Profil Hero */}
+					{hero?.image && (
+						<div className="shrink-0 lg:w-72 lg:h-72 w-48 h-48 relative group">
+							{/* Efek kotak brutalist di belakang foto */}
+							<div className="absolute inset-0 bg-primary translate-x-4 translate-y-4 rounded-xl border-2 border-foreground hidden lg:block"></div>
+							<img
+								src={hero.image}
+								alt={hero.fullname || "Profile Picture"}
+								className="w-full h-full object-cover rounded-xl border-4 border-foreground shadow-brutal relative z-10 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-300"
+							/>
+						</div>
+					)}
 				</div>
 			</section>
 
@@ -64,15 +129,14 @@ export function RouteComponent() {
 							Languages
 						</h3>
 						<div className="flex flex-wrap gap-2 relative z-10">
-							{["JavaScript", "TypeScript", "Python", "Go", "SQL"].map(
-								(tech) => (
-									<span
-										key={tech}
-										className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded"
-									>
+							{skills?.languages?.length > 0 ? (
+								skills.languages.map((tech) => (
+									<span key={tech} className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50">
 										{tech}
 									</span>
-								)
+								))
+							) : (
+								<span className="text-muted-foreground font-mono text-xs">No data yet.</span>
 							)}
 						</div>
 					</div>
@@ -86,15 +150,14 @@ export function RouteComponent() {
 							Frameworks
 						</h3>
 						<div className="flex flex-wrap gap-2 relative z-10">
-							{["React", "Next.js", "Node.js", "Django", "Tailwind CSS"].map(
-								(tech) => (
-									<span
-										key={tech}
-										className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded"
-									>
+							{skills?.frameworks?.length > 0 ? (
+								skills.frameworks.map((tech) => (
+									<span key={tech} className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50">
 										{tech}
 									</span>
-								)
+								))
+							) : (
+								<span className="text-muted-foreground font-mono text-xs">No data yet.</span>
 							)}
 						</div>
 					</div>
@@ -108,14 +171,15 @@ export function RouteComponent() {
 							Tools & Infra
 						</h3>
 						<div className="flex flex-wrap gap-2 relative z-10">
-							{["Git", "Docker", "AWS", "PostgreSQL", "Figma"].map((tech) => (
-								<span
-									key={tech}
-									className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded"
-								>
-									{tech}
-								</span>
-							))}
+							{skills?.tools?.length > 0 ? (
+								skills.tools.map((tech) => (
+									<span key={tech} className="px-3 py-1.5 bg-muted text-foreground font-mono text-xs font-semibold rounded border border-border/50">
+										{tech}
+									</span>
+								))
+							) : (
+								<span className="text-muted-foreground font-mono text-xs">No data yet.</span>
+							)}
 						</div>
 					</div>
 				</div>
@@ -137,108 +201,78 @@ export function RouteComponent() {
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-					{/* Project 1: DanaKu */}
-					<div className="bg-card border-2 border-border rounded-lg p-6 flex flex-col hover:border-foreground transition-all group hover:shadow-brutal dark:hover:shadow-none dark:hover:border-primary/50">
-						<div className="flex justify-between items-start mb-4">
-							<span className="font-sans text-xs font-semibold px-2 py-1 bg-secondary text-secondary-foreground rounded inline-flex items-center gap-1.5">
-								<span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-								Active Development
-							</span>
-							{/** biome-ignore lint/a11y/useValidAnchor: ... */}
-							<a
-								href="#"
-								aria-label="View Github Repo"
-								className="text-muted-foreground hover:text-primary transition-colors"
-							>
-								<Code weight="bold" className="w-6 h-6" />
-							</a>
-						</div>
-						<h3 className="font-heading text-2xl font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
-							DanaKu
-						</h3>
-						<p className="font-sans text-base text-muted-foreground mb-6 grow">
-							A comprehensive personal finance management dashboard. Features
-							include transaction categorization, budget tracking algorithms,
-							and real-time data visualization.
-						</p>
-
-						<div className="mb-6 w-full">
-							<div className="flex justify-between font-mono text-xs text-muted-foreground mb-2">
-								<span>Milestone: V1 Release</span>
-								<span>85%</span>
-							</div>
-							<div className="h-1.5 w-full bg-muted rounded-full overflow-hidden border border-border/50">
-								<div
-									className="h-full bg-primary rounded-full"
-									style={{ width: "85%" }}
-								></div>
-							</div>
-						</div>
-
-						<div className="flex gap-2 border-t-2 border-border pt-4 mt-auto">
-							{["React", "Node.js", "PostgreSQL"].map((tech, i, arr) => (
-								<div key={tech} className="flex items-center gap-2">
-									<span className="font-mono text-xs text-muted-foreground font-semibold">
-										{tech}
+					{featured_projects?.length > 0 ? (
+						featured_projects.map((project) => (
+							<div key={project.id} className="bg-card border-2 border-border rounded-lg p-6 flex flex-col hover:border-foreground transition-all group hover:shadow-brutal dark:hover:shadow-none dark:hover:border-primary/50">
+								<div className="flex justify-between items-start mb-4">
+									<span className={`font-sans text-xs font-semibold px-2 py-1 rounded inline-flex items-center gap-1.5 ${project.development_status === "Completed"
+											? "bg-muted text-foreground"
+											: "bg-secondary text-secondary-foreground"
+										}`}>
+										{project.development_status !== "Completed" ? (
+											<span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+										) : (
+											<CheckCircle weight="fill" className="w-4 h-4" />
+										)}
+										{project.development_status}
 									</span>
-									{i < arr.length - 1 && (
-										<span className="text-muted-foreground">•</span>
+
+									<a
+										href={project.embed_url || `/projects/${project.slug}`}
+										target={project.embed_url ? "_blank" : "_self"}
+										rel="noreferrer"
+										className="text-muted-foreground hover:text-primary transition-colors bg-background p-1.5 rounded-md border-2 border-border shadow-brutal-sm group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+									>
+										{project.embed_type === "github" ? (
+											<Code weight="bold" className="w-5 h-5" />
+										) : (
+											<ArrowUpRight weight="bold" className="w-5 h-5" />
+										)}
+									</a>
+								</div>
+								<h3 className="font-heading text-2xl font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
+									{project.title}
+								</h3>
+								<p className="font-sans text-base text-muted-foreground mb-6 grow">
+									{project.description || "No description provided."}
+								</p>
+
+								<div className="mb-6 w-full">
+									<div className="flex justify-between font-mono text-xs text-muted-foreground mb-2">
+										<span>Completion</span>
+										<span>{project.progress}%</span>
+									</div>
+									<div className="h-1.5 w-full bg-muted rounded-full overflow-hidden border border-border/50">
+										<div
+											className={`h-full rounded-full ${project.progress >= 100 ? 'bg-foreground' : 'bg-primary'}`}
+											style={{ width: `${project.progress}%` }}
+										></div>
+									</div>
+								</div>
+
+								<div className="flex flex-wrap gap-2 border-t-2 border-border pt-4 mt-auto">
+									{project.tags && project.tags.length > 0 ? (
+										project.tags.slice(0, 3).map((tag, i, arr) => (
+											<div key={tag.id} className="flex items-center gap-2">
+												<span className="font-mono text-xs text-muted-foreground font-semibold">
+													{tag.name}
+												</span>
+												{i < arr.length - 1 && (
+													<span className="text-muted-foreground">•</span>
+												)}
+											</div>
+										))
+									) : (
+										<span className="font-mono text-xs text-muted-foreground font-semibold">No tags attached</span>
 									)}
 								</div>
-							))}
-						</div>
-					</div>
-
-					{/* Project 2: Penyet Compressor */}
-					<div className="bg-card border-2 border-border rounded-lg p-6 flex flex-col hover:border-foreground transition-all group hover:shadow-brutal dark:hover:shadow-none dark:hover:border-primary/50">
-						<div className="flex justify-between items-start mb-4">
-							<span className="font-sans text-xs font-semibold px-2 py-1 bg-muted text-foreground rounded inline-flex items-center gap-1.5">
-								<CheckCircle weight="fill" className="w-4 h-4" />
-								Stable Release
-							</span>
-							<a
-								href="#"
-								aria-label="View Live Site"
-								className="text-muted-foreground hover:text-primary transition-colors"
-							>
-								<ArrowUpRight weight="bold" className="w-6 h-6" />
-							</a>
-						</div>
-						<h3 className="font-heading text-2xl font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
-							Penyet Compressor
-						</h3>
-						<p className="font-sans text-base text-muted-foreground mb-6 grow">
-							A blazingly fast, browser-based image compression tool leveraging
-							WebAssembly. Designed to reduce bandwidth usage without
-							compromising perceptible visual quality.
-						</p>
-
-						<div className="mb-6 w-full">
-							<div className="flex justify-between font-mono text-xs text-muted-foreground mb-2">
-								<span>Optimization Pass</span>
-								<span>100%</span>
 							</div>
-							<div className="h-1.5 w-full bg-muted rounded-full overflow-hidden border border-border/50">
-								<div
-									className="h-full bg-foreground rounded-full"
-									style={{ width: "100%" }}
-								></div>
-							</div>
+						))
+					) : (
+						<div className="col-span-1 md:col-span-2 p-8 border-2 border-dashed border-border rounded-lg text-center bg-muted/50">
+							<p className="font-mono text-sm text-muted-foreground uppercase tracking-widest">No featured projects yet.</p>
 						</div>
-
-						<div className="flex gap-2 border-t-2 border-border pt-4 mt-auto">
-							{["Rust (WASM)", "TypeScript"].map((tech, i, arr) => (
-								<div key={tech} className="flex items-center gap-2">
-									<span className="font-mono text-xs text-muted-foreground font-semibold">
-										{tech}
-									</span>
-									{i < arr.length - 1 && (
-										<span className="text-muted-foreground">•</span>
-									)}
-								</div>
-							))}
-						</div>
-					</div>
+					)}
 				</div>
 			</section>
 
@@ -250,38 +284,50 @@ export function RouteComponent() {
 				</h2>
 
 				<div className="flex flex-col gap-6">
-					{/* Post 1 */}
-					<article className="group border-l-4 border-border pl-6 py-2 hover:border-primary transition-colors cursor-pointer flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 relative">
-						<div className="font-mono text-sm font-semibold text-muted-foreground min-w-30">
-							Oct 24, 2026
-						</div>
-						<div>
-							<h3 className="font-heading text-2xl font-medium text-foreground group-hover:text-primary transition-colors mb-2">
-								State Management Architectures in 2026
-							</h3>
-							<p className="font-sans text-base text-muted-foreground line-clamp-2">
-								An analysis of shifting paradigms in frontend state management,
-								moving from monolithic stores to atomic and derived state
-								patterns.
-							</p>
-						</div>
-					</article>
+					{recent_blogs?.length > 0 ? (
+						recent_blogs.map((blog) => {
+							const date = new Date(blog.published_at || blog.created_at).toLocaleDateString("en-US", {
+								month: "short",
+								day: "numeric",
+								year: "numeric",
+							});
 
-					{/* Post 2 */}
-					<article className="group border-l-4 border-border pl-6 py-2 hover:border-primary transition-colors cursor-pointer flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 relative">
-						<div className="font-mono text-sm font-semibold text-muted-foreground min-w-30">
-							Sep 12, 2026
+							return (
+								<Link
+									key={blog.id}
+									to={`/notes`} // Ubah sesuai struktur route kamu (misal: /notes/$slug)
+									className="group border-l-4 border-border pl-6 py-2 hover:border-primary transition-colors cursor-pointer flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 relative outline-none focus-visible:border-primary"
+								>
+									<div className="font-mono text-sm font-semibold text-muted-foreground min-w-30 group-hover:text-foreground transition-colors">
+										{date}
+									</div>
+									<div>
+										<h3 className="font-heading text-2xl font-medium text-foreground group-hover:text-primary transition-colors mb-2">
+											{blog.title}
+										</h3>
+										<p className="font-sans text-base text-muted-foreground line-clamp-2">
+											{blog.description || "Click to read more about this topic..."}
+										</p>
+
+										{/* Tampilkan Tag Bahasa jika ada */}
+										{blog.tags && blog.tags.length > 0 && (
+											<div className="mt-3 flex gap-2">
+												{blog.tags.map(t => (
+													<span key={t.id} className="font-mono text-[10px] uppercase font-bold px-2 py-0.5 bg-muted text-muted-foreground rounded">
+														{t.name}
+													</span>
+												))}
+											</div>
+										)}
+									</div>
+								</Link>
+							);
+						})
+					) : (
+						<div className="p-8 border-2 border-dashed border-border rounded-lg text-center bg-muted/50">
+							<p className="font-mono text-sm text-muted-foreground uppercase tracking-widest">No recent notes published.</p>
 						</div>
-						<div>
-							<h3 className="font-heading text-2xl font-medium text-foreground group-hover:text-primary transition-colors mb-2">
-								Optimizing PostgreSQL for Read-Heavy Workloads
-							</h3>
-							<p className="font-sans text-base text-muted-foreground line-clamp-2">
-								Practical techniques for index tuning, materialized views, and
-								query restructuring to handle high-throughput analytical reads.
-							</p>
-						</div>
-					</article>
+					)}
 				</div>
 			</section>
 		</div>

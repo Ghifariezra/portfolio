@@ -5,6 +5,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
+import { useAuthStore } from "./lib/stores/auth.store";
 // Import routeTree yang di-generate otomatis oleh Vite
 import { routeTree } from "./routeTree.gen";
 
@@ -24,6 +25,7 @@ const router = createRouter({
 	routeTree,
 	context: {
 		queryClient,
+		auth: useAuthStore,
 	},
 	defaultPreload: "intent", // Otomatis fetch data saat user hover menu navigasi
 	defaultPreloadStaleTime: 0,

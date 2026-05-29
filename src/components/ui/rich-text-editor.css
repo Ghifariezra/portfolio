@@ -1,0 +1,173 @@
+/* ======================================================== */
+/* 1. MENG-OVERRIDE WARNA GENERAL BLOCKNOTE                 */
+/* ======================================================== */
+
+html:not(.dark) .bn-container,
+.bn-container[data-theme="light"] {
+    --bn-colors-editor-background: transparent;
+    --bn-colors-editor-text: var(--foreground);
+    --bn-colors-menu-background: var(--card);
+    --bn-colors-menu-text: var(--foreground);
+    --bn-colors-hovered-background: var(--muted);
+    --bn-colors-selected-background: var(--primary);
+    --bn-colors-selected-text: var(--primary-foreground);
+    --bn-fonts-default: var(--font-sans);
+    --bn-fonts-heading: var(--font-heading);
+    --bn-fonts-code: var(--font-mono);
+}
+
+html.dark .bn-container,
+.bn-container[data-theme="dark"] {
+    --bn-colors-editor-background: transparent;
+    --bn-colors-editor-text: var(--foreground);
+    --bn-colors-menu-background: var(--card);
+    --bn-colors-menu-text: var(--foreground);
+    --bn-colors-hovered-background: var(--secondary);
+    --bn-colors-selected-background: var(--primary);
+    --bn-colors-selected-text: var(--primary-foreground);
+    --bn-fonts-default: var(--font-sans);
+    --bn-fonts-heading: var(--font-heading);
+    --bn-fonts-code: var(--font-mono);
+}
+
+/* ======================================================== */
+/* 2. CODE BLOCK WRAPPER                                    */
+/* ======================================================== */
+
+.bn-block-content[data-content-type="codeBlock"] {
+    border: 2px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-brutal-sm) !important;
+    background-color: #ffffff !important; /* putih murni — kontras lebih baik dari #f6f8fa */
+    margin: 1.5rem 0 !important;
+    position: relative;
+    overflow: hidden;
+}
+
+html.dark .bn-block-content[data-content-type="codeBlock"],
+[data-theme="dark"] .bn-block-content[data-content-type="codeBlock"] {
+    border-width: 1px !important;
+    box-shadow: none !important;
+    background-color: #0d1117 !important;
+}
+
+.bn-block-content[data-content-type="codeBlock"] pre {
+    background-color: transparent !important;
+    padding: 2.5rem 1rem 1rem 1rem !important;
+    margin: 0 !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted-foreground) transparent;
+}
+
+.bn-block-content[data-content-type="codeBlock"] code {
+    background-color: transparent !important;
+}
+
+/* ======================================================== */
+/* 2b. SHIKI TOKEN & CONTRAST FIX                          */
+/* ======================================================== */
+
+/* Reset universal — jangan sentuh color */
+.bn-block-content[data-content-type="codeBlock"] span {
+    opacity: 1 !important;
+    background-color: transparent !important;
+}
+
+.bn-block-content[data-content-type="codeBlock"] span:not([style]) {
+    color: inherit !important;
+}
+
+/* ── LIGHT MODE ── */
+html:not(.dark) .bn-block-content[data-content-type="codeBlock"] {
+    background-color: #ffffff !important;
+}
+
+html:not(.dark) .bn-block-content[data-content-type="codeBlock"] code {
+    color: #24292e !important;
+}
+
+/* Filter hanya di light — naikkan saturasi & kontras token github-light */
+html:not(.dark) .bn-block-content[data-content-type="codeBlock"] pre {
+    filter: saturate(1.8) contrast(1.3);
+}
+
+/* ── DARK MODE ── */
+html.dark .bn-block-content[data-content-type="codeBlock"],
+[data-theme="dark"] .bn-block-content[data-content-type="codeBlock"] {
+    background-color: #0d1117 !important;
+}
+
+html.dark .bn-block-content[data-content-type="codeBlock"] code,
+[data-theme="dark"] .bn-block-content[data-content-type="codeBlock"] code {
+    color: #e6edf3 !important;
+}
+
+/* Dark TIDAK pakai filter — warna github-dark sudah kontras di atas #0d1117 */
+html.dark .bn-block-content[data-content-type="codeBlock"] pre,
+[data-theme="dark"] .bn-block-content[data-content-type="codeBlock"] pre {
+    filter: none !important;
+}
+/* ======================================================== */
+/* 3. LANGUAGE BADGE (SELALU MUNCUL)                        */
+/* ======================================================== */
+
+.bn-block-content[data-content-type="codeBlock"] select {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    pointer-events: none;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    background-color: var(--primary) !important;
+    color: var(--primary-foreground) !important;
+    padding: 0.25rem 0.75rem !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.7rem !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    border: 2px solid var(--border) !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom-left-radius: var(--radius) !important;
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+html.dark .bn-block-content[data-content-type="codeBlock"] select {
+    border-width: 1px !important;
+    border-color: var(--border) !important;
+}
+
+/* Di reader: nonaktifkan */
+[data-editable="false"] .bn-block-content[data-content-type="codeBlock"] select {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+/* Di editor: aktifkan — lebih spesifik */
+[data-editable="true"] .bn-block-content[data-content-type="codeBlock"] select,
+.bn-editor:not([data-editable="false"]) .bn-block-content[data-content-type="codeBlock"] select {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    opacity: 1 !important;
+}
+
+/* ======================================================== */
+/* 4. MISC                                                  */
+/* ======================================================== */
+.ProseMirror:focus {
+    outline: none !important;
+}
+
+.bn-editor {
+    padding-inline: 0 !important;
+}
