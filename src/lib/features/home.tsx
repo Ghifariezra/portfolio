@@ -40,7 +40,7 @@ export function RouteComponent() {
 	return (
 		<div className="grow w-full max-w-300 mx-auto px-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
 			{/* ─── HERO SECTION ─── */}
-			<section className="mt-24 md:mt-32 mb-20">
+			<section className="mt-16 md:mt-24 lg:mt-32 mb-20">
 				<div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-muted border-2 dark:border border-border mb-8 shadow-brutal-sm dark:shadow-none">
 					<span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
 					<span className="font-sans text-xs font-bold uppercase tracking-widest text-foreground">
@@ -51,44 +51,46 @@ export function RouteComponent() {
 				<div className="flex flex-col-reverse lg:flex-row gap-12 lg:items-center">
 					{/* Teks Hero */}
 					<div className="flex-1 flex flex-col items-start">
-						{/* 1. Sapaan & Nama sebagai H1 yang besar dan tegas */}
-						<h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 tracking-tight leading-tight">
+						{/* 1. Sapaan & Nama: Ukuran font diperkecil sedikit di mobile (text-4xl) agar tidak terpotong */}
+						<h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 tracking-tight leading-tight">
 							Hi, I'm {hero?.fullname || "Ghifari Ezra"}.
 						</h1>
 
-						{/* 2. Role diposisikan sebagai H2 dengan aksen Neo-Brutalist */}
-						<h2 className="font-mono text-lg md:text-xl font-bold text-foreground mb-6 bg-primary/10 px-3 py-1.5 border-l-4 border-primary inline-block shadow-sm">
+						{/* 2. Role */}
+						<h2 className="font-mono text-base md:text-lg lg:text-xl font-bold text-foreground mb-6 bg-primary/10 px-3 py-1.5 border-l-4 border-primary inline-block shadow-sm">
 							{hero?.role || "Software Developer"}
 						</h2>
 
 						{/* 3. Deskripsi Singkat */}
-						<p className="font-sans text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed whitespace-pre-wrap">
+						<p className="font-sans text-base md:text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed whitespace-pre-wrap">
 							{hero?.about_me ||
 								"Software Developer specializing in high-performance web applications, scalable backend architectures, and elegant user interfaces."}
 						</p>
 
-						{/* 4. Tombol Aksi & Sosial Media */}
-						<div className="flex flex-wrap items-center gap-4">
-							<Link
-								to="/projects"
-								className="inline-flex items-center justify-center px-6 h-12 bg-primary text-primary-foreground font-sans font-bold rounded hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 border-2 dark:border border-border shadow-brutal dark:shadow-none"
-							>
-								View Projects
-							</Link>
-
-							{hero?.cv_url && (
-								<a
-									href={hero.cv_url}
-									target="_blank"
-									rel="noreferrer"
-									className="inline-flex items-center justify-center px-6 h-12 bg-secondary text-secondary-foreground font-sans font-bold rounded hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 border-2 dark:border border-border shadow-brutal dark:shadow-none"
+						{/* 4. Tombol Aksi & Sosial Media: Diperbarui agar lebih rapi di mobile (stacking vertikal jika layar terlalu sempit) */}
+						<div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 w-full">
+							<div className="flex flex-wrap gap-4 w-full sm:w-auto">
+								<Link
+									to="/projects"
+									className="inline-flex items-center justify-center px-6 h-12 bg-primary text-primary-foreground font-sans font-bold rounded hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 border-2 dark:border border-border shadow-brutal dark:shadow-none w-full sm:w-auto"
 								>
-									Download CV <ArrowRight className="ml-2 w-5 h-5" />
-								</a>
-							)}
+									View Projects
+								</Link>
+
+								{hero?.cv_url && (
+									<a
+										href={hero.cv_url}
+										target="_blank"
+										rel="noreferrer"
+										className="inline-flex items-center justify-center px-6 h-12 bg-secondary text-secondary-foreground font-sans font-bold rounded hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 border-2 dark:border border-border shadow-brutal dark:shadow-none w-full sm:w-auto"
+									>
+										Download CV <ArrowRight className="ml-2 w-5 h-5" />
+									</a>
+								)}
+							</div>
 
 							{/* Social Links Dinamis */}
-							<div className="flex gap-3 ml-2">
+							<div className="flex gap-3 sm:ml-2 mt-2 sm:mt-0">
 								{hero?.github && (
 									<a
 										href={hero.github}
@@ -113,15 +115,14 @@ export function RouteComponent() {
 						</div>
 					</div>
 
-					{/* Foto Profil Hero */}
+					{/* Foto Profil Hero: Ditambahkan mx-auto di mobile agar gambar berada di tengah (jika flex-col-reverse) */}
 					{hero?.image && (
-						<div className="shrink-0 lg:w-72 lg:h-72 w-48 h-48 relative group">
-							{/* Efek kotak brutalist di belakang foto */}
+						<div className="shrink-0 lg:w-72 lg:h-72 w-56 h-56 relative group mx-auto lg:mx-0">
 							<div className="absolute inset-0 bg-primary translate-x-4 translate-y-4 rounded-xl border-2 border-foreground hidden lg:block"></div>
 							<img
 								src={hero.image}
 								alt={hero.fullname || "Profile Picture"}
-								className="w-full h-full object-cover rounded-xl border-4 border-foreground shadow-brutal relative z-10 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-300"
+								className="w-full h-full object-cover rounded-xl border-4 border-foreground shadow-brutal relative z-10 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-300 bg-muted"
 							/>
 						</div>
 					)}
@@ -130,7 +131,7 @@ export function RouteComponent() {
 
 			{/* ─── TECHNICAL ARSENAL (BENTO GRID) ─── */}
 			<section className="mb-20" id="expertise">
-				<h2 className="font-heading text-3xl font-semibold text-foreground mb-8 flex items-center gap-4">
+				<h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground mb-8 flex items-center gap-4">
 					<span className="w-8 h-0.5 bg-border block"></span>
 					Technical Arsenal
 				</h2>
@@ -141,7 +142,7 @@ export function RouteComponent() {
 						<div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
 							<Code weight="duotone" className="w-24 h-24 text-foreground" />
 						</div>
-						<h3 className="font-heading text-2xl font-medium text-foreground mb-4">
+						<h3 className="font-heading text-xl md:text-2xl font-medium text-foreground mb-4">
 							Languages
 						</h3>
 						<div className="flex flex-wrap gap-2 relative z-10">
@@ -167,7 +168,7 @@ export function RouteComponent() {
 						<div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
 							<Stack weight="duotone" className="w-24 h-24 text-foreground" />
 						</div>
-						<h3 className="font-heading text-2xl font-medium text-foreground mb-4">
+						<h3 className="font-heading text-xl md:text-2xl font-medium text-foreground mb-4">
 							Frameworks
 						</h3>
 						<div className="flex flex-wrap gap-2 relative z-10">
@@ -193,7 +194,7 @@ export function RouteComponent() {
 						<div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
 							<Wrench weight="duotone" className="w-24 h-24 text-foreground" />
 						</div>
-						<h3 className="font-heading text-2xl font-medium text-foreground mb-4">
+						<h3 className="font-heading text-xl md:text-2xl font-medium text-foreground mb-4">
 							Tools & Infra
 						</h3>
 						<div className="flex flex-wrap gap-2 relative z-10">
@@ -218,7 +219,7 @@ export function RouteComponent() {
 
 			{/* ─── CERTIFICATIONS ─── */}
 			<section className="mb-20" id="certificates">
-				<h2 className="font-heading text-3xl font-semibold text-foreground mb-8 flex items-center gap-4">
+				<h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground mb-8 flex items-center gap-4">
 					<span className="w-8 h-0.5 bg-border block"></span>
 					Certifications
 				</h2>
@@ -230,10 +231,8 @@ export function RouteComponent() {
 								key={cert.id}
 								className="bg-card border-2 border-border rounded-lg flex flex-col overflow-hidden hover:border-foreground transition-all group hover:shadow-brutal dark:hover:shadow-none dark:hover:border-primary/50"
 							>
-								{/* Gambar Sertifikat */}
 								{cert.image && (
 									<div className="aspect-4/3 w-full border-b-2 border-border overflow-hidden relative bg-muted flex items-center justify-center">
-										{/* Overlay Hover */}
 										<div className="absolute inset-0 bg-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 										<img
 											src={cert.image}
@@ -243,7 +242,6 @@ export function RouteComponent() {
 									</div>
 								)}
 
-								{/* Detail Sertifikat */}
 								<div className="p-4 flex flex-col grow">
 									<h3 className="font-heading text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">
 										{cert.name}
@@ -271,13 +269,13 @@ export function RouteComponent() {
 			{/* ─── FEATURED PROJECTS ─── */}
 			<section className="mb-20" id="projects">
 				<div className="flex justify-between items-end mb-8">
-					<h2 className="font-heading text-3xl font-semibold text-foreground flex items-center gap-4">
+					<h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground flex items-center gap-4">
 						<span className="w-8 h-0.5 bg-border block"></span>
 						Featured Projects
 					</h2>
 					<Link
 						to="/projects"
-						className="font-sans text-xs font-bold uppercase tracking-widest text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
+						className="font-sans text-xs font-bold uppercase tracking-widest text-primary hover:text-primary/80 transition-colors flex items-center gap-1 shrink-0 ml-4"
 					>
 						View All <ArrowUpRight weight="bold" className="w-4 h-4" />
 					</Link>
@@ -292,11 +290,10 @@ export function RouteComponent() {
 							>
 								<div className="flex justify-between items-start mb-4">
 									<span
-										className={`font-sans text-xs font-semibold px-2 py-1 rounded inline-flex items-center gap-1.5 ${
-											project.development_status === "Completed"
+										className={`font-sans text-xs font-semibold px-2 py-1 rounded inline-flex items-center gap-1.5 ${project.development_status === "Completed"
 												? "bg-muted text-foreground"
 												: "bg-secondary text-secondary-foreground"
-										}`}
+											}`}
 									>
 										{project.development_status !== "Completed" ? (
 											<span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
@@ -318,10 +315,10 @@ export function RouteComponent() {
 										)}
 									</a>
 								</div>
-								<h3 className="font-heading text-2xl font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
+								<h3 className="font-heading text-xl md:text-2xl font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
 									{project.title}
 								</h3>
-								<p className="font-sans text-base text-muted-foreground mb-6 grow">
+								<p className="font-sans text-sm md:text-base text-muted-foreground mb-6 grow">
 									{project.description || "No description provided."}
 								</p>
 
@@ -370,7 +367,7 @@ export function RouteComponent() {
 
 			{/* ─── RECENT NOTES (BLOG) ─── */}
 			<section className="mb-20" id="notes">
-				<h2 className="font-heading text-3xl font-semibold text-foreground mb-8 flex items-center gap-4">
+				<h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground mb-8 flex items-center gap-4">
 					<span className="w-8 h-0.5 bg-border block"></span>
 					Recent Notes
 				</h2>
@@ -390,23 +387,23 @@ export function RouteComponent() {
 								<Link
 									key={blog.id}
 									to={`/notes/${blog.slug}` as string}
-									className="group border-l-4 border-border pl-6 py-2 hover:border-primary transition-colors cursor-pointer flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 relative outline-none focus-visible:border-primary"
+									className="group border-l-4 border-border pl-4 md:pl-6 py-2 hover:border-primary transition-colors cursor-pointer flex flex-col md:flex-row md:items-baseline gap-1 md:gap-8 relative outline-none focus-visible:border-primary"
 								>
-									<div className="font-mono text-sm font-semibold text-muted-foreground min-w-30 group-hover:text-foreground transition-colors">
+									{/* Diperbarui dari min-w-30 ke w-32 shrink-0 agar ukurannya lebih stabil */}
+									<div className="font-mono text-xs md:text-sm font-semibold text-muted-foreground w-32 shrink-0 group-hover:text-foreground transition-colors">
 										{date}
 									</div>
 									<div>
-										<h3 className="font-heading text-2xl font-medium text-foreground group-hover:text-primary transition-colors mb-2">
+										<h3 className="font-heading text-xl md:text-2xl font-medium text-foreground group-hover:text-primary transition-colors mb-1 md:mb-2">
 											{blog.title}
 										</h3>
-										<p className="font-sans text-base text-muted-foreground line-clamp-2">
+										<p className="font-sans text-sm md:text-base text-muted-foreground line-clamp-2">
 											{blog.description ||
 												"Click to read more about this topic..."}
 										</p>
 
-										{/* Tampilkan Tag Bahasa jika ada */}
 										{blog.tags && blog.tags.length > 0 && (
-											<div className="mt-3 flex gap-2">
+											<div className="mt-2 md:mt-3 flex flex-wrap gap-2">
 												{blog.tags.map((t) => (
 													<span
 														key={t.id}
