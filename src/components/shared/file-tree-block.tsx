@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: ... */
+
 import { createReactBlockSpec } from "@blocknote/react";
 
 import {
