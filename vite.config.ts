@@ -11,28 +11,39 @@ const isProd = process.env.NODE_ENV === "production";
 // 1. Terima parameter apiUrl untuk dinamisasi endpoint
 async function getDynamicRoutes(apiUrl: string) {
 	try {
-		// Gunakan API URL dari env, dengan fallback jika ternyata kosong
+		// Gunakan API URL dari env, dengan fallback URL production kamu
 		const API_URL = apiUrl || "https://api.ezdev.xyz/api/v1";
 
-		const [projectsRes, notesRes] = await Promise.all([
+		const [projectsRes, blogsRes] = await Promise.all([
 			fetch(`${API_URL}/projects`),
-			fetch(`${API_URL}/notes`)
+			fetch(`${API_URL}/blogs`) // Sesuai dengan endpoint API terbaru
 		]);
 
-		// 2. Fix TS Error: Tentukan tipe kembalian (Type Casting) agar tidak 'unknown'
+		// Fix TS Error: Tentukan tipe kembalian (Type Casting)
 		type ApiResponse = { data?: { slug: string }[] };
 
 		const projects = (await projectsRes.json()) as ApiResponse;
-		const notes = (await notesRes.json()) as ApiResponse;
+		const blogs = (await blogsRes.json()) as ApiResponse;
 
-		// TypeScript sekarang tahu bahwa 'projects' dan 'notes' memiliki properti 'data'
+		// Route statis SPA kamu yang tidak ada di API
+		const staticRoutes = [
+			"/projects",
+			"/notes",
+			"/contact"
+		];
+
+		// Mapping slug dinamis ke format routing frontend
 		const projectRoutes = projects.data?.map((p) => `/projects/${p.slug}`) || [];
-		const noteRoutes = notes.data?.map((n) => `/notes/${n.slug}`) || [];
 
-		return [...projectRoutes, ...noteRoutes];
+		// Data dari endpoint /blogs di-map ke path /notes/
+		const noteRoutes = blogs.data?.map((b) => `/notes/${b.slug}`) || [];
+
+		// Gabungkan semuanya: statis + projects + notes(blogs)
+		return [...staticRoutes, ...projectRoutes, ...noteRoutes];
 	} catch (error) {
 		console.error("Gagal mengambil dynamic routes untuk sitemap:", error);
-		return [];
+		// Tetap kembalikan route statis sebagai fallback supaya sitemap tidak kosong melompong
+		return ["/projects", "/notes", "/contact"];
 	}
 }
 
