@@ -12,7 +12,7 @@ const isProd = process.env.NODE_ENV === "production";
 async function getDynamicRoutes(apiUrl: string) {
 	try {
 		// Gunakan API URL dari env, dengan fallback jika ternyata kosong
-		const API_URL = apiUrl || "http://localhost:3000/api/v1";
+		const API_URL = apiUrl || "https://api.ezdev.xyz/api/v1";
 
 		const [projectsRes, notesRes] = await Promise.all([
 			fetch(`${API_URL}/projects`),
