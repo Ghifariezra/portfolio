@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: ... */
 
-import { WindowsLogo } from "@phosphor-icons/react";
+import { Spinner, WindowsLogo } from "@phosphor-icons/react";
 import { Download, Globe, MapPin, Rocket } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
@@ -83,15 +83,20 @@ export function RouteComponent() {
 		return appsList.filter((p) => p.status === status).length;
 	};
 
-	if (isLoading) {
-		return (
-			<main className="grow w-full max-w-7xl mx-auto px-6 py-20 flex flex-col gap-4 items-center justify-center min-h-[50vh]">
-				<p className="font-mono text-sm text-muted-foreground animate-pulse">
-					Loading Apps...
-				</p>
-			</main>
-		);
-	}
+    if (isLoading) {
+        return (
+            <div className="flex h-[70vh] w-full items-center justify-center flex-col gap-4">
+                <Spinner
+                    size={40}
+                    className="animate-spin text-primary"
+                    weight="bold"
+                />
+                <p className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground animate-pulse">
+                    Loading apps data...
+                </p>
+            </div>
+        );
+    }
 
 	if (isError) {
 		return (
@@ -178,14 +183,30 @@ export function RouteComponent() {
 										)}
 									</div>
 
-									<div>
-										<h2 className="text-xl font-heading font-bold text-foreground tracking-tight line-clamp-1">
-											{app.name}
-										</h2>
-										<p className="font-sans text-sm text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
-											{app.description}
-										</p>
-									</div>
+                                    {/* Thumbnail & Title/Desc */}
+                                    <div className="flex flex-row items-start gap-4">
+                                        {/* Render Image jika tersedia */}
+                                        {app.image && (
+                                            <div className="shrink-0">
+                                                <img
+                                                    src={app.image}
+                                                    alt={`${app.name} icon`}
+                                                    className="w-14 h-14 rounded-xl object-cover border-2 border-border bg-background shadow-brutal-sm p-1.5"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        )}
+
+                                        {/* Teks Kontainer */}
+                                        <div className="flex-1 min-w-0">
+                                            <h2 className="text-xl font-heading font-bold text-foreground tracking-tight line-clamp-1">
+                                                {app.name}
+                                            </h2>
+                                            <p className="font-sans text-sm text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
+                                                {app.description}
+                                            </p>
+                                        </div>
+                                    </div>
 
 									<div className="flex flex-wrap gap-1.5 pt-2">
 										{parsedTags.map((tag, idx) => (
