@@ -2,7 +2,6 @@ import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
-// Tambahkan loadEnv di sini
 import { defineConfig, loadEnv, type UserConfig } from "vite";
 import Sitemap from "vite-plugin-sitemap";
 
@@ -25,8 +24,8 @@ async function getDynamicRoutes(apiUrl: string) {
 		const projects = (await projectsRes.json()) as ApiResponse;
 		const blogs = (await blogsRes.json()) as ApiResponse;
 
-		// Route statis SPA kamu yang tidak ada di API
-		const staticRoutes = ["/projects", "/notes", "/contact"];
+		// Route statis SPA kamu yang tidak ada di API (TERMASUK APPS)
+		const staticRoutes = ["/projects", "/notes", "/contact", "/apps"];
 
 		// Mapping slug dinamis ke format routing frontend
 		const projectRoutes =
@@ -40,7 +39,7 @@ async function getDynamicRoutes(apiUrl: string) {
 	} catch (error) {
 		console.error("Gagal mengambil dynamic routes untuk sitemap:", error);
 		// Tetap kembalikan route statis sebagai fallback supaya sitemap tidak kosong melompong
-		return ["/projects", "/notes", "/contact"];
+		return ["/projects", "/notes", "/contact", "/apps"];
 	}
 }
 
@@ -62,7 +61,7 @@ function dropConsolePlugin() {
 
 // 3. Destructure 'mode' selain 'command'
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
-	// 4. Load semua environment variables (baik dari file .env lokal maupun dari GitHub Actions)
+	// 4. Load semua environment variables
 	const env = loadEnv(mode, process.cwd(), "");
 	const apiUrl = env.VITE_API_URL || process.env.VITE_API_URL || "";
 
@@ -132,11 +131,11 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 						return false;
 					},
 				},
+				// PERBAIKAN: Pindahkan naming rule ke dalam output
 				output: {
 					chunkFileNames: "assets/js/[name]-[hash].js",
 					entryFileNames: "assets/js/[name]-[hash].js",
 					assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
-
 					manualChunks(id) {
 						if (!id.includes("node_modules")) return;
 
