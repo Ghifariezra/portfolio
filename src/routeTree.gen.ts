@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
 import { Route as NotesIndexRouteImport } from './routes/notes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
 import { Route as NotesSlugRouteImport } from './routes/notes/$slug'
 import { Route as DashboardTaxonomiesRouteImport } from './routes/dashboard/taxonomies'
@@ -57,6 +58,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardRoute,
+} as any)
+const AppsIndexRoute = AppsIndexRouteImport.update({
+  id: '/apps/',
+  path: '/apps/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   id: '/projects/$slug',
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
   '/notes/$slug': typeof NotesSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/apps/': typeof AppsIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -150,6 +157,7 @@ export interface FileRoutesByTo {
   '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
   '/notes/$slug': typeof NotesSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/apps': typeof AppsIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/notes': typeof NotesIndexRoute
   '/projects': typeof ProjectsIndexRoute
@@ -171,6 +179,7 @@ export interface FileRoutesById {
   '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
   '/notes/$slug': typeof NotesSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/apps/': typeof AppsIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -193,6 +202,7 @@ export interface FileRouteTypes {
     | '/dashboard/taxonomies'
     | '/notes/$slug'
     | '/projects/$slug'
+    | '/apps/'
     | '/dashboard/'
     | '/notes/'
     | '/projects/'
@@ -212,6 +222,7 @@ export interface FileRouteTypes {
     | '/dashboard/taxonomies'
     | '/notes/$slug'
     | '/projects/$slug'
+    | '/apps'
     | '/dashboard'
     | '/notes'
     | '/projects'
@@ -232,6 +243,7 @@ export interface FileRouteTypes {
     | '/dashboard/taxonomies'
     | '/notes/$slug'
     | '/projects/$slug'
+    | '/apps/'
     | '/dashboard/'
     | '/notes/'
     | '/projects/'
@@ -250,6 +262,7 @@ export interface RootRouteChildren {
   AuthAdminRoute: typeof AuthAdminRoute
   NotesSlugRoute: typeof NotesSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
+  AppsIndexRoute: typeof AppsIndexRoute
   NotesIndexRoute: typeof NotesIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
@@ -297,6 +310,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/'
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
+    }
+    '/apps/': {
+      id: '/apps/'
+      path: '/apps'
+      fullPath: '/apps/'
+      preLoaderRoute: typeof AppsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/projects/$slug': {
       id: '/projects/$slug'
@@ -422,6 +442,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthAdminRoute: AuthAdminRoute,
   NotesSlugRoute: NotesSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
+  AppsIndexRoute: AppsIndexRoute,
   NotesIndexRoute: NotesIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }

@@ -1,6 +1,6 @@
 // src/components/shared/navbar.tsx
 
-import { Moon, Sun, List, X } from "@phosphor-icons/react";
+import { List, Moon, Sun, X } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useTheme } from "next-themes";
 import { useState } from "react";
@@ -15,6 +15,7 @@ export function Navbar() {
 		{ to: "/", label: "Home" },
 		{ to: "/projects", label: "Projects" },
 		{ to: "/notes", label: "Notes" },
+		{ to: "/apps", label: "Apps" },
 		{ to: "/contact", label: "Contact" },
 	];
 

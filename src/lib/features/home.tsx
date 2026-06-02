@@ -290,10 +290,11 @@ export function RouteComponent() {
 							>
 								<div className="flex justify-between items-start mb-4">
 									<span
-										className={`font-sans text-xs font-semibold px-2 py-1 rounded inline-flex items-center gap-1.5 ${project.development_status === "Completed"
+										className={`font-sans text-xs font-semibold px-2 py-1 rounded inline-flex items-center gap-1.5 ${
+											project.development_status === "Completed"
 												? "bg-muted text-foreground"
 												: "bg-secondary text-secondary-foreground"
-											}`}
+										}`}
 									>
 										{project.development_status !== "Completed" ? (
 											<span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>

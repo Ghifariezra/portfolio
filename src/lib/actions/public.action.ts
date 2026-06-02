@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import type { HomeContentResponse } from "@/lib/services/public.service";
+import type {
+	AnalyticsDataResponse,
+	HomeContentResponse,
+} from "@/lib/services/public.service";
 import { publicService } from "@/lib/services/public.service";
 import type { AppResponse } from "@/utils/middleware";
 import type { BlogListItem } from "../schemas/blog.schema";
@@ -16,6 +19,10 @@ export const publicKeys = {
 	// Keys untuk Notes (Blogs)
 	notes: () => [...publicKeys.all, "notes"] as const,
 	note: (slug: string) => [...publicKeys.notes(), slug] as const,
+
+	// Keys untuk Analytics
+	analytics: (appId?: string, start?: string, end?: string) =>
+		[...publicKeys.all, "analytics", appId, start, end] as const,
 };
 
 export const publicActions = {
@@ -42,7 +49,7 @@ export const publicActions = {
 			queryKey: publicKeys.project(slug),
 			queryFn: () => publicService.getProjectBySlug(slug),
 			staleTime: 300000,
-			enabled: !!slug, // Hanya fetch jika slug tersedia
+			enabled: !!slug,
 		});
 	},
 
@@ -60,7 +67,21 @@ export const publicActions = {
 			queryKey: publicKeys.note(slug),
 			queryFn: () => publicService.getNoteBySlug(slug),
 			staleTime: 300000,
-			enabled: !!slug, // Hanya fetch jika slug tersedia
+			enabled: !!slug,
+		});
+	},
+
+	// --- ANALYTICS ---
+	useGetAnalytics(
+		applicationId?: string,
+		startDate?: string,
+		endDate?: string
+	) {
+		return useQuery<AppResponse<AnalyticsDataResponse>, Error>({
+			queryKey: publicKeys.analytics(applicationId, startDate, endDate),
+			queryFn: () =>
+				publicService.getAnalytics(applicationId, startDate, endDate),
+			staleTime: 300000,
 		});
 	},
 };

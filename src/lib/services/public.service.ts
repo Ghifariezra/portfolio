@@ -34,6 +34,24 @@ export interface HomeContentResponse {
 	recent_blogs: BlogListItem[];
 }
 
+export interface AppInstallItem {
+	date: string;
+	installCount: number;
+}
+
+export interface GeoSpreadItem {
+	market: string;
+	installCount: number;
+}
+
+// Hapus atribut Conversion & PageViews, ganti dengan yang valid
+export interface AnalyticsDataResponse {
+	TotalInstalls: number;
+	DataFreshnessTimestamp: string;
+	Timeline: AppInstallItem[];
+	GeographicalSpread: GeoSpreadItem[];
+}
+
 export class PublicService extends BaseService {
 	private static instance: PublicService;
 
@@ -79,6 +97,25 @@ export class PublicService extends BaseService {
 		return this.api.get<unknown, AppResponse<BlogListItem>>(
 			`/public/notes/${slug}`
 		);
+	}
+
+	// --- ANALYTICS ---
+	public async getAnalytics(
+		applicationId?: string,
+		startDate?: string,
+		endDate?: string
+	): Promise<AppResponse<AnalyticsDataResponse>> {
+		const params = new URLSearchParams();
+		if (applicationId) params.append("applicationId", applicationId);
+		if (startDate) params.append("startDate", startDate);
+		if (endDate) params.append("endDate", endDate);
+
+		const queryString = params.toString();
+		const url = queryString
+			? `/public/analytics?${queryString}`
+			: "/public/analytics";
+
+		return this.api.get<unknown, AppResponse<AnalyticsDataResponse>>(url);
 	}
 }
 

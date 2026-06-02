@@ -16,7 +16,7 @@ async function getDynamicRoutes(apiUrl: string) {
 
 		const [projectsRes, blogsRes] = await Promise.all([
 			fetch(`${API_URL}/projects`),
-			fetch(`${API_URL}/blogs`) // Sesuai dengan endpoint API terbaru
+			fetch(`${API_URL}/blogs`), // Sesuai dengan endpoint API terbaru
 		]);
 
 		// Fix TS Error: Tentukan tipe kembalian (Type Casting)
@@ -26,14 +26,11 @@ async function getDynamicRoutes(apiUrl: string) {
 		const blogs = (await blogsRes.json()) as ApiResponse;
 
 		// Route statis SPA kamu yang tidak ada di API
-		const staticRoutes = [
-			"/projects",
-			"/notes",
-			"/contact"
-		];
+		const staticRoutes = ["/projects", "/notes", "/contact"];
 
 		// Mapping slug dinamis ke format routing frontend
-		const projectRoutes = projects.data?.map((p) => `/projects/${p.slug}`) || [];
+		const projectRoutes =
+			projects.data?.map((p) => `/projects/${p.slug}`) || [];
 
 		// Data dari endpoint /blogs di-map ke path /notes/
 		const noteRoutes = blogs.data?.map((b) => `/notes/${b.slug}`) || [];
@@ -70,7 +67,8 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 	const apiUrl = env.VITE_API_URL || process.env.VITE_API_URL || "";
 
 	// 5. Lempar apiUrl ke fungsi getDynamicRoutes
-	const dynamicRoutes = command === "build" ? await getDynamicRoutes(apiUrl) : [];
+	const dynamicRoutes =
+		command === "build" ? await getDynamicRoutes(apiUrl) : [];
 
 	return {
 		base: "/",
@@ -85,8 +83,8 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 				dynamicRoutes: dynamicRoutes,
 				exclude: ["/auth/admin", "/dashboard"],
 				generateRobotsTxt: true,
-				robots: [{ userAgent: '*', allow: '/' }]
-			})
+				robots: [{ userAgent: "*", allow: "/" }],
+			}),
 		],
 
 		resolve: {
