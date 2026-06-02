@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import type {
-	AnalyticsDataResponse,
+	AppItem, // Gunakan AppItem dari service yang baru
 	HomeContentResponse,
 } from "@/lib/services/public.service";
 import { publicService } from "@/lib/services/public.service";
@@ -20,9 +20,8 @@ export const publicKeys = {
 	notes: () => [...publicKeys.all, "notes"] as const,
 	note: (slug: string) => [...publicKeys.notes(), slug] as const,
 
-	// Keys untuk Analytics
-	analytics: (appId?: string, start?: string, end?: string) =>
-		[...publicKeys.all, "analytics", appId, start, end] as const,
+	// Keys untuk Apps (Sudah include Analytics)
+	apps: () => [...publicKeys.all, "apps"] as const,
 };
 
 export const publicActions = {
@@ -71,17 +70,12 @@ export const publicActions = {
 		});
 	},
 
-	// --- ANALYTICS ---
-	useGetAnalytics(
-		applicationId?: string,
-		startDate?: string,
-		endDate?: string
-	) {
-		return useQuery<AppResponse<AnalyticsDataResponse>, Error>({
-			queryKey: publicKeys.analytics(applicationId, startDate, endDate),
-			queryFn: () =>
-				publicService.getAnalytics(applicationId, startDate, endDate),
-			staleTime: 300000,
+	// --- APPS (PENGGANTI ANALYTICS) ---
+	useGetApps() {
+		return useQuery<AppResponse<AppItem[]>, Error>({
+			queryKey: publicKeys.apps(),
+			queryFn: () => publicService.getApps(),
+			staleTime: 300000, // 5 menit
 		});
 	},
 };

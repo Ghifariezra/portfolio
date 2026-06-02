@@ -39,17 +39,38 @@ export interface AppInstallItem {
 	installCount: number;
 }
 
-export interface GeoSpreadItem {
+// 1. UPDATE: Interface disesuaikan dengan hasil olahan BE (TopRegions)
+export interface TopRegionItem {
 	market: string;
 	installCount: number;
+	percentage: string;
 }
 
-// Hapus atribut Conversion & PageViews, ganti dengan yang valid
 export interface AnalyticsDataResponse {
 	TotalInstalls: number;
 	DataFreshnessTimestamp: string;
 	Timeline: AppInstallItem[];
-	GeographicalSpread: GeoSpreadItem[];
+	TopRegions: TopRegionItem[];
+}
+
+// 2. TAMBAH: Interface untuk List App yang sudah include analytics
+export interface TagItem {
+	id: string;
+	name: string;
+}
+
+export interface AppItem {
+	id: string;
+	name: string;
+	description: string;
+	image: string;
+	status: string;
+	microsoft_store_id: string | null;
+	url_store: string | null;
+	created_at: string;
+	updated_at: string;
+	tags: string[]; // Sesuaikan jika format tag string[] atau TagItem[]
+	analytics: AnalyticsDataResponse | null;
 }
 
 export class PublicService extends BaseService {
@@ -99,23 +120,11 @@ export class PublicService extends BaseService {
 		);
 	}
 
-	// --- ANALYTICS ---
-	public async getAnalytics(
-		applicationId?: string,
-		startDate?: string,
-		endDate?: string
-	): Promise<AppResponse<AnalyticsDataResponse>> {
-		const params = new URLSearchParams();
-		if (applicationId) params.append("applicationId", applicationId);
-		if (startDate) params.append("startDate", startDate);
-		if (endDate) params.append("endDate", endDate);
-
-		const queryString = params.toString();
-		const url = queryString
-			? `/public/analytics?${queryString}`
-			: "/public/analytics";
-
-		return this.api.get<unknown, AppResponse<AnalyticsDataResponse>>(url);
+	// 3. UPDATE: Method getAnalytics dihapus dan diganti getApps
+	// FE tinggal panggil ini tanpa perlu repot ngirim params apapun
+	// --- APPS & ANALYTICS ---
+	public async getApps(): Promise<AppResponse<AppItem[]>> {
+		return this.api.get<unknown, AppResponse<AppItem[]>>("/public/apps");
 	}
 }
 

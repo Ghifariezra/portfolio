@@ -9,7 +9,8 @@ import {
 	SquaresFour,
 	Sun,
 	Tag,
-	Users, // Import icon untuk Taxonomies
+	Users,
+	WindowsLogoIcon, // Import icon untuk Taxonomies
 } from "@phosphor-icons/react";
 import { Link, Outlet } from "@tanstack/react-router";
 import { useTheme } from "next-themes";
@@ -130,6 +131,31 @@ export function RouteComponent() {
 										<NotePencil size={20} weight="regular" />
 										<span className="uppercase text-xs tracking-wider">
 											Posts
+										</span>
+									</Link>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+
+							{/* POSTS */}
+							<SidebarMenuItem>
+								<SidebarMenuButton
+									asChild
+									className="w-full flex items-center gap-3 px-3 py-2 font-mono font-medium rounded-md border-2 border-transparent transition-all"
+								>
+									<Link
+										to="/dashboard/apps"
+										activeProps={{
+											className:
+												"bg-secondary text-secondary-foreground font-bold shadow-brutal-sm dark:shadow-none dark:border-border hover:opacity-90",
+										}}
+										inactiveProps={{
+											className:
+												"text-muted-foreground hover:bg-muted hover:text-foreground dark:border-transparent dark:hover:border-border",
+										}}
+									>
+										<WindowsLogoIcon size={20} weight="regular" />
+										<span className="uppercase text-xs tracking-wider">
+											Apps
 										</span>
 									</Link>
 								</SidebarMenuButton>
