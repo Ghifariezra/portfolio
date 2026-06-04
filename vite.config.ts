@@ -10,70 +10,48 @@ const isProd = process.env.NODE_ENV === "production";
 // 1. Terima parameter apiUrl untuk dinamisasi endpoint
 async function getDynamicRoutes(apiUrl: string) {
 	try {
-		// Gunakan API URL dari env, dengan fallback URL production kamu
 		const API_URL = apiUrl || "https://api.ezdev.xyz/api/v1";
 
 		const [projectsRes, blogsRes] = await Promise.all([
 			fetch(`${API_URL}/projects`),
-			fetch(`${API_URL}/blogs`), // Sesuai dengan endpoint API terbaru
+			fetch(`${API_URL}/blogs`),
 		]);
 
-		// Fix TS Error: Tentukan tipe kembalian (Type Casting)
 		type ApiResponse = { data?: { slug: string }[] };
 
 		const projects = (await projectsRes.json()) as ApiResponse;
 		const blogs = (await blogsRes.json()) as ApiResponse;
 
-		// Route statis SPA kamu yang tidak ada di API (TERMASUK APPS)
 		const staticRoutes = ["/projects", "/notes", "/contact", "/apps"];
-
-		// Mapping slug dinamis ke format routing frontend
-		const projectRoutes =
-			projects.data?.map((p) => `/projects/${p.slug}`) || [];
-
-		// Data dari endpoint /blogs di-map ke path /notes/
+		const projectRoutes = projects.data?.map((p) => `/projects/${p.slug}`) || [];
 		const noteRoutes = blogs.data?.map((b) => `/notes/${b.slug}`) || [];
 
-		// Gabungkan semuanya: statis + projects + notes(blogs)
 		return [...staticRoutes, ...projectRoutes, ...noteRoutes];
 	} catch (error) {
 		console.error("Gagal mengambil dynamic routes untuk sitemap:", error);
-		// Tetap kembalikan route statis sebagai fallback supaya sitemap tidak kosong melompong
 		return ["/projects", "/notes", "/contact", "/apps"];
 	}
 }
 
-function dropConsolePlugin() {
-	return {
-		name: "drop-console",
-		transform(code: string, id: string) {
-			if (!isProd) return;
-			if (!id.match(/\.[jt]sx?$/)) return;
-			if (id.includes("node_modules")) return;
-			return {
-				code: code
-					.replace(/\bconsole\.(log|debug|info|warn)\s*\([^)]*\);?/g, "")
-					.replace(/\blogger\.(debug|info|warn)\s*\([^)]*\);?/g, ""),
-			};
-		},
-	};
-}
+// FUNGSI dropConsolePlugin DIHAPUS - Kita gunakan esbuild native yang jauh lebih cepat
 
-// 3. Destructure 'mode' selain 'command'
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
-	// 4. Load semua environment variables
 	const env = loadEnv(mode, process.cwd(), "");
 	const apiUrl = env.VITE_API_URL || process.env.VITE_API_URL || "";
 
-	// 5. Lempar apiUrl ke fungsi getDynamicRoutes
-	const dynamicRoutes =
-		command === "build" ? await getDynamicRoutes(apiUrl) : [];
+	const dynamicRoutes = command === "build" ? await getDynamicRoutes(apiUrl) : [];
 
 	return {
 		base: "/",
 
+		// OPTIMASI 1: Gunakan esbuild untuk menghapus console & logger (Blazing Fast)
+		esbuild: {
+			pure: isProd
+				? ['console.log', 'console.info', 'console.debug', 'console.warn', 'logger.info', 'logger.debug', 'logger.warn']
+				: [],
+		},
+
 		plugins: [
-			dropConsolePlugin(),
 			TanStackRouterVite({ autoCodeSplitting: true }),
 			react(),
 			tailwindcss(),
@@ -111,7 +89,6 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 				"@shikijs/core",
 				"@shikijs/engine-javascript",
 			],
-			exclude: [],
 		},
 
 		build: {
@@ -128,32 +105,54 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 						if (id.endsWith(".css")) return true;
 						if (id.includes("@blocknote")) return true;
 						if (id.includes("prosemirror")) return true;
+
+						// OPTIMASI 3: Amankan module yang hanya berisi efek samping global
+						if (id.includes("@fontsource-variable")) return true;
+						if (id.includes("@xyflow")) return true;
+
 						return false;
 					},
 				},
-				// PERBAIKAN: Pindahkan naming rule ke dalam output
 				output: {
 					chunkFileNames: "assets/js/[name]-[hash].js",
 					entryFileNames: "assets/js/[name]-[hash].js",
 					assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
+
 					manualChunks(id) {
 						if (!id.includes("node_modules")) return;
 
+						// Editor
 						if (
 							id.includes("@blocknote") ||
 							id.includes("shiki") ||
 							id.includes("@shikijs") ||
 							id.includes("prosemirror")
-						)
-							return "editor-vendor";
+						) return "editor-vendor";
 
+						// OPTIMASI 2A: Pisahkan Ekosistem Markdown (Sangat Berat)
+						if (
+							id.includes("react-markdown") ||
+							id.includes("remark") ||
+							id.includes("rehype") ||
+							id.includes("micromark") ||
+							id.includes("mdast")
+						) return "markdown-vendor";
+
+						// OPTIMASI 2B: Pisahkan Ekosistem React Flow & Dagre
+						if (
+							id.includes("@xyflow") ||
+							id.includes("dagre")
+						) return "flow-vendor";
+
+						// Framework & Routing
 						if (id.includes("@tanstack/react-router")) return "router";
 						if (id.includes("@tanstack/react-query")) return "query";
-						if (id.includes("react-dom")) return "react-vendor";
-						if (id.includes("/react/") || id.includes("/react@"))
-							return "react-vendor";
-						if (id.includes("@phosphor-icons")) return "icons";
+						if (id.includes("react-dom") || id.includes("/react/") || id.includes("/react@")) return "react-vendor";
 
+						// Tambahan: Gabungkan lucide-react bersama phosphor
+						if (id.includes("@phosphor-icons") || id.includes("lucide-react")) return "icons";
+
+						// UI & State
 						if (
 							id.includes("radix-ui") ||
 							id.includes("tailwind-merge") ||
@@ -161,12 +160,9 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 							id.includes("class-variance-authority") ||
 							id.includes("next-themes") ||
 							id.includes("sonner")
-						)
-							return "ui-vendor";
+						) return "ui-vendor";
 
-						if (id.includes("zustand") || id.includes("zod"))
-							return "state-vendor";
-
+						if (id.includes("zustand") || id.includes("zod")) return "state-vendor";
 						if (id.includes("motion")) return "motion";
 
 						return "vendor";
