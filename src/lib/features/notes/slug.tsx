@@ -7,6 +7,7 @@ import {
 } from "@phosphor-icons/react";
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { memo } from "react";
+import { ColabGistEmbed } from "@/components/shared/gist-colab-block";
 import { Reader } from "@/components/shared/reader";
 import { publicActions } from "@/lib/actions/public.action";
 
@@ -140,6 +141,11 @@ export const RouteComponent = memo(function RouteComponent() {
 					</p>
 				)}
 			</div>
+
+			{/* --- RENDER GIST COLAB DI SINI --- */}
+			{note.embed_type === "github" && note.embed_url && (
+				<ColabGistEmbed url={note.embed_url} />
+			)}
 
 			{/* Footer Artikel (Tags) */}
 			<footer className="pt-8 border-t-2 border-border flex flex-wrap gap-2 items-center">

@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: ... */
 import "@blocknote/core/fonts/inter.css";
 import { codeBlockOptions } from "@blocknote/code-block";
 import { BlockNoteSchema, createCodeBlockSpec } from "@blocknote/core";

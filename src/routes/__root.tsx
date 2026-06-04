@@ -9,8 +9,8 @@ import { ThemeProvider } from "next-themes";
 import { Footer } from "@/components/shared/footer";
 import { Navbar } from "@/components/shared/navbar";
 import { Toaster } from "@/components/ui/sonner";
-import type { useAuthStore } from "@/lib/stores/auth.store";
 import { NotFoundComponent } from "@/lib/features/not-found";
+import type { useAuthStore } from "@/lib/stores/auth.store";
 
 interface MyRouterContext {
 	queryClient: QueryClient;

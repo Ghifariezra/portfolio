@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: ... */
+
 import { codeBlockOptions } from "@blocknote/code-block";
 import {
 	BlockNoteSchema,
