@@ -1,9 +1,11 @@
+/// <reference types="vitest" />
 import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig, loadEnv, type UserConfig } from "vite";
+import { loadEnv, type UserConfig } from "vite";
 import Sitemap from "vite-plugin-sitemap";
+import { defineConfig } from "vitest/config";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -23,7 +25,8 @@ async function getDynamicRoutes(apiUrl: string) {
 		const blogs = (await blogsRes.json()) as ApiResponse;
 
 		const staticRoutes = ["/projects", "/notes", "/contact", "/apps"];
-		const projectRoutes = projects.data?.map((p) => `/projects/${p.slug}`) || [];
+		const projectRoutes =
+			projects.data?.map((p) => `/projects/${p.slug}`) || [];
 		const noteRoutes = blogs.data?.map((b) => `/notes/${b.slug}`) || [];
 
 		return [...staticRoutes, ...projectRoutes, ...noteRoutes];
@@ -39,7 +42,8 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 	const env = loadEnv(mode, process.cwd(), "");
 	const apiUrl = env.VITE_API_URL || process.env.VITE_API_URL || "";
 
-	const dynamicRoutes = command === "build" ? await getDynamicRoutes(apiUrl) : [];
+	const dynamicRoutes =
+		command === "build" ? await getDynamicRoutes(apiUrl) : [];
 
 	return {
 		base: "/",
@@ -47,7 +51,15 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 		// OPTIMASI 1: Gunakan esbuild untuk menghapus console & logger (Blazing Fast)
 		esbuild: {
 			pure: isProd
-				? ['console.log', 'console.info', 'console.debug', 'console.warn', 'logger.info', 'logger.debug', 'logger.warn']
+				? [
+						"console.log",
+						"console.info",
+						"console.debug",
+						"console.warn",
+						"logger.info",
+						"logger.debug",
+						"logger.warn",
+					]
 				: [],
 		},
 
@@ -75,6 +87,28 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 					changeOrigin: true,
 					secure: false,
 				},
+			},
+		},
+
+		test: {
+			globals: true,
+			environment: "jsdom",
+			// setupFiles: ["./test/setup.ts"],
+			include: [
+				"src/**/*.{test,spec}.{ts,tsx}",
+				"test/**/*.{test,spec}.{ts,tsx}",
+			],
+			exclude: ["node_modules", "dist"],
+			passWithNoTests: true,
+			coverage: {
+				provider: "v8",
+				reporter: ["text", "html"],
+				exclude: [
+					"node_modules",
+					"src/routeTree.gen.ts",
+					"src/main.tsx",
+					"**/*.d.ts",
+				],
 			},
 		},
 
@@ -127,7 +161,8 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 							id.includes("shiki") ||
 							id.includes("@shikijs") ||
 							id.includes("prosemirror")
-						) return "editor-vendor";
+						)
+							return "editor-vendor";
 
 						// OPTIMASI 2A: Pisahkan Ekosistem Markdown (Sangat Berat)
 						if (
@@ -136,21 +171,26 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 							id.includes("rehype") ||
 							id.includes("micromark") ||
 							id.includes("mdast")
-						) return "markdown-vendor";
+						)
+							return "markdown-vendor";
 
 						// OPTIMASI 2B: Pisahkan Ekosistem React Flow & Dagre
-						if (
-							id.includes("@xyflow") ||
-							id.includes("dagre")
-						) return "flow-vendor";
+						if (id.includes("@xyflow") || id.includes("dagre"))
+							return "flow-vendor";
 
 						// Framework & Routing
 						if (id.includes("@tanstack/react-router")) return "router";
 						if (id.includes("@tanstack/react-query")) return "query";
-						if (id.includes("react-dom") || id.includes("/react/") || id.includes("/react@")) return "react-vendor";
+						if (
+							id.includes("react-dom") ||
+							id.includes("/react/") ||
+							id.includes("/react@")
+						)
+							return "react-vendor";
 
 						// Tambahan: Gabungkan lucide-react bersama phosphor
-						if (id.includes("@phosphor-icons") || id.includes("lucide-react")) return "icons";
+						if (id.includes("@phosphor-icons") || id.includes("lucide-react"))
+							return "icons";
 
 						// UI & State
 						if (
@@ -160,9 +200,11 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 							id.includes("class-variance-authority") ||
 							id.includes("next-themes") ||
 							id.includes("sonner")
-						) return "ui-vendor";
+						)
+							return "ui-vendor";
 
-						if (id.includes("zustand") || id.includes("zod")) return "state-vendor";
+						if (id.includes("zustand") || id.includes("zod"))
+							return "state-vendor";
 						if (id.includes("motion")) return "motion";
 
 						return "vendor";

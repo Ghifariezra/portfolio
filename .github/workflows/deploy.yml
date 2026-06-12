@@ -16,6 +16,28 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+    test: # TAMBAHKAN JOB BARU INI
+          runs-on: ubuntu-latest
+          steps:
+              - name: Checkout
+                uses: actions/checkout@v4
+
+              - name: Setup pnpm
+                uses: pnpm/action-setup@v4
+                with:
+                    version: 10
+
+              - name: Setup Node
+                uses: actions/setup-node@v4
+                with:
+                    node-version: lts/*
+                    cache: "pnpm"
+
+              - name: Install dependencies
+                run: pnpm install --frozen-lockfile
+
+              - name: Run Tests
+                run: pnpm test:run # Menggunakan script 'vitest run' agar tidak watch mode
     build:
         runs-on: ubuntu-latest
         steps:
