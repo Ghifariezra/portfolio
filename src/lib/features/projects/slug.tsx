@@ -12,6 +12,7 @@ import { getRouteApi, Link } from "@tanstack/react-router";
 import { memo } from "react";
 import { Reader } from "@/components/shared/reader";
 import { publicActions } from "@/lib/actions/public.action";
+import { ColabGistEmbed } from "@/components/shared/gist-colab-block";
 
 // Pastikan path ini sesuai dengan tempat kamu menyimpan komponen Reader tadi
 
@@ -229,6 +230,12 @@ export const RouteComponent = memo(function RouteComponent() {
 				) : (
 					<div className="italic text-muted-foreground font-mono bg-muted p-8 rounded-lg border-2 border-dashed border-border text-center">
 						No detailed content provided for this project.
+					</div>
+				)}
+
+				{project.embed_type === "github" && project.embed_url && (
+					<div className="mt-12">
+						<ColabGistEmbed url={project.embed_url} />
 					</div>
 				)}
 			</section>
