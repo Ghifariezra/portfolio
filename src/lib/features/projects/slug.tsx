@@ -72,8 +72,6 @@ export const RouteComponent = memo(function RouteComponent() {
 	// --- FORMAT DATA UTILITY ---
 	const isCompleted = project.progress >= 100;
 
-	console.log("Project Data:", project); // Debugging: Log data proyek yang diterima
-
 	return (
 		<article className="grow w-full max-w-4xl mx-auto px-6 py-20 flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500">
 			{/* Navigasi Kembali */}

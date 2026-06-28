@@ -202,14 +202,35 @@ export const Reader = memo(function Reader({ content }: { content: string }) {
 
 			const transformBlocks = (blocks: any[]): any[] => {
 				return blocks.map((block) => {
+					// 1. Tangkap jika user menggunakan blok Embed atau File secara langsung
 					if ((block.type === "embed" || block.type === "file") && block.props?.url) {
 						const url = block.props.url as string;
-
 						if (url.includes("docs.google.com/presentation")) {
 							return {
 								...block,
-								type: "googleSlides", // Arahkan ke block baru
+								type: "googleSlides",
 								props: { ...block.props, url },
+							};
+						}
+					}
+
+					// 2. Tangkap jika user menempelkan link secara langsung di dalam paragraf (Teks biasa)
+					if (block.type === "paragraph" && Array.isArray(block.content)) {
+						// Cek apakah di dalam content paragraf terdapat link presentasi Google Docs
+						const hasSlidesLink = block.content.some((item: any) =>
+							item.type === "link" && item.href?.includes("docs.google.com/presentation")
+						);
+
+						if (hasSlidesLink) {
+							const linkNode = block.content.find((item: any) =>
+								item.href?.includes("docs.google.com/presentation")
+							);
+
+							return {
+								...block,
+								type: "googleSlides",
+								props: { url: linkNode.href },
+								content: undefined,
 							};
 						}
 					}
