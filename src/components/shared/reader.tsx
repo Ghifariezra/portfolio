@@ -19,6 +19,8 @@ import { createHighlighter } from "shiki";
 import jsonGrammar from "shiki/langs/json.mjs";
 import { FileTreeBlock } from "@/components/shared/file-tree-block";
 import { ReactFlowBlock } from "@/components/shared/react-flow-block";
+import { PdfEmbedBlock } from "@/components/shared/pdf-embed-block";
+import { GoogleSlidesBlock } from "@/components/shared/google-slides-block";
 
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
@@ -95,6 +97,8 @@ function makeSchema(isDark: boolean) {
 			// Masukkan Block Custom kita!
 			fileTree: FileTreeBlock(),
 			reactFlow: ReactFlowBlock(),
+			pdfEmbed: PdfEmbedBlock(),
+			googleSlides: GoogleSlidesBlock(),
 			// Masukkan konfigurasi Shiki Code Block
 			codeBlock: createCodeBlockSpec({
 				...codeBlockOptions,
@@ -198,6 +202,36 @@ export const Reader = memo(function Reader({ content }: { content: string }) {
 
 			const transformBlocks = (blocks: any[]): any[] => {
 				return blocks.map((block) => {
+					if ((block.type === "embed" || block.type === "file") && block.props?.url) {
+						const url = block.props.url as string;
+
+						if (url.includes("docs.google.com/presentation")) {
+							return {
+								...block,
+								type: "googleSlides", // Arahkan ke block baru
+								props: { ...block.props, url },
+							};
+						}
+					}
+
+					if (block.type === "file" && block.props?.url) {
+						const fileName = block.props.name || "";
+						const fileUrl = block.props.url || "";
+						const isPdf = fileName.toLowerCase().endsWith(".pdf") ||
+							fileUrl.toLowerCase().includes(".pdf");
+
+						if (isPdf) {
+							return {
+								...block,
+								type: "pdfEmbed",
+								props: {
+									...block.props,
+									url: block.props.url,
+								},
+							};
+						}
+					}
+
 					if (block.type === "codeBlock") {
 						if (block.props?.language === "file-tree") {
 							return { ...block, type: "fileTree" };

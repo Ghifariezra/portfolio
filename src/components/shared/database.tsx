@@ -35,7 +35,7 @@ const DatabaseSchema = memo(({ data }: DatabaseSchemaNodeData) => {
 							{/* KOLOM KIRI (Target): Diberi flex-1 agar mengambil ruang maksimal */}
 							<div className="flex-1 flex items-center min-w-0 pl-2 py-2">
 								<LabeledHandle
-									// id={entry.title}
+									id={entry.title || "default-target"} // AKTIFKAN INI
 									title={entry.title}
 									type="target"
 									position={Position.Left}
@@ -52,7 +52,7 @@ const DatabaseSchema = memo(({ data }: DatabaseSchemaNodeData) => {
                                     {entry.type}
                                 </span> */}
 								<LabeledHandle
-									// id={entry.title}
+									id={entry.title || "default-target"} // AKTIFKAN INI
 									title={entry.type}
 									type="source"
 									position={Position.Right}
