@@ -1,7 +1,6 @@
 import {
 	ArrowRight,
 	ArrowUpRight,
-	Certificate,
 	CheckCircle,
 	Code,
 	GithubLogo,
@@ -12,6 +11,7 @@ import {
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { publicActions } from "@/lib/actions/public.action";
+import { CollapsCertificated } from "@/components/collaps-certificated";
 
 export function RouteComponent() {
 	// 1. Panggil Hook untuk mengambil data Home Content
@@ -218,53 +218,7 @@ export function RouteComponent() {
 			</section>
 
 			{/* ─── CERTIFICATIONS ─── */}
-			<section className="mb-20" id="certificates">
-				<h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground mb-8 flex items-center gap-4">
-					<span className="w-8 h-0.5 bg-border block"></span>
-					Certifications
-				</h2>
-
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-					{certificates?.length > 0 ? (
-						certificates.map((cert) => (
-							<div
-								key={cert.id}
-								className="bg-card border-2 border-border rounded-lg flex flex-col overflow-hidden hover:border-foreground transition-all group hover:shadow-brutal dark:hover:shadow-none dark:hover:border-primary/50"
-							>
-								{cert.image && (
-									<div className="aspect-4/3 w-full border-b-2 border-border overflow-hidden relative bg-muted flex items-center justify-center">
-										<div className="absolute inset-0 bg-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-										<img
-											src={cert.image}
-											alt={cert.name}
-											className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-										/>
-									</div>
-								)}
-
-								<div className="p-4 flex flex-col grow">
-									<h3 className="font-heading text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">
-										{cert.name}
-									</h3>
-									<p className="font-mono text-xs font-semibold text-muted-foreground mt-auto pt-2 flex items-center gap-1.5">
-										<Certificate
-											weight="fill"
-											className="w-4 h-4 text-primary shrink-0"
-										/>
-										<span className="truncate">{cert.type_certified}</span>
-									</p>
-								</div>
-							</div>
-						))
-					) : (
-						<div className="col-span-1 sm:col-span-2 lg:col-span-4 p-8 border-2 border-dashed border-border rounded-lg text-center bg-muted/50">
-							<p className="font-mono text-sm text-muted-foreground uppercase tracking-widest">
-								No certifications yet.
-							</p>
-						</div>
-					)}
-				</div>
-			</section>
+			<CollapsCertificated certificates={certificates} />
 
 			{/* ─── FEATURED PROJECTS ─── */}
 			<section className="mb-20" id="projects">
