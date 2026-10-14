@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as GithubRouteImport } from './routes/github'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
@@ -32,6 +33,11 @@ import { Route as DashboardProjectsEditProjectIdRouteImport } from './routes/das
 import { Route as DashboardPostsEditPostIdRouteImport } from './routes/dashboard/posts/edit/$postId'
 import { Route as DashboardAppsEditAppIdRouteImport } from './routes/dashboard/apps/edit/$appId'
 
+const GithubRoute = GithubRouteImport.update({
+  id: '/github',
+  path: '/github',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/github': typeof GithubRoute
   '/auth/admin': typeof AuthAdminRoute
   '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -172,6 +179,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/github': typeof GithubRoute
   '/auth/admin': typeof AuthAdminRoute
   '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -197,6 +205,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/github': typeof GithubRoute
   '/auth/admin': typeof AuthAdminRoute
   '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -223,6 +232,7 @@ export interface FileRouteTypes {
     | '/'
     | '/contact'
     | '/dashboard'
+    | '/github'
     | '/auth/admin'
     | '/dashboard/collaborators'
     | '/dashboard/settings'
@@ -246,6 +256,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contact'
+    | '/github'
     | '/auth/admin'
     | '/dashboard/collaborators'
     | '/dashboard/settings'
@@ -270,6 +281,7 @@ export interface FileRouteTypes {
     | '/'
     | '/contact'
     | '/dashboard'
+    | '/github'
     | '/auth/admin'
     | '/dashboard/collaborators'
     | '/dashboard/settings'
@@ -295,6 +307,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRouteWithChildren
+  GithubRoute: typeof GithubRoute
   AuthAdminRoute: typeof AuthAdminRoute
   NotesSlugRoute: typeof NotesSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
@@ -305,6 +318,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/github': {
+      id: '/github'
+      path: '/github'
+      fullPath: '/github'
+      preLoaderRoute: typeof GithubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -502,6 +522,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  GithubRoute: GithubRoute,
   AuthAdminRoute: AuthAdminRoute,
   NotesSlugRoute: NotesSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,

@@ -16,6 +16,7 @@ export function Navbar() {
 		{ to: "/projects", label: "Projects" },
 		{ to: "/notes", label: "Notes" },
 		{ to: "/apps", label: "Apps" },
+		{ to: "/github", label: "GitHub" },
 		{ to: "/contact", label: "Contact" },
 	];
 

@@ -73,6 +73,44 @@ export interface AppItem {
 	analytics: AnalyticsDataResponse | null;
 }
 
+export interface GithubContributionDay {
+	date: string;
+	contributionCount: number;
+	color: string;
+	weekday: number;
+}
+
+export interface GithubContributions {
+	total: number;
+	commits: number;
+	pullRequests: number;
+	issues: number;
+	reviews: number;
+	privateContributions: number;
+	weeks: GithubContributionDay[][];
+}
+
+export interface GithubActivityItem {
+	id: string;
+	type: string;
+	repo: string;
+	createdAt: string;
+	action: string | null;
+	commits: number | null;
+	ref: string | null;
+	title: string | null;
+	url: string | null;
+}
+
+export interface GithubProfile {
+	login: string;
+	avatar: string;
+	url: string;
+	followers: number;
+	following: number;
+	publicRepos: number;
+}
+
 export class PublicService extends BaseService {
 	private static instance: PublicService;
 
@@ -125,6 +163,25 @@ export class PublicService extends BaseService {
 	// --- APPS & ANALYTICS ---
 	public async getApps(): Promise<AppResponse<AppItem[]>> {
 		return this.api.get<unknown, AppResponse<AppItem[]>>("/public/apps");
+	}
+
+	// --- GITHUB ---
+	public async getGithubContributions(): Promise<AppResponse<GithubContributions>> {
+		return this.api.get<unknown, AppResponse<GithubContributions>>(
+			"/public/github/contributions"
+		);
+	}
+
+	public async getGithubActivity(limit = 10): Promise<AppResponse<GithubActivityItem[]>> {
+		return this.api.get<unknown, AppResponse<GithubActivityItem[]>>(
+			`/public/github/activity?limit=${limit}`
+		);
+	}
+
+	public async getGithubProfile(): Promise<AppResponse<GithubProfile>> {
+		return this.api.get<unknown, AppResponse<GithubProfile>>(
+			"/public/github/profile"
+		);
 	}
 }
 

@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import type {
-	AppItem, // Gunakan AppItem dari service yang baru
+	AppItem,
+	GithubActivityItem,
+	GithubContributions,
+	GithubProfile,
 	HomeContentResponse,
 } from "@/lib/services/public.service";
 import { publicService } from "@/lib/services/public.service";
@@ -22,6 +25,13 @@ export const publicKeys = {
 
 	// Keys untuk Apps (Sudah include Analytics)
 	apps: () => [...publicKeys.all, "apps"] as const,
+
+	// Keys untuk GitHub
+	github: () => [...publicKeys.all, "github"] as const,
+	githubContributions: () => [...publicKeys.github(), "contributions"] as const,
+	githubActivity: (limit: number) =>
+		[...publicKeys.github(), "activity", limit] as const,
+	githubProfile: () => [...publicKeys.github(), "profile"] as const,
 };
 
 export const publicActions = {
@@ -76,6 +86,34 @@ export const publicActions = {
 			queryKey: publicKeys.apps(),
 			queryFn: () => publicService.getApps(),
 			staleTime: 300000, // 5 menit
+		});
+	},
+
+	// --- GITHUB ---
+	useGetGithubContributions() {
+		return useQuery<AppResponse<GithubContributions>, Error>({
+			queryKey: publicKeys.githubContributions(),
+			queryFn: () => publicService.getGithubContributions(),
+			staleTime: 3600000, // 1 jam
+			retry: 1,
+		});
+	},
+
+	useGetGithubActivity(limit = 10) {
+		return useQuery<AppResponse<GithubActivityItem[]>, Error>({
+			queryKey: publicKeys.githubActivity(limit),
+			queryFn: () => publicService.getGithubActivity(limit),
+			staleTime: 300000,
+			retry: 1,
+		});
+	},
+
+	useGetGithubProfile() {
+		return useQuery<AppResponse<GithubProfile>, Error>({
+			queryKey: publicKeys.githubProfile(),
+			queryFn: () => publicService.getGithubProfile(),
+			staleTime: 3600000,
+			retry: 1,
 		});
 	},
 };
