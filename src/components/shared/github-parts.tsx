@@ -1,5 +1,6 @@
 import {
 	ChatCircle,
+	ChatsCircle,
 	Circle,
 	Eye,
 	GitBranch,
@@ -61,6 +62,10 @@ export function describeEvent(e: GithubActivityItem) {
 			return e.ref ? `Created ${e.ref} in` : "Created";
 		case "DeleteEvent":
 			return `Deleted ${e.ref ?? "a ref"} in`;
+        case "DiscussionEvent":
+            return `${e.action ?? "Started"} a discussion in`;
+        case "DiscussionCommentEvent":
+            return "Commented on a discussion in";
 		default:
 			return `${e.type.replace("Event", "")} in`;
 	}
@@ -83,6 +88,9 @@ function EventIcon({ type }: { type: string }) {
 			return <GitBranch weight="bold" className={cls} />;
 		case "DeleteEvent":
 			return <Trash weight="bold" className={cls} />;
+        case "DiscussionEvent":
+        case "DiscussionCommentEvent":
+            return <ChatsCircle weight="bold" className={cls} />;
 		default:
 			return <Circle weight="bold" className={cls} />;
 	}

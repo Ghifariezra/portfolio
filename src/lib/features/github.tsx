@@ -17,6 +17,9 @@ function categoryOf(type: string): string {
 		case "IssuesEvent":
 		case "IssueCommentEvent":
 			return "Issues & Comments";
+		case "DiscussionEvent":
+		case "DiscussionCommentEvent":
+			return "Discussions";
 		case "CreateEvent":
 		case "DeleteEvent":
 			return "Branches";
@@ -49,11 +52,10 @@ function FilterButton({
 		<button
 			type="button"
 			onClick={onClick}
-			className={`px-5 py-2 rounded-md font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer border-2 ${
-				active
+			className={`px-5 py-2 rounded-md font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer border-2 ${active
 					? "bg-primary text-primary-foreground border-primary shadow-brutal-sm dark:shadow-none translate-x-0.5 translate-y-0.5"
 					: "border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground shadow-brutal-sm dark:shadow-none hover:translate-x-0.5 hover:translate-y-0.5"
-			}`}
+				}`}
 		>
 			{children}
 		</button>
@@ -141,12 +143,14 @@ export function RouteComponent() {
 
 	const statCards = stats
 		? [
-				{ label: "Contributions", value: stats.total },
-				{ label: "Commits", value: stats.commits },
-				{ label: "Pull Requests", value: stats.pullRequests },
-				{ label: "Issues", value: stats.issues },
-				{ label: "Reviews", value: stats.reviews },
-			]
+			{ label: "Contributions", value: stats.total },
+			{ label: "Commits", value: stats.commits },
+			{ label: "Pull Requests", value: stats.pullRequests },
+			{ label: "Issues", value: stats.issues },
+			{ label: "Reviews", value: stats.reviews },
+			// { label: "Discussions", value: stats.discussions },
+			// { label: "Discussion Replies", value: stats.discussionComments },
+		]
 		: [];
 
 	return (

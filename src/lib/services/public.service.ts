@@ -86,6 +86,8 @@ export interface GithubContributions {
 	pullRequests: number;
 	issues: number;
 	reviews: number;
+	discussions: number;
+	discussionComments: number;
 	privateContributions: number;
 	weeks: GithubContributionDay[][];
 }
