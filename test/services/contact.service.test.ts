@@ -1,7 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-// Sesuaikan path import dengan struktur foldermu
-import { contactService, ContactService } from "../../src/lib/services/contact.service";
 import type { ContactForm } from "@/lib/schemas/contact.schema";
+// Sesuaikan path import dengan struktur foldermu
+import {
+	ContactService,
+	contactService,
+} from "../../src/lib/services/contact.service";
 
 describe("ContactService Specification", () => {
 	describe("Singleton Pattern", () => {

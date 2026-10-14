@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { scheduleActions, scheduleKeys } from "@/lib/actions/schedule.action";
 // Sesuaikan path import dengan struktur foldermu
 import { scheduleService } from "@/lib/services/schedule.service";
-import { scheduleActions, scheduleKeys } from "@/lib/actions/schedule.action";
 
 const createWrapper = () => {
 	const queryClient = new QueryClient({
@@ -12,9 +12,7 @@ const createWrapper = () => {
 	return {
 		queryClient,
 		wrapper: ({ children }: { children: React.ReactNode }) => (
-			<QueryClientProvider client={queryClient}>
-				{children}
-			</QueryClientProvider>
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 		),
 	};
 };
@@ -34,9 +32,13 @@ describe("Schedule Hooks Specification", () => {
 	describe("Queries", () => {
 		it("useGetSchedules: harus memanggil getSchedules service", async () => {
 			const { wrapper } = createWrapper();
-			const spy = vi.spyOn(scheduleService, "getSchedules").mockResolvedValue({ success: true, data: [] } as any);
+			const spy = vi
+				.spyOn(scheduleService, "getSchedules")
+				.mockResolvedValue({ success: true, data: [] } as any);
 
-			const { result } = renderHook(() => scheduleActions.useGetSchedules(), { wrapper });
+			const { result } = renderHook(() => scheduleActions.useGetSchedules(), {
+				wrapper,
+			});
 
 			await waitFor(() => expect(result.current.isSuccess).toBe(true));
 			expect(spy).toHaveBeenCalledTimes(1);
@@ -47,28 +49,40 @@ describe("Schedule Hooks Specification", () => {
 		it("useUpsertSchedule: harus memanggil upsertSchedule dan me-reset cache lists", async () => {
 			const { wrapper, queryClient } = createWrapper();
 			const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
-			const serviceSpy = vi.spyOn(scheduleService, "upsertSchedule").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(scheduleService, "upsertSchedule")
+				.mockResolvedValue({ success: true } as any);
 
-			const { result } = renderHook(() => scheduleActions.useUpsertSchedule(), { wrapper });
+			const { result } = renderHook(() => scheduleActions.useUpsertSchedule(), {
+				wrapper,
+			});
 			const mockPayload = { title: "Meeting" } as any;
 
 			await result.current.mutateAsync(mockPayload);
 
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
-			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: scheduleKeys.lists() });
+			expect(invalidateSpy).toHaveBeenCalledWith({
+				queryKey: scheduleKeys.lists(),
+			});
 		});
 
 		it("useDeleteSchedule: harus memanggil deleteSchedule dan me-reset cache lists", async () => {
 			const { wrapper, queryClient } = createWrapper();
 			const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
-			const serviceSpy = vi.spyOn(scheduleService, "deleteSchedule").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(scheduleService, "deleteSchedule")
+				.mockResolvedValue({ success: true } as any);
 
-			const { result } = renderHook(() => scheduleActions.useDeleteSchedule(), { wrapper });
+			const { result } = renderHook(() => scheduleActions.useDeleteSchedule(), {
+				wrapper,
+			});
 
 			await result.current.mutateAsync("sched-123");
 
 			expect(serviceSpy).toHaveBeenCalledWith("sched-123");
-			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: scheduleKeys.lists() });
+			expect(invalidateSpy).toHaveBeenCalledWith({
+				queryKey: scheduleKeys.lists(),
+			});
 		});
 	});
 });

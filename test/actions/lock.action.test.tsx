@@ -1,10 +1,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { lockActions } from "@/lib/actions/lock.action";
+import type {
+	LockContentForm,
+	UnlockContentForm,
+} from "@/lib/schemas/lock.schema";
 // Sesuaikan path import dengan foldermu
 import { lockService } from "@/lib/services/lock.service";
-import { lockActions } from "@/lib/actions/lock.action";
-import type { LockContentForm, UnlockContentForm } from "@/lib/schemas/lock.schema";
 
 const createWrapper = () => {
 	const queryClient = new QueryClient({
@@ -13,9 +16,7 @@ const createWrapper = () => {
 	return {
 		queryClient,
 		wrapper: ({ children }: { children: React.ReactNode }) => (
-			<QueryClientProvider client={queryClient}>
-				{children}
-			</QueryClientProvider>
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 		),
 	};
 };
@@ -28,7 +29,9 @@ describe("Lock Hooks Specification", () => {
 	describe("Mutations", () => {
 		it("useLock: harus memanggil lock service dengan payload yang benar", async () => {
 			const { wrapper } = createWrapper();
-			const serviceSpy = vi.spyOn(lockService, "lock").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(lockService, "lock")
+				.mockResolvedValue({ success: true } as any);
 
 			const { result } = renderHook(() => lockActions.useLock(), { wrapper });
 
@@ -46,7 +49,9 @@ describe("Lock Hooks Specification", () => {
 
 		it("useUnlock: harus memanggil unlock service dengan payload yang benar", async () => {
 			const { wrapper } = createWrapper();
-			const serviceSpy = vi.spyOn(lockService, "unlock").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(lockService, "unlock")
+				.mockResolvedValue({ success: true } as any);
 
 			const { result } = renderHook(() => lockActions.useUnlock(), { wrapper });
 

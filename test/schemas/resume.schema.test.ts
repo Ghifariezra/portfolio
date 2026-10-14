@@ -8,7 +8,6 @@ import {
 const VALID_UUID = "123e4567-e89b-12d3-a456-426614174000";
 
 describe("Resume Schema Specification", () => {
-
 	// ==========================================
 	// 1. PENGUJIAN UPSERT SKILL
 	// ==========================================
@@ -32,7 +31,9 @@ describe("Resume Schema Specification", () => {
 			const result = upsertSkillSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const issue = result.error.issues.find((i: ZodIssue) => i.path.includes("user_id"));
+				const issue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("user_id")
+				);
 				expect(issue?.message).toBe("Invalid User ID");
 			}
 		});
@@ -74,7 +75,7 @@ describe("Resume Schema Specification", () => {
 			const result = upsertCertificateSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 
-			const issues = result.error?.issues.map(i => i.message);
+			const issues = result.error?.issues.map((i) => i.message);
 			expect(issues).toContain("Certificate name is required");
 			expect(issues).toContain("Certificate type is required");
 		});
@@ -89,7 +90,9 @@ describe("Resume Schema Specification", () => {
 			const result = upsertCertificateSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const issue = result.error.issues.find((i: ZodIssue) => i.path.includes("image"));
+				const issue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("image")
+				);
 				expect(issue?.message).toBe("Invalid image URL");
 			}
 		});

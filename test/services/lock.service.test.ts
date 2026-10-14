@@ -1,7 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type {
+	LockContentForm,
+	UnlockContentForm,
+} from "@/lib/schemas/lock.schema";
 // Sesuaikan path import dengan struktur foldermu
-import { lockService, LockService } from "../../src/lib/services/lock.service";
-import type { LockContentForm, UnlockContentForm } from "@/lib/schemas/lock.schema";
+import { LockService, lockService } from "../../src/lib/services/lock.service";
 
 describe("LockService Specification", () => {
 	describe("Singleton Pattern", () => {

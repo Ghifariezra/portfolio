@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { contactService } from "@/lib/services/contact.service";
 import { contactActions, contactKeys } from "@/lib/actions/contact.action";
+import { contactService } from "@/lib/services/contact.service";
 
 const createWrapper = () => {
 	const queryClient = new QueryClient({
@@ -11,9 +11,7 @@ const createWrapper = () => {
 	return {
 		queryClient,
 		wrapper: ({ children }: { children: React.ReactNode }) => (
-			<QueryClientProvider client={queryClient}>
-				{children}
-			</QueryClientProvider>
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 		),
 	};
 };
@@ -33,9 +31,13 @@ describe("Contact Hooks Specification", () => {
 	describe("Mutations", () => {
 		it("useSendMessage: harus memanggil sendMessage service dengan payload yang benar", async () => {
 			const { wrapper } = createWrapper();
-			const serviceSpy = vi.spyOn(contactService, "sendMessage").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(contactService, "sendMessage")
+				.mockResolvedValue({ success: true } as any);
 
-			const { result } = renderHook(() => contactActions.useSendMessage(), { wrapper });
+			const { result } = renderHook(() => contactActions.useSendMessage(), {
+				wrapper,
+			});
 
 			const mockPayload = {
 				name: "John Doe",

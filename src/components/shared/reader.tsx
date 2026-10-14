@@ -18,9 +18,9 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { createHighlighter } from "shiki";
 import jsonGrammar from "shiki/langs/json.mjs";
 import { FileTreeBlock } from "@/components/shared/file-tree-block";
-import { ReactFlowBlock } from "@/components/shared/react-flow-block";
-import { PdfEmbedBlock } from "@/components/shared/pdf-embed-block";
 import { GoogleSlidesBlock } from "@/components/shared/google-slides-block";
+import { PdfEmbedBlock } from "@/components/shared/pdf-embed-block";
+import { ReactFlowBlock } from "@/components/shared/react-flow-block";
 
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
@@ -203,7 +203,10 @@ export const Reader = memo(function Reader({ content }: { content: string }) {
 			const transformBlocks = (blocks: any[]): any[] => {
 				return blocks.map((block) => {
 					// 1. Tangkap jika user menggunakan blok Embed atau File secara langsung
-					if ((block.type === "embed" || block.type === "file") && block.props?.url) {
+					if (
+						(block.type === "embed" || block.type === "file") &&
+						block.props?.url
+					) {
 						const url = block.props.url as string;
 						if (url.includes("docs.google.com/presentation")) {
 							return {
@@ -217,8 +220,10 @@ export const Reader = memo(function Reader({ content }: { content: string }) {
 					// 2. Tangkap jika user menempelkan link secara langsung di dalam paragraf (Teks biasa)
 					if (block.type === "paragraph" && Array.isArray(block.content)) {
 						// Cek apakah di dalam content paragraf terdapat link presentasi Google Docs
-						const hasSlidesLink = block.content.some((item: any) =>
-							item.type === "link" && item.href?.includes("docs.google.com/presentation")
+						const hasSlidesLink = block.content.some(
+							(item: any) =>
+								item.type === "link" &&
+								item.href?.includes("docs.google.com/presentation")
 						);
 
 						if (hasSlidesLink) {
@@ -238,7 +243,8 @@ export const Reader = memo(function Reader({ content }: { content: string }) {
 					if (block.type === "file" && block.props?.url) {
 						const fileName = block.props.name || "";
 						const fileUrl = block.props.url || "";
-						const isPdf = fileName.toLowerCase().endsWith(".pdf") ||
+						const isPdf =
+							fileName.toLowerCase().endsWith(".pdf") ||
 							fileUrl.toLowerCase().includes(".pdf");
 
 						if (isPdf) {

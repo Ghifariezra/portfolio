@@ -4,6 +4,7 @@ import type {
 	UpsertBlogForm,
 } from "@/lib/schemas/blog.schema";
 import { blogService } from "@/lib/services/blog.service";
+import { publicKeys } from "./public.action";
 
 export const blogKeys = {
 	all: ["blogs"] as const,
@@ -44,9 +45,11 @@ export const blogActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (payload: UpsertBlogForm) => blogService.upsertBlog(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: blogKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: blogKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -54,9 +57,11 @@ export const blogActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (id: string) => blogService.deleteBlog(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: blogKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: blogKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -65,9 +70,11 @@ export const blogActions = {
 		return useMutation({
 			mutationFn: (payload: AssignBlogTagsForm) =>
 				blogService.assignTags(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: blogKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: blogKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 };

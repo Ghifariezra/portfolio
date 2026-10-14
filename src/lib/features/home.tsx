@@ -10,9 +10,9 @@ import {
 	Wrench,
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
-import { publicActions } from "@/lib/actions/public.action";
 import { CollapsCertificated } from "@/components/collaps-certificated";
 import { GithubActivity } from "@/components/shared/github-activity";
+import { publicActions } from "@/lib/actions/public.action";
 
 export function RouteComponent() {
 	// 1. Panggil Hook untuk mengambil data Home Content

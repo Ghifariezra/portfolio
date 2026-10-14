@@ -1,7 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { LoginForm, UpsertUserForm } from "@/lib/schemas/user.schema";
 import { userService } from "@/lib/services/user.service";
 import type { AppResponse } from "@/utils/middleware";
+import { publicKeys } from "./public.action";
 
 export const userKeys = {
 	all: ["user"] as const,
@@ -36,9 +37,14 @@ export const userActions = {
 	},
 
 	useUpsertProfile() {
+		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, UpsertUserForm>({
-			mutationFn: (payload: UpsertUserForm) =>
-				userService.upsertProfile(payload),
+			mutationFn: (payload) => userService.upsertProfile(payload),
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: userKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.home() }),
+				]),
 		});
 	},
 };

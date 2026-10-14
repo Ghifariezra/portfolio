@@ -22,16 +22,24 @@ describe("Contact Schema Specification", () => {
 	});
 
 	it("harus gagal jika nama kurang dari 2 karakter", () => {
-		const data = { name: "A", email: "test@test.com", message: "Pesan minimal 10 karakter" };
+		const data = {
+			name: "A",
+			email: "test@test.com",
+			message: "Pesan minimal 10 karakter",
+		};
 		const result = contactSchema.safeParse(data);
 		expect(result.success).toBe(false);
-		expect(result.error?.issues[0].message).toBe("Name must be at least 2 characters");
+		expect(result.error?.issues[0].message).toBe(
+			"Name must be at least 2 characters"
+		);
 	});
 
 	it("harus gagal jika pesan kurang dari 10 karakter", () => {
 		const data = { name: "Budi", email: "test@test.com", message: "Singkat" };
 		const result = contactSchema.safeParse(data);
 		expect(result.success).toBe(false);
-		expect(result.error?.issues[0].message).toBe("Message must be at least 10 characters");
+		expect(result.error?.issues[0].message).toBe(
+			"Message must be at least 10 characters"
+		);
 	});
 });

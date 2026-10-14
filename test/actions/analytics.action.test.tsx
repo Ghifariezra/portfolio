@@ -1,9 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+	analyticsActions,
+	analyticsKeys,
+} from "@/lib/actions/analytics.action";
 // Sesuaikan path import
 import { analyticsService } from "@/lib/services/analytics.service";
-import { analyticsActions, analyticsKeys } from "@/lib/actions/analytics.action";
 
 // Bantuan untuk membuat environment React Query yang bersih setiap test
 const createWrapper = () => {
@@ -13,11 +16,9 @@ const createWrapper = () => {
 	return {
 		queryClient,
 		wrapper: ({ children }: { children: React.ReactNode }) => (
-			<QueryClientProvider client= { queryClient } >
-			{ children }
-			</QueryClientProvider>
-        ),
-    };
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+		),
+	};
 };
 
 describe("Analytics Hooks Specification", () => {
@@ -39,11 +40,18 @@ describe("Analytics Hooks Specification", () => {
 	describe("useGetOverview", () => {
 		it("harus memanggil analyticsService.getOverviewAnalytics dan me-return data", async () => {
 			const { wrapper } = createWrapper();
-			const mockResponse = { success: true, data: { metrics: {}, recentActivities: [] } } as any;
+			const mockResponse = {
+				success: true,
+				data: { metrics: {}, recentActivities: [] },
+			} as any;
 
-			vi.mocked(analyticsService.getOverviewAnalytics).mockResolvedValue(mockResponse);
+			vi.mocked(analyticsService.getOverviewAnalytics).mockResolvedValue(
+				mockResponse
+			);
 
-			const { result } = renderHook(() => analyticsActions.useGetOverview(), { wrapper });
+			const { result } = renderHook(() => analyticsActions.useGetOverview(), {
+				wrapper,
+			});
 
 			// Tunggu sampai query selesai (isSuccess = true)
 			await waitFor(() => expect(result.current.isSuccess).toBe(true));

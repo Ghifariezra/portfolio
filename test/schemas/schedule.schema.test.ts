@@ -11,7 +11,6 @@ const VALID_UUID_1 = "123e4567-e89b-12d3-a456-426614174000";
 const VALID_UUID_2 = "987f6543-e21b-34c5-b678-537725285111";
 
 describe("Schedule Schema Specification", () => {
-
 	// ==========================================
 	// 1. PENGUJIAN LOGIKA XOR (BLOG vs PROJECT)
 	// ==========================================
@@ -48,8 +47,12 @@ describe("Schedule Schema Specification", () => {
 			const result = upsertScheduleSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const xorIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("project_id"));
-				expect(xorIssue?.message).toBe("You must provide either a Blog ID or a Project ID, but not both.");
+				const xorIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("project_id")
+				);
+				expect(xorIssue?.message).toBe(
+					"You must provide either a Blog ID or a Project ID, but not both."
+				);
 			}
 		});
 
@@ -63,8 +66,12 @@ describe("Schedule Schema Specification", () => {
 			const result = upsertScheduleSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const xorIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("project_id"));
-				expect(xorIssue?.message).toBe("You must provide either a Blog ID or a Project ID, but not both.");
+				const xorIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("project_id")
+				);
+				expect(xorIssue?.message).toBe(
+					"You must provide either a Blog ID or a Project ID, but not both."
+				);
 			}
 		});
 	});
@@ -93,7 +100,11 @@ describe("Schedule Schema Specification", () => {
 
 				// Cukup pastikan kodenya benar, yaitu invalid_enum_value ATAU invalid_type
 				// Zod versi terbaru terkadang menggunakan 'invalid_type' untuk enum
-				const validCodes = ['invalid_enum_value', 'invalid_type', 'invalid_value'];
+				const validCodes = [
+					"invalid_enum_value",
+					"invalid_type",
+					"invalid_value",
+				];
 				expect(validCodes).toContain(statusIssue?.code);
 			}
 		});
@@ -108,7 +119,9 @@ describe("Schedule Schema Specification", () => {
 			const result = upsertScheduleSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const issue = result.error.issues.find((i: ZodIssue) => i.path.includes("blog_id"));
+				const issue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("blog_id")
+				);
 				expect(issue?.message).toBe("Invalid Blog ID");
 			}
 		});

@@ -34,14 +34,18 @@ describe("Project Schema Specification", () => {
 			const invalidData = {
 				user_id: "123e4567-e89b-12d3-a456-426614174000",
 				title: "", // Tidak valid, minimal 1 karakter
-				slug: "",  // Tidak valid
+				slug: "", // Tidak valid
 			};
 
 			const result = upsertProjectSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const titleIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("title"));
-				const slugIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("slug"));
+				const titleIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("title")
+				);
+				const slugIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("slug")
+				);
 
 				expect(titleIssue?.message).toBe("Title is required");
 				expect(slugIssue?.message).toBe("Slug is required");
@@ -68,7 +72,9 @@ describe("Project Schema Specification", () => {
 			expect(resultUnder.success).toBe(false);
 
 			if (!resultOver.success) {
-				const progressIssue = resultOver.error.issues.find((i: ZodIssue) => i.path.includes("progress"));
+				const progressIssue = resultOver.error.issues.find((i: ZodIssue) =>
+					i.path.includes("progress")
+				);
 				expect(progressIssue?.code).toBe("too_big");
 			}
 		});
@@ -97,7 +103,9 @@ describe("Project Schema Specification", () => {
 			const result = upsertProjectSchema.safeParse(invalidUrlData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const imageIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("image"));
+				const imageIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("image")
+				);
 				expect(imageIssue?.message).toBe("Invalid image URL");
 			}
 		});
@@ -138,9 +146,7 @@ describe("Project Schema Specification", () => {
 		it("harus lolos saat diberikan ID project dan array berisi UUID collaborator", () => {
 			const validData = {
 				project_id: "123e4567-e89b-12d3-a456-426614174000",
-				collaborator_ids: [
-					"987f6543-e21b-34c5-b678-537725285111",
-				],
+				collaborator_ids: ["987f6543-e21b-34c5-b678-537725285111"],
 			};
 
 			const result = assignCollaboratorsSchema.safeParse(validData);
@@ -156,7 +162,9 @@ describe("Project Schema Specification", () => {
 			const result = assignCollaboratorsSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const projectIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("project_id"));
+				const projectIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("project_id")
+				);
 				expect(projectIssue?.message.toLowerCase()).toContain("uuid");
 			}
 		});

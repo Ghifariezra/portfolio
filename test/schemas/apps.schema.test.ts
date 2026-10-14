@@ -30,7 +30,9 @@ describe("Apps Schema Specification", () => {
 			const result = upsertAppSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const issue = result.error.issues.find((i: ZodIssue) => i.path.includes("title"));
+				const issue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("title")
+				);
 				expect(issue?.message).toBe("Title is required");
 			}
 		});
@@ -60,7 +62,9 @@ describe("Apps Schema Specification", () => {
 			const result = upsertAppSchema.safeParse(invalidUrlData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const issue = result.error.issues.find((i: ZodIssue) => i.path.includes("store_url"));
+				const issue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("store_url")
+				);
 				expect(issue?.message).toBe("Invalid store URL");
 			}
 		});
@@ -76,7 +80,9 @@ describe("Apps Schema Specification", () => {
 			expect(result.success).toBe(false);
 			if (!result.success) {
 				// Pastikan error-nya berada di dalam array tag_ids
-				const issue = result.error.issues.find((i: ZodIssue) => i.path.includes("tag_ids"));
+				const issue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("tag_ids")
+				);
 				expect(issue).toBeDefined();
 			}
 		});

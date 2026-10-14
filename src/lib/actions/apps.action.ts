@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { UpsertAppForm } from "@/lib/schemas/apps.schema";
 import type { AssignTagsForm } from "@/lib/schemas/project.schema";
 import { appsService } from "@/lib/services/apps.service";
+import { publicKeys } from "./public.action";
 
 export const appKeys = {
 	all: ["apps"] as const,
@@ -42,9 +43,11 @@ export const appActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (payload: UpsertAppForm) => appsService.upsertApp(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: appKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: appKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -52,9 +55,11 @@ export const appActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (id: string) => appsService.deleteApp(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: appKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: appKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -62,9 +67,11 @@ export const appActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (payload: AssignTagsForm) => appsService.assignTags(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: appKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: appKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 };

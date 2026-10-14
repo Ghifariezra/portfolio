@@ -166,13 +166,17 @@ export class PublicService extends BaseService {
 	}
 
 	// --- GITHUB ---
-	public async getGithubContributions(): Promise<AppResponse<GithubContributions>> {
+	public async getGithubContributions(): Promise<
+		AppResponse<GithubContributions>
+	> {
 		return this.api.get<unknown, AppResponse<GithubContributions>>(
 			"/public/github/contributions"
 		);
 	}
 
-	public async getGithubActivity(limit = 10): Promise<AppResponse<GithubActivityItem[]>> {
+	public async getGithubActivity(
+		limit = 10
+	): Promise<AppResponse<GithubActivityItem[]>> {
 		return this.api.get<unknown, AppResponse<GithubActivityItem[]>>(
 			`/public/github/activity?limit=${limit}`
 		);

@@ -10,9 +10,9 @@ import {
 } from "@phosphor-icons/react";
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { memo } from "react";
+import { ColabGistEmbed } from "@/components/shared/gist-colab-block";
 import { Reader } from "@/components/shared/reader";
 import { publicActions } from "@/lib/actions/public.action";
-import { ColabGistEmbed } from "@/components/shared/gist-colab-block";
 
 // Pastikan path ini sesuai dengan tempat kamu menyimpan komponen Reader tadi
 
@@ -233,11 +233,13 @@ export const RouteComponent = memo(function RouteComponent() {
 					</div>
 				)}
 
-				{project.embed_type === "github" && project.embed_url && project.embed_url.includes("gist") && (
-					<div className="mt-12">
-						<ColabGistEmbed url={project.embed_url} />
-					</div>
-				)}
+				{project.embed_type === "github" &&
+					project.embed_url &&
+					project.embed_url.includes("gist") && (
+						<div className="mt-12">
+							<ColabGistEmbed url={project.embed_url} />
+						</div>
+					)}
 			</section>
 		</article>
 	);

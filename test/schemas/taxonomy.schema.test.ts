@@ -42,7 +42,9 @@ describe("Taxonomy Schema Specification", () => {
 			expect(result.success).toBe(false);
 			if (!result.success) {
 				// Menambahkan tipe data eksplisit ZodIssue untuk memuaskan TypeScript
-				const nameIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("name"));
+				const nameIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("name")
+				);
 				expect(nameIssue?.message).toBe("Name is required");
 			}
 		});
@@ -57,7 +59,9 @@ describe("Taxonomy Schema Specification", () => {
 			expect(result.success).toBe(false);
 			if (!result.success) {
 				// Menambahkan tipe data eksplisit ZodIssue
-				const slugIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("slug"));
+				const slugIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("slug")
+				);
 				expect(slugIssue?.message).toBe("Slug is required");
 			}
 		});
@@ -73,7 +77,9 @@ describe("Taxonomy Schema Specification", () => {
 			expect(result.success).toBe(false);
 			if (!result.success) {
 				// Menambahkan tipe data eksplisit ZodIssue
-				const idIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("id"));
+				const idIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("id")
+				);
 				expect(idIssue).toBeDefined();
 				expect(idIssue?.message.toLowerCase()).toContain("uuid");
 			}

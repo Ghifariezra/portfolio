@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { userActions, userKeys } from "@/lib/actions/user.action";
 // Sesuaikan path import dengan struktur foldermu
 import { userService } from "@/lib/services/user.service";
-import { userActions, userKeys } from "@/lib/actions/user.action";
 
 const createWrapper = () => {
 	const queryClient = new QueryClient({
@@ -12,9 +12,7 @@ const createWrapper = () => {
 	return {
 		queryClient,
 		wrapper: ({ children }: { children: React.ReactNode }) => (
-			<QueryClientProvider client={queryClient}>
-				{children}
-			</QueryClientProvider>
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 		),
 	};
 };
@@ -35,7 +33,9 @@ describe("User Hooks Specification", () => {
 	describe("Queries", () => {
 		it("useGetMe: harus memanggil getMe service dengan retry false", async () => {
 			const { wrapper } = createWrapper();
-			const spy = vi.spyOn(userService, "getMe").mockResolvedValue({ success: true, data: {} } as any);
+			const spy = vi
+				.spyOn(userService, "getMe")
+				.mockResolvedValue({ success: true, data: {} } as any);
 
 			const { result } = renderHook(() => userActions.useGetMe(), { wrapper });
 
@@ -47,7 +47,9 @@ describe("User Hooks Specification", () => {
 	describe("Mutations", () => {
 		it("useLogin: harus memanggil login service dengan payload yang benar", async () => {
 			const { wrapper } = createWrapper();
-			const serviceSpy = vi.spyOn(userService, "login").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(userService, "login")
+				.mockResolvedValue({ success: true } as any);
 
 			const { result } = renderHook(() => userActions.useLogin(), { wrapper });
 			const mockPayload = { username: "admin", password: "password" } as any;
@@ -59,7 +61,9 @@ describe("User Hooks Specification", () => {
 
 		it("useLogout: harus memanggil logout service", async () => {
 			const { wrapper } = createWrapper();
-			const serviceSpy = vi.spyOn(userService, "logout").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(userService, "logout")
+				.mockResolvedValue({ success: true } as any);
 
 			const { result } = renderHook(() => userActions.useLogout(), { wrapper });
 
@@ -70,9 +74,13 @@ describe("User Hooks Specification", () => {
 
 		it("useUpsertProfile: harus memanggil upsertProfile service dengan payload form", async () => {
 			const { wrapper } = createWrapper();
-			const serviceSpy = vi.spyOn(userService, "upsertProfile").mockResolvedValue({ success: true } as any);
+			const serviceSpy = vi
+				.spyOn(userService, "upsertProfile")
+				.mockResolvedValue({ success: true } as any);
 
-			const { result } = renderHook(() => userActions.useUpsertProfile(), { wrapper });
+			const { result } = renderHook(() => userActions.useUpsertProfile(), {
+				wrapper,
+			});
 			const mockPayload = { username: "updated_admin" } as any;
 
 			await result.current.mutateAsync(mockPayload);

@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { lockContentSchema, unlockContentSchema } from "../../src/lib/schemas/lock.schema";
+import {
+	lockContentSchema,
+	unlockContentSchema,
+} from "../../src/lib/schemas/lock.schema";
 
 const VALID_UUID = "123e4567-e89b-12d3-a456-426614174000";
 
@@ -24,7 +27,9 @@ describe("Lock Schema Specification", () => {
 		});
 
 		it("harus lolos jika blog_id diberikan", () => {
-			expect(unlockContentSchema.safeParse({ blog_id: VALID_UUID }).success).toBe(true);
+			expect(
+				unlockContentSchema.safeParse({ blog_id: VALID_UUID }).success
+			).toBe(true);
 		});
 	});
 });

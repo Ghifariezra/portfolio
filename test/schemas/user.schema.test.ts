@@ -107,11 +107,13 @@ describe("User Schemas Specification", () => {
 			expect(result.success).toBe(false);
 			if (!result.success) {
 				// Pengecekkan field id
-				const idIssue = result.error.issues.find(issue => issue.path.includes('id'));
+				const idIssue = result.error.issues.find((issue) =>
+					issue.path.includes("id")
+				);
 				expect(idIssue).toBeDefined();
 
 				// Ubah ke lowercase terlebih dahulu agar aman dari benturan huruf besar/kecil (UUID vs uuid)
-				expect(idIssue?.message.toLowerCase()).toContain('uuid');
+				expect(idIssue?.message.toLowerCase()).toContain("uuid");
 			}
 		});
 

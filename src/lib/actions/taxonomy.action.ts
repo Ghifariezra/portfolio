@@ -1,10 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"; // 1. Tambah useQueryClient
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type {
 	UpsertCategoryForm,
 	UpsertTagForm,
 } from "@/lib/schemas/taxonomy.schema";
 import { taxonomyService } from "@/lib/services/taxonomy.service";
 import type { AppResponse } from "@/utils/middleware";
+import { invalidateContent } from "./invalidate";
 
 export const taxonomyKeys = {
 	all: ["taxonomies"] as const,
@@ -21,13 +22,16 @@ export const taxonomyActions = {
 	},
 
 	useUpsertCategory() {
-		const queryClient = useQueryClient(); // 2. Inisialisasi queryClient
+		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, UpsertCategoryForm>({
 			mutationFn: (payload) => taxonomyService.upsertCategory(payload),
-			onSuccess: () => {
-				// 3. Invalidasi agar list otomatis update
-				queryClient.invalidateQueries({ queryKey: taxonomyKeys.categories() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({
+						queryKey: taxonomyKeys.categories(),
+					}),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 
@@ -35,9 +39,13 @@ export const taxonomyActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, string>({
 			mutationFn: (id) => taxonomyService.deleteCategory(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: taxonomyKeys.categories() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({
+						queryKey: taxonomyKeys.categories(),
+					}),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 
@@ -52,9 +60,11 @@ export const taxonomyActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, UpsertTagForm>({
 			mutationFn: (payload) => taxonomyService.upsertTag(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: taxonomyKeys.tags() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: taxonomyKeys.tags() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 
@@ -62,9 +72,11 @@ export const taxonomyActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, string>({
 			mutationFn: (id) => taxonomyService.deleteTag(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: taxonomyKeys.tags() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: taxonomyKeys.tags() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 };

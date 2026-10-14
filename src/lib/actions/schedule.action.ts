@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { UpsertScheduleForm } from "@/lib/schemas/schedule.schema";
 import { scheduleService } from "@/lib/services/schedule.service";
 import type { AppResponse } from "@/utils/middleware";
+import { invalidateContent } from "./invalidate";
 
 export const scheduleKeys = {
 	all: ["schedules"] as const,
@@ -20,9 +21,11 @@ export const scheduleActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, UpsertScheduleForm>({
 			mutationFn: (payload) => scheduleService.upsertSchedule(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: scheduleKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: scheduleKeys.lists() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 
@@ -30,9 +33,11 @@ export const scheduleActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, string>({
 			mutationFn: (id) => scheduleService.deleteSchedule(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: scheduleKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: scheduleKeys.lists() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 };

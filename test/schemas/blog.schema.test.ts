@@ -45,8 +45,12 @@ describe("Blog Schema Specification", () => {
 			expect(result.success).toBe(false);
 			if (!result.success) {
 				// Zod string().min(1) secara default akan memberikan error "too_small" jika string kosong
-				const titleIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("title"));
-				const slugIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("slug"));
+				const titleIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("title")
+				);
+				const slugIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("slug")
+				);
 
 				expect(titleIssue?.code).toBe("too_small");
 				expect(slugIssue?.code).toBe("too_small");
@@ -63,7 +67,9 @@ describe("Blog Schema Specification", () => {
 			const result = UpsertBlogSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const userIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("user_id"));
+				const userIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("user_id")
+				);
 				expect(userIssue?.message.toLowerCase()).toContain("uuid");
 			}
 		});
@@ -76,19 +82,30 @@ describe("Blog Schema Specification", () => {
 			};
 
 			// Test 1: Kurang dari 0
-			const underResult = UpsertBlogSchema.safeParse({ ...baseData, progress: -5 });
+			const underResult = UpsertBlogSchema.safeParse({
+				...baseData,
+				progress: -5,
+			});
 			expect(underResult.success).toBe(false);
 
 			// Test 2: Lebih dari 100
-			const overResult = UpsertBlogSchema.safeParse({ ...baseData, progress: 105 });
+			const overResult = UpsertBlogSchema.safeParse({
+				...baseData,
+				progress: 105,
+			});
 			expect(overResult.success).toBe(false);
 
 			// Test 3: Bukan Integer
-			const floatResult = UpsertBlogSchema.safeParse({ ...baseData, progress: 50.5 });
+			const floatResult = UpsertBlogSchema.safeParse({
+				...baseData,
+				progress: 50.5,
+			});
 			expect(floatResult.success).toBe(false);
 			if (!floatResult.success) {
 				// Gunakan .toContain agar tidak sensitif dengan perbedaan "int" vs "integer"
-				expect(floatResult.error.issues[0].message.toLowerCase()).toContain("int");
+				expect(floatResult.error.issues[0].message.toLowerCase()).toContain(
+					"int"
+				);
 			}
 		});
 
@@ -104,9 +121,9 @@ describe("Blog Schema Specification", () => {
 			const result = UpsertBlogSchema.safeParse(invalidUrlData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				// Perbaikan: Zod sering mengembalikan "invalid_string" atau "invalid_format" 
+				// Perbaikan: Zod sering mengembalikan "invalid_string" atau "invalid_format"
 				// tergantung pada internal chain. Gunakan pengecekan yang lebih fleksibel:
-				const codes = result.error.issues.map(i => i.code);
+				const codes = result.error.issues.map((i) => i.code);
 				expect(codes).toContain("invalid_format");
 			}
 		});
@@ -135,7 +152,9 @@ describe("Blog Schema Specification", () => {
 			const result = AssignBlogTagsSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const tagIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("tag_ids"));
+				const tagIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("tag_ids")
+				);
 				expect(tagIssue?.message.toLowerCase()).toContain("uuid");
 			}
 		});

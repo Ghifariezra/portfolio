@@ -5,6 +5,7 @@ import type {
 } from "@/lib/schemas/collaborator.schema";
 import { collaboratorService } from "@/lib/services/collaborator.service";
 import type { AppResponse } from "@/utils/middleware";
+import { invalidateContent } from "./invalidate";
 
 export const collaboratorKeys = {
 	all: ["collaborators"] as const,
@@ -24,9 +25,11 @@ export const collaboratorActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, UpsertCollaboratorForm>({
 			mutationFn: (payload) => collaboratorService.upsertCollaborator(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 
@@ -34,9 +37,11 @@ export const collaboratorActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, string>({
 			mutationFn: (id) => collaboratorService.deleteCollaborator(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 
@@ -46,9 +51,11 @@ export const collaboratorActions = {
 		return useMutation<AppResponse, AppResponse, UpsertCollaboratorLinkForm>({
 			mutationFn: (payload) =>
 				collaboratorService.upsertCollaboratorLink(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 
@@ -56,9 +63,11 @@ export const collaboratorActions = {
 		const queryClient = useQueryClient();
 		return useMutation<AppResponse, AppResponse, string>({
 			mutationFn: (id) => collaboratorService.deleteCollaboratorLink(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: collaboratorKeys.lists() }),
+					invalidateContent(queryClient),
+				]),
 		});
 	},
 };

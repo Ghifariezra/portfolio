@@ -4,6 +4,7 @@ import type {
 	UpsertSkillForm,
 } from "@/lib/schemas/resume.schema";
 import { resumeService } from "@/lib/services/resume.service";
+import { publicKeys } from "./public.action";
 
 export const resumeKeys = {
 	all: ["resume"] as const,
@@ -24,10 +25,11 @@ export const resumeActions = {
 		return useMutation({
 			mutationFn: (payload: UpsertSkillForm) =>
 				resumeService.upsertSkill(payload),
-			onSuccess: () => {
-				// Invalidasi cache agar data di UI update otomatis setelah sukses
-				queryClient.invalidateQueries({ queryKey: resumeKeys.all });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: resumeKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -35,9 +37,11 @@ export const resumeActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (id: string) => resumeService.deleteSkill(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: resumeKeys.all });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: resumeKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -46,9 +50,11 @@ export const resumeActions = {
 		return useMutation({
 			mutationFn: (payload: UpsertCertificateForm) =>
 				resumeService.upsertCertificate(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: resumeKeys.all });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: resumeKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -56,9 +62,11 @@ export const resumeActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (id: string) => resumeService.deleteCertificate(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: resumeKeys.all });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: resumeKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 };

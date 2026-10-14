@@ -13,7 +13,6 @@ vi.mock("../../src/utils/xss", () => ({
 const VALID_UUID_1 = "123e4567-e89b-12d3-a456-426614174000";
 
 describe("Collaborator Schema Specification", () => {
-
 	// ==========================================
 	// 1. PENGUJIAN UPSERT COLLABORATOR
 	// ==========================================
@@ -34,7 +33,9 @@ describe("Collaborator Schema Specification", () => {
 
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const nameIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("name"));
+				const nameIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("name")
+				);
 				expect(nameIssue?.message).toBe("Name is required");
 			}
 		});
@@ -68,8 +69,12 @@ describe("Collaborator Schema Specification", () => {
 			const result = upsertCollaboratorLinkSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const urlIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("url"));
-				expect(urlIssue?.message).toBe("URL must start with http:// or https://");
+				const urlIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("url")
+				);
+				expect(urlIssue?.message).toBe(
+					"URL must start with http:// or https://"
+				);
 			}
 		});
 
@@ -83,7 +88,9 @@ describe("Collaborator Schema Specification", () => {
 			const result = upsertCollaboratorLinkSchema.safeParse(invalidData);
 			expect(result.success).toBe(false);
 			if (!result.success) {
-				const idIssue = result.error.issues.find((i: ZodIssue) => i.path.includes("collaborator_id"));
+				const idIssue = result.error.issues.find((i: ZodIssue) =>
+					i.path.includes("collaborator_id")
+				);
 
 				// Ubah ekspektasi sesuai dengan string kustom yang kamu tulis di skema
 				expect(idIssue?.message).toBe("Collaborator ID is required");

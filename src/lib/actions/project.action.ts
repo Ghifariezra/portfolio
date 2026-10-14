@@ -5,6 +5,7 @@ import type {
 	UpsertProjectForm,
 } from "@/lib/schemas/project.schema";
 import { projectService } from "@/lib/services/project.service";
+import { publicKeys } from "./public.action";
 
 export const projectKeys = {
 	all: ["projects"] as const,
@@ -48,9 +49,11 @@ export const projectActions = {
 		return useMutation({
 			mutationFn: (payload: UpsertProjectForm) =>
 				projectService.upsertProject(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: projectKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: projectKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -58,9 +61,11 @@ export const projectActions = {
 		const queryClient = useQueryClient();
 		return useMutation({
 			mutationFn: (id: string) => projectService.deleteProject(id),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: projectKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: projectKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -69,9 +74,11 @@ export const projectActions = {
 		return useMutation({
 			mutationFn: (payload: AssignTagsForm) =>
 				projectService.assignTags(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: projectKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: projectKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 
@@ -80,9 +87,11 @@ export const projectActions = {
 		return useMutation({
 			mutationFn: (payload: AssignCollaboratorsForm) =>
 				projectService.assignCollaborators(payload),
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: projectKeys.lists() });
-			},
+			onSuccess: () =>
+				Promise.all([
+					queryClient.invalidateQueries({ queryKey: projectKeys.all }),
+					queryClient.invalidateQueries({ queryKey: publicKeys.all }),
+				]),
 		});
 	},
 };
