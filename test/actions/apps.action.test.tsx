@@ -1,7 +1,9 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: ... */
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { appActions, appKeys } from "@/lib/actions/apps.action";
+import { publicKeys } from "@/lib/actions/public.action";
 // Sesuaikan path import
 import { appsService } from "@/lib/services/apps.service";
 
@@ -88,7 +90,8 @@ describe("Apps Hooks Specification", () => {
 			// Assertions
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
 			// Pastikan cache query 'list' dihapus agar UI fetch data terbaru
-			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: appKeys.lists() });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: appKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 
 		it("useDeleteApp: harus memanggil deleteApp dan me-reset cache list saat sukses", async () => {
@@ -105,7 +108,8 @@ describe("Apps Hooks Specification", () => {
 			await result.current.mutateAsync("app-999");
 
 			expect(serviceSpy).toHaveBeenCalledWith("app-999");
-			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: appKeys.lists() });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: appKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 
 		it("useAssignTags: harus memanggil assignTags dan me-reset cache list saat sukses", async () => {
@@ -123,7 +127,8 @@ describe("Apps Hooks Specification", () => {
 			await result.current.mutateAsync(mockPayload);
 
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
-			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: appKeys.lists() });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: appKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 	});
 });

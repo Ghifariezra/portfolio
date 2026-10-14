@@ -1,7 +1,9 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: ... */
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { blogActions, blogKeys } from "@/lib/actions/blog.action";
+import { publicKeys } from "@/lib/actions/public.action";
 import { blogService } from "@/lib/services/blog.service";
 
 const createWrapper = () => {
@@ -114,9 +116,8 @@ describe("Blog Hooks Specification", () => {
 			await result.current.mutateAsync(mockPayload);
 
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
-			expect(invalidateSpy).toHaveBeenCalledWith({
-				queryKey: blogKeys.lists(),
-			});
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: blogKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 
 		it("useDeleteBlog: harus memanggil deleteBlog dan me-reset cache lists", async () => {
@@ -133,9 +134,8 @@ describe("Blog Hooks Specification", () => {
 			await result.current.mutateAsync("blog-123");
 
 			expect(serviceSpy).toHaveBeenCalledWith("blog-123");
-			expect(invalidateSpy).toHaveBeenCalledWith({
-				queryKey: blogKeys.lists(),
-			});
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: blogKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 
 		it("useAssignTags: harus memanggil assignTags dan me-reset cache lists", async () => {
@@ -153,9 +153,8 @@ describe("Blog Hooks Specification", () => {
 			await result.current.mutateAsync(mockPayload);
 
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
-			expect(invalidateSpy).toHaveBeenCalledWith({
-				queryKey: blogKeys.lists(),
-			});
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: blogKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 	});
 });

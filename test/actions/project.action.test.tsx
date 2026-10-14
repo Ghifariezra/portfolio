@@ -1,8 +1,9 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: ... */
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { projectActions, projectKeys } from "@/lib/actions/project.action";
-// Sesuaikan path import dengan struktur foldermu
+import { publicKeys } from "@/lib/actions/public.action";
 import { projectService } from "@/lib/services/project.service";
 
 const createWrapper = () => {
@@ -115,9 +116,8 @@ describe("Project Hooks Specification", () => {
 			await result.current.mutateAsync(mockPayload);
 
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
-			expect(invalidateSpy).toHaveBeenCalledWith({
-				queryKey: projectKeys.lists(),
-			});
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: projectKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 
 		it("useDeleteProject: harus memanggil deleteProject dan me-reset cache lists", async () => {
@@ -134,9 +134,8 @@ describe("Project Hooks Specification", () => {
 			await result.current.mutateAsync("proj-123");
 
 			expect(serviceSpy).toHaveBeenCalledWith("proj-123");
-			expect(invalidateSpy).toHaveBeenCalledWith({
-				queryKey: projectKeys.lists(),
-			});
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: projectKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 
 		it("useAssignTags: harus memanggil assignTags dan me-reset cache lists", async () => {
@@ -154,9 +153,8 @@ describe("Project Hooks Specification", () => {
 			await result.current.mutateAsync(mockPayload);
 
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
-			expect(invalidateSpy).toHaveBeenCalledWith({
-				queryKey: projectKeys.lists(),
-			});
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: projectKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 
 		it("useAssignCollaborators: harus memanggil assignCollaborators dan me-reset cache lists", async () => {
@@ -175,9 +173,8 @@ describe("Project Hooks Specification", () => {
 			await result.current.mutateAsync(mockPayload);
 
 			expect(serviceSpy).toHaveBeenCalledWith(mockPayload);
-			expect(invalidateSpy).toHaveBeenCalledWith({
-				queryKey: projectKeys.lists(),
-			});
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: projectKeys.all });
+			expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: publicKeys.all });
 		});
 	});
 });
