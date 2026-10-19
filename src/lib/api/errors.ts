@@ -4,13 +4,18 @@ export interface ApiErrorDetail {
 }
 
 export class ApiError extends Error {
+    readonly status: number;
+    readonly details: ApiErrorDetail[];
+
     constructor(
-        readonly status: number,
+        status: number,
         message: string,
         /** Rincian validasi per field dari 422 ({ path, message }); kosong untuk error lain. */
-        readonly details: ApiErrorDetail[] = [],
+        details: ApiErrorDetail[] = [],
     ) {
         super(message);
+        this.status = status;
+        this.details = details;
         this.name = "ApiError";
     }
 }
