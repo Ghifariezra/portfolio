@@ -1,13 +1,6 @@
 import { cn } from "@/lib/utils";
 
-function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			data-slot="skeleton"
-			className={cn("animate-pulse rounded-none bg-muted", className)}
-			{...props}
-		/>
-	);
+/** Placeholder loading. Tambahkan ukuran dan border lewat className. */
+export function Skeleton({ className }: { className?: string }) {
+    return <div aria-busy="true" className={cn("animate-pulse bg-muted", className)} />;
 }
-
-export { Skeleton };

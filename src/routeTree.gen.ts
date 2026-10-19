@@ -9,43 +9,37 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as GithubRouteImport } from './routes/github'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
-import { Route as NotesIndexRouteImport } from './routes/notes/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
-import { Route as NotesSlugRouteImport } from './routes/notes/$slug'
-import { Route as DashboardTaxonomiesRouteImport } from './routes/dashboard/taxonomies'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
-import { Route as DashboardCollaboratorsRouteImport } from './routes/dashboard/collaborators'
-import { Route as AuthAdminRouteImport } from './routes/auth/admin'
-import { Route as DashboardProjectsIndexRouteImport } from './routes/dashboard/projects/index'
-import { Route as DashboardPostsIndexRouteImport } from './routes/dashboard/posts/index'
-import { Route as DashboardAppsIndexRouteImport } from './routes/dashboard/apps/index'
-import { Route as DashboardProjectsCreateRouteImport } from './routes/dashboard/projects/create'
-import { Route as DashboardPostsCreateRouteImport } from './routes/dashboard/posts/create'
-import { Route as DashboardAppsCreateRouteImport } from './routes/dashboard/apps/create'
-import { Route as DashboardProjectsEditProjectIdRouteImport } from './routes/dashboard/projects/edit/$projectId'
-import { Route as DashboardPostsEditPostIdRouteImport } from './routes/dashboard/posts/edit/$postId'
-import { Route as DashboardAppsEditAppIdRouteImport } from './routes/dashboard/apps/edit/$appId'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminAuthedRouteRouteImport } from './routes/admin/_authed/route'
+import { Route as AdminAuthedIndexRouteImport } from './routes/admin/_authed/index'
+import { Route as AdminAuthedSkillsIndexRouteImport } from './routes/admin/_authed/skills/index'
+import { Route as AdminAuthedProjectsIndexRouteImport } from './routes/admin/_authed/projects/index'
+import { Route as AdminAuthedExperiencesIndexRouteImport } from './routes/admin/_authed/experiences/index'
+import { Route as AdminAuthedEducationIndexRouteImport } from './routes/admin/_authed/education/index'
+import { Route as AdminAuthedCvIndexRouteImport } from './routes/admin/_authed/cv/index'
+import { Route as AdminAuthedCertificationsIndexRouteImport } from './routes/admin/_authed/certifications/index'
+import { Route as AdminAuthedAppsIndexRouteImport } from './routes/admin/_authed/apps/index'
+import { Route as AdminAuthedProjectsNewRouteImport } from './routes/admin/_authed/projects/new'
+import { Route as AdminAuthedProjectsIdRouteImport } from './routes/admin/_authed/projects/$id'
+import { Route as AdminAuthedExperiencesNewRouteImport } from './routes/admin/_authed/experiences/new'
+import { Route as AdminAuthedExperiencesIdRouteImport } from './routes/admin/_authed/experiences/$id'
+import { Route as AdminAuthedEducationNewRouteImport } from './routes/admin/_authed/education/new'
+import { Route as AdminAuthedEducationIdRouteImport } from './routes/admin/_authed/education/$id'
+import { Route as AdminAuthedCvNewRouteImport } from './routes/admin/_authed/cv/new'
+import { Route as AdminAuthedCvIdRouteImport } from './routes/admin/_authed/cv/$id'
+import { Route as AdminAuthedCertificationsNewRouteImport } from './routes/admin/_authed/certifications/new'
+import { Route as AdminAuthedCertificationsIdRouteImport } from './routes/admin/_authed/certifications/$id'
+import { Route as AdminAuthedAppsNewRouteImport } from './routes/admin/_authed/apps/new'
+import { Route as AdminAuthedAppsIdRouteImport } from './routes/admin/_authed/apps/$id'
 
-const GithubRoute = GithubRouteImport.update({
-  id: '/github',
-  path: '/github',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -58,16 +52,6 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   path: '/projects/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NotesIndexRoute = NotesIndexRouteImport.update({
-  id: '/notes/',
-  path: '/notes/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardRoute,
-} as any)
 const AppsIndexRoute = AppsIndexRouteImport.update({
   id: '/apps/',
   path: '/apps/',
@@ -78,265 +62,318 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/projects/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NotesSlugRoute = NotesSlugRouteImport.update({
-  id: '/notes/$slug',
-  path: '/notes/$slug',
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardTaxonomiesRoute = DashboardTaxonomiesRouteImport.update({
-  id: '/taxonomies',
-  path: '/taxonomies',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardCollaboratorsRoute = DashboardCollaboratorsRouteImport.update({
-  id: '/collaborators',
-  path: '/collaborators',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const AuthAdminRoute = AuthAdminRouteImport.update({
-  id: '/auth/admin',
-  path: '/auth/admin',
+const AdminAuthedRouteRoute = AdminAuthedRouteRouteImport.update({
+  id: '/admin/_authed',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardProjectsIndexRoute = DashboardProjectsIndexRouteImport.update({
-  id: '/projects/',
-  path: '/projects/',
-  getParentRoute: () => DashboardRoute,
+const AdminAuthedIndexRoute = AdminAuthedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const DashboardPostsIndexRoute = DashboardPostsIndexRouteImport.update({
-  id: '/posts/',
-  path: '/posts/',
-  getParentRoute: () => DashboardRoute,
+const AdminAuthedSkillsIndexRoute = AdminAuthedSkillsIndexRouteImport.update({
+  id: '/skills/',
+  path: '/skills/',
+  getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const DashboardAppsIndexRoute = DashboardAppsIndexRouteImport.update({
+const AdminAuthedProjectsIndexRoute =
+  AdminAuthedProjectsIndexRouteImport.update({
+    id: '/projects/',
+    path: '/projects/',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedExperiencesIndexRoute =
+  AdminAuthedExperiencesIndexRouteImport.update({
+    id: '/experiences/',
+    path: '/experiences/',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedEducationIndexRoute =
+  AdminAuthedEducationIndexRouteImport.update({
+    id: '/education/',
+    path: '/education/',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedCvIndexRoute = AdminAuthedCvIndexRouteImport.update({
+  id: '/cv/',
+  path: '/cv/',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedCertificationsIndexRoute =
+  AdminAuthedCertificationsIndexRouteImport.update({
+    id: '/certifications/',
+    path: '/certifications/',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedAppsIndexRoute = AdminAuthedAppsIndexRouteImport.update({
   id: '/apps/',
   path: '/apps/',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const DashboardProjectsCreateRoute = DashboardProjectsCreateRouteImport.update({
-  id: '/projects/create',
-  path: '/projects/create',
-  getParentRoute: () => DashboardRoute,
+const AdminAuthedProjectsNewRoute = AdminAuthedProjectsNewRouteImport.update({
+  id: '/projects/new',
+  path: '/projects/new',
+  getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const DashboardPostsCreateRoute = DashboardPostsCreateRouteImport.update({
-  id: '/posts/create',
-  path: '/posts/create',
-  getParentRoute: () => DashboardRoute,
+const AdminAuthedProjectsIdRoute = AdminAuthedProjectsIdRouteImport.update({
+  id: '/projects/$id',
+  path: '/projects/$id',
+  getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const DashboardAppsCreateRoute = DashboardAppsCreateRouteImport.update({
-  id: '/apps/create',
-  path: '/apps/create',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardProjectsEditProjectIdRoute =
-  DashboardProjectsEditProjectIdRouteImport.update({
-    id: '/projects/edit/$projectId',
-    path: '/projects/edit/$projectId',
-    getParentRoute: () => DashboardRoute,
+const AdminAuthedExperiencesNewRoute =
+  AdminAuthedExperiencesNewRouteImport.update({
+    id: '/experiences/new',
+    path: '/experiences/new',
+    getParentRoute: () => AdminAuthedRouteRoute,
   } as any)
-const DashboardPostsEditPostIdRoute =
-  DashboardPostsEditPostIdRouteImport.update({
-    id: '/posts/edit/$postId',
-    path: '/posts/edit/$postId',
-    getParentRoute: () => DashboardRoute,
+const AdminAuthedExperiencesIdRoute =
+  AdminAuthedExperiencesIdRouteImport.update({
+    id: '/experiences/$id',
+    path: '/experiences/$id',
+    getParentRoute: () => AdminAuthedRouteRoute,
   } as any)
-const DashboardAppsEditAppIdRoute = DashboardAppsEditAppIdRouteImport.update({
-  id: '/apps/edit/$appId',
-  path: '/apps/edit/$appId',
-  getParentRoute: () => DashboardRoute,
+const AdminAuthedEducationNewRoute = AdminAuthedEducationNewRouteImport.update({
+  id: '/education/new',
+  path: '/education/new',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedEducationIdRoute = AdminAuthedEducationIdRouteImport.update({
+  id: '/education/$id',
+  path: '/education/$id',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedCvNewRoute = AdminAuthedCvNewRouteImport.update({
+  id: '/cv/new',
+  path: '/cv/new',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedCvIdRoute = AdminAuthedCvIdRouteImport.update({
+  id: '/cv/$id',
+  path: '/cv/$id',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedCertificationsNewRoute =
+  AdminAuthedCertificationsNewRouteImport.update({
+    id: '/certifications/new',
+    path: '/certifications/new',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedCertificationsIdRoute =
+  AdminAuthedCertificationsIdRouteImport.update({
+    id: '/certifications/$id',
+    path: '/certifications/$id',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedAppsNewRoute = AdminAuthedAppsNewRouteImport.update({
+  id: '/apps/new',
+  path: '/apps/new',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedAppsIdRoute = AdminAuthedAppsIdRouteImport.update({
+  id: '/apps/$id',
+  path: '/apps/$id',
+  getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/github': typeof GithubRoute
-  '/auth/admin': typeof AuthAdminRoute
-  '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
-  '/notes/$slug': typeof NotesSlugRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminAuthedRouteRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/apps/': typeof AppsIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/notes/': typeof NotesIndexRoute
   '/projects/': typeof ProjectsIndexRoute
-  '/dashboard/apps/create': typeof DashboardAppsCreateRoute
-  '/dashboard/posts/create': typeof DashboardPostsCreateRoute
-  '/dashboard/projects/create': typeof DashboardProjectsCreateRoute
-  '/dashboard/apps/': typeof DashboardAppsIndexRoute
-  '/dashboard/posts/': typeof DashboardPostsIndexRoute
-  '/dashboard/projects/': typeof DashboardProjectsIndexRoute
-  '/dashboard/apps/edit/$appId': typeof DashboardAppsEditAppIdRoute
-  '/dashboard/posts/edit/$postId': typeof DashboardPostsEditPostIdRoute
-  '/dashboard/projects/edit/$projectId': typeof DashboardProjectsEditProjectIdRoute
+  '/admin/': typeof AdminAuthedIndexRoute
+  '/admin/apps/$id': typeof AdminAuthedAppsIdRoute
+  '/admin/apps/new': typeof AdminAuthedAppsNewRoute
+  '/admin/certifications/$id': typeof AdminAuthedCertificationsIdRoute
+  '/admin/certifications/new': typeof AdminAuthedCertificationsNewRoute
+  '/admin/cv/$id': typeof AdminAuthedCvIdRoute
+  '/admin/cv/new': typeof AdminAuthedCvNewRoute
+  '/admin/education/$id': typeof AdminAuthedEducationIdRoute
+  '/admin/education/new': typeof AdminAuthedEducationNewRoute
+  '/admin/experiences/$id': typeof AdminAuthedExperiencesIdRoute
+  '/admin/experiences/new': typeof AdminAuthedExperiencesNewRoute
+  '/admin/projects/$id': typeof AdminAuthedProjectsIdRoute
+  '/admin/projects/new': typeof AdminAuthedProjectsNewRoute
+  '/admin/apps/': typeof AdminAuthedAppsIndexRoute
+  '/admin/certifications/': typeof AdminAuthedCertificationsIndexRoute
+  '/admin/cv/': typeof AdminAuthedCvIndexRoute
+  '/admin/education/': typeof AdminAuthedEducationIndexRoute
+  '/admin/experiences/': typeof AdminAuthedExperiencesIndexRoute
+  '/admin/projects/': typeof AdminAuthedProjectsIndexRoute
+  '/admin/skills/': typeof AdminAuthedSkillsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/github': typeof GithubRoute
-  '/auth/admin': typeof AuthAdminRoute
-  '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
-  '/notes/$slug': typeof NotesSlugRoute
+  '/about': typeof AboutRoute
+  '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/apps': typeof AppsIndexRoute
-  '/dashboard': typeof DashboardIndexRoute
-  '/notes': typeof NotesIndexRoute
   '/projects': typeof ProjectsIndexRoute
-  '/dashboard/apps/create': typeof DashboardAppsCreateRoute
-  '/dashboard/posts/create': typeof DashboardPostsCreateRoute
-  '/dashboard/projects/create': typeof DashboardProjectsCreateRoute
-  '/dashboard/apps': typeof DashboardAppsIndexRoute
-  '/dashboard/posts': typeof DashboardPostsIndexRoute
-  '/dashboard/projects': typeof DashboardProjectsIndexRoute
-  '/dashboard/apps/edit/$appId': typeof DashboardAppsEditAppIdRoute
-  '/dashboard/posts/edit/$postId': typeof DashboardPostsEditPostIdRoute
-  '/dashboard/projects/edit/$projectId': typeof DashboardProjectsEditProjectIdRoute
+  '/admin': typeof AdminAuthedIndexRoute
+  '/admin/apps/$id': typeof AdminAuthedAppsIdRoute
+  '/admin/apps/new': typeof AdminAuthedAppsNewRoute
+  '/admin/certifications/$id': typeof AdminAuthedCertificationsIdRoute
+  '/admin/certifications/new': typeof AdminAuthedCertificationsNewRoute
+  '/admin/cv/$id': typeof AdminAuthedCvIdRoute
+  '/admin/cv/new': typeof AdminAuthedCvNewRoute
+  '/admin/education/$id': typeof AdminAuthedEducationIdRoute
+  '/admin/education/new': typeof AdminAuthedEducationNewRoute
+  '/admin/experiences/$id': typeof AdminAuthedExperiencesIdRoute
+  '/admin/experiences/new': typeof AdminAuthedExperiencesNewRoute
+  '/admin/projects/$id': typeof AdminAuthedProjectsIdRoute
+  '/admin/projects/new': typeof AdminAuthedProjectsNewRoute
+  '/admin/apps': typeof AdminAuthedAppsIndexRoute
+  '/admin/certifications': typeof AdminAuthedCertificationsIndexRoute
+  '/admin/cv': typeof AdminAuthedCvIndexRoute
+  '/admin/education': typeof AdminAuthedEducationIndexRoute
+  '/admin/experiences': typeof AdminAuthedExperiencesIndexRoute
+  '/admin/projects': typeof AdminAuthedProjectsIndexRoute
+  '/admin/skills': typeof AdminAuthedSkillsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/github': typeof GithubRoute
-  '/auth/admin': typeof AuthAdminRoute
-  '/dashboard/collaborators': typeof DashboardCollaboratorsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/taxonomies': typeof DashboardTaxonomiesRoute
-  '/notes/$slug': typeof NotesSlugRoute
+  '/about': typeof AboutRoute
+  '/admin/_authed': typeof AdminAuthedRouteRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/apps/': typeof AppsIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/notes/': typeof NotesIndexRoute
   '/projects/': typeof ProjectsIndexRoute
-  '/dashboard/apps/create': typeof DashboardAppsCreateRoute
-  '/dashboard/posts/create': typeof DashboardPostsCreateRoute
-  '/dashboard/projects/create': typeof DashboardProjectsCreateRoute
-  '/dashboard/apps/': typeof DashboardAppsIndexRoute
-  '/dashboard/posts/': typeof DashboardPostsIndexRoute
-  '/dashboard/projects/': typeof DashboardProjectsIndexRoute
-  '/dashboard/apps/edit/$appId': typeof DashboardAppsEditAppIdRoute
-  '/dashboard/posts/edit/$postId': typeof DashboardPostsEditPostIdRoute
-  '/dashboard/projects/edit/$projectId': typeof DashboardProjectsEditProjectIdRoute
+  '/admin/_authed/': typeof AdminAuthedIndexRoute
+  '/admin/_authed/apps/$id': typeof AdminAuthedAppsIdRoute
+  '/admin/_authed/apps/new': typeof AdminAuthedAppsNewRoute
+  '/admin/_authed/certifications/$id': typeof AdminAuthedCertificationsIdRoute
+  '/admin/_authed/certifications/new': typeof AdminAuthedCertificationsNewRoute
+  '/admin/_authed/cv/$id': typeof AdminAuthedCvIdRoute
+  '/admin/_authed/cv/new': typeof AdminAuthedCvNewRoute
+  '/admin/_authed/education/$id': typeof AdminAuthedEducationIdRoute
+  '/admin/_authed/education/new': typeof AdminAuthedEducationNewRoute
+  '/admin/_authed/experiences/$id': typeof AdminAuthedExperiencesIdRoute
+  '/admin/_authed/experiences/new': typeof AdminAuthedExperiencesNewRoute
+  '/admin/_authed/projects/$id': typeof AdminAuthedProjectsIdRoute
+  '/admin/_authed/projects/new': typeof AdminAuthedProjectsNewRoute
+  '/admin/_authed/apps/': typeof AdminAuthedAppsIndexRoute
+  '/admin/_authed/certifications/': typeof AdminAuthedCertificationsIndexRoute
+  '/admin/_authed/cv/': typeof AdminAuthedCvIndexRoute
+  '/admin/_authed/education/': typeof AdminAuthedEducationIndexRoute
+  '/admin/_authed/experiences/': typeof AdminAuthedExperiencesIndexRoute
+  '/admin/_authed/projects/': typeof AdminAuthedProjectsIndexRoute
+  '/admin/_authed/skills/': typeof AdminAuthedSkillsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/contact'
-    | '/dashboard'
-    | '/github'
-    | '/auth/admin'
-    | '/dashboard/collaborators'
-    | '/dashboard/settings'
-    | '/dashboard/taxonomies'
-    | '/notes/$slug'
+    | '/about'
+    | '/admin'
+    | '/admin/login'
     | '/projects/$slug'
     | '/apps/'
-    | '/dashboard/'
-    | '/notes/'
     | '/projects/'
-    | '/dashboard/apps/create'
-    | '/dashboard/posts/create'
-    | '/dashboard/projects/create'
-    | '/dashboard/apps/'
-    | '/dashboard/posts/'
-    | '/dashboard/projects/'
-    | '/dashboard/apps/edit/$appId'
-    | '/dashboard/posts/edit/$postId'
-    | '/dashboard/projects/edit/$projectId'
+    | '/admin/'
+    | '/admin/apps/$id'
+    | '/admin/apps/new'
+    | '/admin/certifications/$id'
+    | '/admin/certifications/new'
+    | '/admin/cv/$id'
+    | '/admin/cv/new'
+    | '/admin/education/$id'
+    | '/admin/education/new'
+    | '/admin/experiences/$id'
+    | '/admin/experiences/new'
+    | '/admin/projects/$id'
+    | '/admin/projects/new'
+    | '/admin/apps/'
+    | '/admin/certifications/'
+    | '/admin/cv/'
+    | '/admin/education/'
+    | '/admin/experiences/'
+    | '/admin/projects/'
+    | '/admin/skills/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/contact'
-    | '/github'
-    | '/auth/admin'
-    | '/dashboard/collaborators'
-    | '/dashboard/settings'
-    | '/dashboard/taxonomies'
-    | '/notes/$slug'
+    | '/about'
+    | '/admin/login'
     | '/projects/$slug'
     | '/apps'
-    | '/dashboard'
-    | '/notes'
     | '/projects'
-    | '/dashboard/apps/create'
-    | '/dashboard/posts/create'
-    | '/dashboard/projects/create'
-    | '/dashboard/apps'
-    | '/dashboard/posts'
-    | '/dashboard/projects'
-    | '/dashboard/apps/edit/$appId'
-    | '/dashboard/posts/edit/$postId'
-    | '/dashboard/projects/edit/$projectId'
+    | '/admin'
+    | '/admin/apps/$id'
+    | '/admin/apps/new'
+    | '/admin/certifications/$id'
+    | '/admin/certifications/new'
+    | '/admin/cv/$id'
+    | '/admin/cv/new'
+    | '/admin/education/$id'
+    | '/admin/education/new'
+    | '/admin/experiences/$id'
+    | '/admin/experiences/new'
+    | '/admin/projects/$id'
+    | '/admin/projects/new'
+    | '/admin/apps'
+    | '/admin/certifications'
+    | '/admin/cv'
+    | '/admin/education'
+    | '/admin/experiences'
+    | '/admin/projects'
+    | '/admin/skills'
   id:
     | '__root__'
     | '/'
-    | '/contact'
-    | '/dashboard'
-    | '/github'
-    | '/auth/admin'
-    | '/dashboard/collaborators'
-    | '/dashboard/settings'
-    | '/dashboard/taxonomies'
-    | '/notes/$slug'
+    | '/about'
+    | '/admin/_authed'
+    | '/admin/login'
     | '/projects/$slug'
     | '/apps/'
-    | '/dashboard/'
-    | '/notes/'
     | '/projects/'
-    | '/dashboard/apps/create'
-    | '/dashboard/posts/create'
-    | '/dashboard/projects/create'
-    | '/dashboard/apps/'
-    | '/dashboard/posts/'
-    | '/dashboard/projects/'
-    | '/dashboard/apps/edit/$appId'
-    | '/dashboard/posts/edit/$postId'
-    | '/dashboard/projects/edit/$projectId'
+    | '/admin/_authed/'
+    | '/admin/_authed/apps/$id'
+    | '/admin/_authed/apps/new'
+    | '/admin/_authed/certifications/$id'
+    | '/admin/_authed/certifications/new'
+    | '/admin/_authed/cv/$id'
+    | '/admin/_authed/cv/new'
+    | '/admin/_authed/education/$id'
+    | '/admin/_authed/education/new'
+    | '/admin/_authed/experiences/$id'
+    | '/admin/_authed/experiences/new'
+    | '/admin/_authed/projects/$id'
+    | '/admin/_authed/projects/new'
+    | '/admin/_authed/apps/'
+    | '/admin/_authed/certifications/'
+    | '/admin/_authed/cv/'
+    | '/admin/_authed/education/'
+    | '/admin/_authed/experiences/'
+    | '/admin/_authed/projects/'
+    | '/admin/_authed/skills/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ContactRoute: typeof ContactRoute
-  DashboardRoute: typeof DashboardRouteWithChildren
-  GithubRoute: typeof GithubRoute
-  AuthAdminRoute: typeof AuthAdminRoute
-  NotesSlugRoute: typeof NotesSlugRoute
+  AboutRoute: typeof AboutRoute
+  AdminAuthedRouteRoute: typeof AdminAuthedRouteRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   AppsIndexRoute: typeof AppsIndexRoute
-  NotesIndexRoute: typeof NotesIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/github': {
-      id: '/github'
-      path: '/github'
-      fullPath: '/github'
-      preLoaderRoute: typeof GithubRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -353,20 +390,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/notes/': {
-      id: '/notes/'
-      path: '/notes'
-      fullPath: '/notes/'
-      preLoaderRoute: typeof NotesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardRoute
-    }
     '/apps/': {
       id: '/apps/'
       path: '/apps'
@@ -381,153 +404,219 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/notes/$slug': {
-      id: '/notes/$slug'
-      path: '/notes/$slug'
-      fullPath: '/notes/$slug'
-      preLoaderRoute: typeof NotesSlugRouteImport
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/taxonomies': {
-      id: '/dashboard/taxonomies'
-      path: '/taxonomies'
-      fullPath: '/dashboard/taxonomies'
-      preLoaderRoute: typeof DashboardTaxonomiesRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/collaborators': {
-      id: '/dashboard/collaborators'
-      path: '/collaborators'
-      fullPath: '/dashboard/collaborators'
-      preLoaderRoute: typeof DashboardCollaboratorsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/auth/admin': {
-      id: '/auth/admin'
-      path: '/auth/admin'
-      fullPath: '/auth/admin'
-      preLoaderRoute: typeof AuthAdminRouteImport
+    '/admin/_authed': {
+      id: '/admin/_authed'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminAuthedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/projects/': {
-      id: '/dashboard/projects/'
+    '/admin/_authed/': {
+      id: '/admin/_authed/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminAuthedIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/skills/': {
+      id: '/admin/_authed/skills/'
+      path: '/skills'
+      fullPath: '/admin/skills/'
+      preLoaderRoute: typeof AdminAuthedSkillsIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/projects/': {
+      id: '/admin/_authed/projects/'
       path: '/projects'
-      fullPath: '/dashboard/projects/'
-      preLoaderRoute: typeof DashboardProjectsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      fullPath: '/admin/projects/'
+      preLoaderRoute: typeof AdminAuthedProjectsIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/posts/': {
-      id: '/dashboard/posts/'
-      path: '/posts'
-      fullPath: '/dashboard/posts/'
-      preLoaderRoute: typeof DashboardPostsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+    '/admin/_authed/experiences/': {
+      id: '/admin/_authed/experiences/'
+      path: '/experiences'
+      fullPath: '/admin/experiences/'
+      preLoaderRoute: typeof AdminAuthedExperiencesIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/apps/': {
-      id: '/dashboard/apps/'
+    '/admin/_authed/education/': {
+      id: '/admin/_authed/education/'
+      path: '/education'
+      fullPath: '/admin/education/'
+      preLoaderRoute: typeof AdminAuthedEducationIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/cv/': {
+      id: '/admin/_authed/cv/'
+      path: '/cv'
+      fullPath: '/admin/cv/'
+      preLoaderRoute: typeof AdminAuthedCvIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/certifications/': {
+      id: '/admin/_authed/certifications/'
+      path: '/certifications'
+      fullPath: '/admin/certifications/'
+      preLoaderRoute: typeof AdminAuthedCertificationsIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/apps/': {
+      id: '/admin/_authed/apps/'
       path: '/apps'
-      fullPath: '/dashboard/apps/'
-      preLoaderRoute: typeof DashboardAppsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      fullPath: '/admin/apps/'
+      preLoaderRoute: typeof AdminAuthedAppsIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/projects/create': {
-      id: '/dashboard/projects/create'
-      path: '/projects/create'
-      fullPath: '/dashboard/projects/create'
-      preLoaderRoute: typeof DashboardProjectsCreateRouteImport
-      parentRoute: typeof DashboardRoute
+    '/admin/_authed/projects/new': {
+      id: '/admin/_authed/projects/new'
+      path: '/projects/new'
+      fullPath: '/admin/projects/new'
+      preLoaderRoute: typeof AdminAuthedProjectsNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/posts/create': {
-      id: '/dashboard/posts/create'
-      path: '/posts/create'
-      fullPath: '/dashboard/posts/create'
-      preLoaderRoute: typeof DashboardPostsCreateRouteImport
-      parentRoute: typeof DashboardRoute
+    '/admin/_authed/projects/$id': {
+      id: '/admin/_authed/projects/$id'
+      path: '/projects/$id'
+      fullPath: '/admin/projects/$id'
+      preLoaderRoute: typeof AdminAuthedProjectsIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/apps/create': {
-      id: '/dashboard/apps/create'
-      path: '/apps/create'
-      fullPath: '/dashboard/apps/create'
-      preLoaderRoute: typeof DashboardAppsCreateRouteImport
-      parentRoute: typeof DashboardRoute
+    '/admin/_authed/experiences/new': {
+      id: '/admin/_authed/experiences/new'
+      path: '/experiences/new'
+      fullPath: '/admin/experiences/new'
+      preLoaderRoute: typeof AdminAuthedExperiencesNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/projects/edit/$projectId': {
-      id: '/dashboard/projects/edit/$projectId'
-      path: '/projects/edit/$projectId'
-      fullPath: '/dashboard/projects/edit/$projectId'
-      preLoaderRoute: typeof DashboardProjectsEditProjectIdRouteImport
-      parentRoute: typeof DashboardRoute
+    '/admin/_authed/experiences/$id': {
+      id: '/admin/_authed/experiences/$id'
+      path: '/experiences/$id'
+      fullPath: '/admin/experiences/$id'
+      preLoaderRoute: typeof AdminAuthedExperiencesIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/posts/edit/$postId': {
-      id: '/dashboard/posts/edit/$postId'
-      path: '/posts/edit/$postId'
-      fullPath: '/dashboard/posts/edit/$postId'
-      preLoaderRoute: typeof DashboardPostsEditPostIdRouteImport
-      parentRoute: typeof DashboardRoute
+    '/admin/_authed/education/new': {
+      id: '/admin/_authed/education/new'
+      path: '/education/new'
+      fullPath: '/admin/education/new'
+      preLoaderRoute: typeof AdminAuthedEducationNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/dashboard/apps/edit/$appId': {
-      id: '/dashboard/apps/edit/$appId'
-      path: '/apps/edit/$appId'
-      fullPath: '/dashboard/apps/edit/$appId'
-      preLoaderRoute: typeof DashboardAppsEditAppIdRouteImport
-      parentRoute: typeof DashboardRoute
+    '/admin/_authed/education/$id': {
+      id: '/admin/_authed/education/$id'
+      path: '/education/$id'
+      fullPath: '/admin/education/$id'
+      preLoaderRoute: typeof AdminAuthedEducationIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/cv/new': {
+      id: '/admin/_authed/cv/new'
+      path: '/cv/new'
+      fullPath: '/admin/cv/new'
+      preLoaderRoute: typeof AdminAuthedCvNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/cv/$id': {
+      id: '/admin/_authed/cv/$id'
+      path: '/cv/$id'
+      fullPath: '/admin/cv/$id'
+      preLoaderRoute: typeof AdminAuthedCvIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/certifications/new': {
+      id: '/admin/_authed/certifications/new'
+      path: '/certifications/new'
+      fullPath: '/admin/certifications/new'
+      preLoaderRoute: typeof AdminAuthedCertificationsNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/certifications/$id': {
+      id: '/admin/_authed/certifications/$id'
+      path: '/certifications/$id'
+      fullPath: '/admin/certifications/$id'
+      preLoaderRoute: typeof AdminAuthedCertificationsIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/apps/new': {
+      id: '/admin/_authed/apps/new'
+      path: '/apps/new'
+      fullPath: '/admin/apps/new'
+      preLoaderRoute: typeof AdminAuthedAppsNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/apps/$id': {
+      id: '/admin/_authed/apps/$id'
+      path: '/apps/$id'
+      fullPath: '/admin/apps/$id'
+      preLoaderRoute: typeof AdminAuthedAppsIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
     }
   }
 }
 
-interface DashboardRouteChildren {
-  DashboardCollaboratorsRoute: typeof DashboardCollaboratorsRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardTaxonomiesRoute: typeof DashboardTaxonomiesRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardAppsCreateRoute: typeof DashboardAppsCreateRoute
-  DashboardPostsCreateRoute: typeof DashboardPostsCreateRoute
-  DashboardProjectsCreateRoute: typeof DashboardProjectsCreateRoute
-  DashboardAppsIndexRoute: typeof DashboardAppsIndexRoute
-  DashboardPostsIndexRoute: typeof DashboardPostsIndexRoute
-  DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute
-  DashboardAppsEditAppIdRoute: typeof DashboardAppsEditAppIdRoute
-  DashboardPostsEditPostIdRoute: typeof DashboardPostsEditPostIdRoute
-  DashboardProjectsEditProjectIdRoute: typeof DashboardProjectsEditProjectIdRoute
+interface AdminAuthedRouteRouteChildren {
+  AdminAuthedIndexRoute: typeof AdminAuthedIndexRoute
+  AdminAuthedAppsIdRoute: typeof AdminAuthedAppsIdRoute
+  AdminAuthedAppsNewRoute: typeof AdminAuthedAppsNewRoute
+  AdminAuthedCertificationsIdRoute: typeof AdminAuthedCertificationsIdRoute
+  AdminAuthedCertificationsNewRoute: typeof AdminAuthedCertificationsNewRoute
+  AdminAuthedCvIdRoute: typeof AdminAuthedCvIdRoute
+  AdminAuthedCvNewRoute: typeof AdminAuthedCvNewRoute
+  AdminAuthedEducationIdRoute: typeof AdminAuthedEducationIdRoute
+  AdminAuthedEducationNewRoute: typeof AdminAuthedEducationNewRoute
+  AdminAuthedExperiencesIdRoute: typeof AdminAuthedExperiencesIdRoute
+  AdminAuthedExperiencesNewRoute: typeof AdminAuthedExperiencesNewRoute
+  AdminAuthedProjectsIdRoute: typeof AdminAuthedProjectsIdRoute
+  AdminAuthedProjectsNewRoute: typeof AdminAuthedProjectsNewRoute
+  AdminAuthedAppsIndexRoute: typeof AdminAuthedAppsIndexRoute
+  AdminAuthedCertificationsIndexRoute: typeof AdminAuthedCertificationsIndexRoute
+  AdminAuthedCvIndexRoute: typeof AdminAuthedCvIndexRoute
+  AdminAuthedEducationIndexRoute: typeof AdminAuthedEducationIndexRoute
+  AdminAuthedExperiencesIndexRoute: typeof AdminAuthedExperiencesIndexRoute
+  AdminAuthedProjectsIndexRoute: typeof AdminAuthedProjectsIndexRoute
+  AdminAuthedSkillsIndexRoute: typeof AdminAuthedSkillsIndexRoute
 }
 
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardCollaboratorsRoute: DashboardCollaboratorsRoute,
-  DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardTaxonomiesRoute: DashboardTaxonomiesRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
-  DashboardAppsCreateRoute: DashboardAppsCreateRoute,
-  DashboardPostsCreateRoute: DashboardPostsCreateRoute,
-  DashboardProjectsCreateRoute: DashboardProjectsCreateRoute,
-  DashboardAppsIndexRoute: DashboardAppsIndexRoute,
-  DashboardPostsIndexRoute: DashboardPostsIndexRoute,
-  DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
-  DashboardAppsEditAppIdRoute: DashboardAppsEditAppIdRoute,
-  DashboardPostsEditPostIdRoute: DashboardPostsEditPostIdRoute,
-  DashboardProjectsEditProjectIdRoute: DashboardProjectsEditProjectIdRoute,
+const AdminAuthedRouteRouteChildren: AdminAuthedRouteRouteChildren = {
+  AdminAuthedIndexRoute: AdminAuthedIndexRoute,
+  AdminAuthedAppsIdRoute: AdminAuthedAppsIdRoute,
+  AdminAuthedAppsNewRoute: AdminAuthedAppsNewRoute,
+  AdminAuthedCertificationsIdRoute: AdminAuthedCertificationsIdRoute,
+  AdminAuthedCertificationsNewRoute: AdminAuthedCertificationsNewRoute,
+  AdminAuthedCvIdRoute: AdminAuthedCvIdRoute,
+  AdminAuthedCvNewRoute: AdminAuthedCvNewRoute,
+  AdminAuthedEducationIdRoute: AdminAuthedEducationIdRoute,
+  AdminAuthedEducationNewRoute: AdminAuthedEducationNewRoute,
+  AdminAuthedExperiencesIdRoute: AdminAuthedExperiencesIdRoute,
+  AdminAuthedExperiencesNewRoute: AdminAuthedExperiencesNewRoute,
+  AdminAuthedProjectsIdRoute: AdminAuthedProjectsIdRoute,
+  AdminAuthedProjectsNewRoute: AdminAuthedProjectsNewRoute,
+  AdminAuthedAppsIndexRoute: AdminAuthedAppsIndexRoute,
+  AdminAuthedCertificationsIndexRoute: AdminAuthedCertificationsIndexRoute,
+  AdminAuthedCvIndexRoute: AdminAuthedCvIndexRoute,
+  AdminAuthedEducationIndexRoute: AdminAuthedEducationIndexRoute,
+  AdminAuthedExperiencesIndexRoute: AdminAuthedExperiencesIndexRoute,
+  AdminAuthedProjectsIndexRoute: AdminAuthedProjectsIndexRoute,
+  AdminAuthedSkillsIndexRoute: AdminAuthedSkillsIndexRoute,
 }
 
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
-)
+const AdminAuthedRouteRouteWithChildren =
+  AdminAuthedRouteRoute._addFileChildren(AdminAuthedRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ContactRoute: ContactRoute,
-  DashboardRoute: DashboardRouteWithChildren,
-  GithubRoute: GithubRoute,
-  AuthAdminRoute: AuthAdminRoute,
-  NotesSlugRoute: NotesSlugRoute,
+  AboutRoute: AboutRoute,
+  AdminAuthedRouteRoute: AdminAuthedRouteRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   AppsIndexRoute: AppsIndexRoute,
-  NotesIndexRoute: NotesIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/jetbrains-mono";
+/* Pastikan font ini terinstal: pnpm add @fontsource-variable/inter @fontsource-variable/space-grotesk */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
+
+/* Token desain (warna, font, shadow, radius) dan styling README dipisah supaya file ini tetap pendek. */
+@import "./theme.css";
+@import "./readme.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        /* Menggunakan font-sans (Inter) sebagai standar pembacaan jarak panjang */
+        @apply bg-background text-foreground font-sans antialiased;
+    }
+
+    /* Mengaplikasikan Space Grotesk ke semua elemen heading */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading tracking-tight;
+    }
+
+    /* JetBrains Mono untuk code block atau elemen label spesifik */
+    code,
+    pre,
+    kbd,
+    samp {
+        @apply font-mono;
+    }
+}

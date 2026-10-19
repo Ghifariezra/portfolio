@@ -1,0 +1,96 @@
+/* README GitHub yang dirender react-markdown */
+.readme {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+.readme > * + * {
+    margin-top: 1rem;
+}
+.readme h1,
+.readme h2,
+.readme h3 {
+    font-weight: 700;
+    margin-top: 2rem;
+}
+.readme h1 {
+    font-size: 1.5rem;
+}
+.readme h2 {
+    font-size: 1.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid var(--border);
+}
+.readme h3 {
+    font-size: 1.0625rem;
+}
+.readme a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.readme ul,
+.readme ol {
+    padding-left: 1.5rem;
+}
+.readme ul {
+    list-style: disc;
+}
+.readme ol {
+    list-style: decimal;
+}
+.readme li + li {
+    margin-top: 0.25rem;
+}
+.readme code {
+    font-size: 0.85em;
+    padding: 0.1rem 0.3rem;
+    background: var(--muted);
+    border: 1px solid var(--border);
+}
+.readme pre {
+    overflow-x: auto;
+    padding: 1rem;
+    background: var(--muted);
+    border: 2px solid var(--border);
+}
+.readme pre code {
+    padding: 0;
+    border: 0;
+    background: none;
+}
+.readme img {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+}
+.readme blockquote {
+    padding-left: 1rem;
+    border-left: 4px solid var(--border);
+    color: var(--muted-foreground);
+}
+.readme table {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+.readme th,
+.readme td {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--border);
+}
+.readme hr {
+    border: 0;
+    border-top: 2px solid var(--border);
+}
+
+/* Warna syntax highlight (shiki), dua tema lewat CSS variable */
+.shiki,
+.shiki span {
+    color: var(--shiki-light);
+}
+.dark .shiki,
+.dark .shiki span {
+    color: var(--shiki-dark);
+}
