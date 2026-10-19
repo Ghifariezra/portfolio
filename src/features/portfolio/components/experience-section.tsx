@@ -6,7 +6,6 @@ import { TimelineEntry, TimelineList } from "./timeline-entry";
 
 export function ExperienceSection() {
     const { data, isPending, isError, refetch } = useExperiences();
-
     return (
         <AboutSection
             title="Experience"

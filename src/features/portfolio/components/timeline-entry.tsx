@@ -15,17 +15,32 @@ interface TimelineEntryProps {
 }
 
 /** Satu entri di timeline vertikal; dipakai Experience dan Education. Harus berada di dalam <TimelineList>. */
-export function TimelineEntry({ title, subtitle, badges = [], range, meta = [], summary, bullets, skills }: TimelineEntryProps) {
+export function TimelineEntry({
+    title,
+    subtitle,
+    badges = [],
+    range,
+    meta = [],
+    summary,
+    bullets,
+    skills,
+}: TimelineEntryProps) {
     const details = joinParts([range, ...meta], " · ");
 
     return (
         <li className="relative">
-            <span aria-hidden="true" className="absolute top-2 -left-[30px] size-2.5 border-2 border-border bg-primary" />
+            <span
+                aria-hidden="true"
+                className="absolute top-2 -left-[30px] size-2.5 border-2 border-border bg-primary"
+            />
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <h3 className="font-heading text-lg font-semibold leading-snug">{title}</h3>
                 {badges.map((badge) => (
-                    <span key={badge} className="border-2 border-border px-2 py-0.5 font-mono text-[11px] font-semibold">
+                    <span
+                        key={badge}
+                        className="border-2 border-border px-2 py-0.5 font-mono text-[11px] font-semibold"
+                    >
                         {badge}
                     </span>
                 ))}
@@ -46,11 +61,7 @@ export function TimelineEntry({ title, subtitle, badges = [], range, meta = [], 
             )}
 
             {skills.length > 0 && (
-                <TagList
-                    className="mt-3"
-                    size="sm"
-                    tags={skills.map((s) => ({ key: s.id, label: s.name }))}
-                />
+                <TagList className="mt-3" size="sm" tags={skills.map((s) => ({ key: s.id, label: s.name }))} />
             )}
         </li>
     );

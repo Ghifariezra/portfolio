@@ -13,5 +13,4 @@ export const isVisibleApp = (app: AppItem): boolean => app.status !== "archived"
 export const selectVisibleApps = (apps: AppItem[]): AppItem[] => apps.filter(isVisibleApp);
 
 /** Metrics hanya untuk app yang sudah rilis dan punya Store ID (API menjamin published => ada Store ID). */
-export const getStoreId = (app: AppItem): string | null =>
-    app.status === "published" ? app.microsoft_store_id : null;
+export const getStoreId = (app: AppItem): string | null => (app.status === "published" ? app.microsoft_store_id : null);

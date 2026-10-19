@@ -1,8 +1,9 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { SITE } from "@/config/site";
+import { HomePage } from "@/features/home/pages/home-page";
+import { homeHead } from "@/lib/seo";
 
-// Home belum dibuat; sementara arahkan ke halaman pertama yang sudah ada.
 export const Route = createFileRoute("/")({
-    beforeLoad: () => {
-        throw redirect({ to: "/projects" });
-    },
+    head: () => homeHead(`Portfolio of ${SITE.fullName}: featured projects, testing skills, and certifications.`),
+    component: HomePage,
 });

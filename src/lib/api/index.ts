@@ -1,2 +1,11 @@
+export { adminGet, adminRequest, verifyAdminToken } from "./admin-client";
 export { apiData, apiGet, fetchPublic } from "./client";
-export { ApiError, extractErrorMessage, isClientError, isNotFound } from "./errors";
+export {
+    ApiError,
+    type ApiErrorDetail,
+    errorFromResponse,
+    extractErrorMessage,
+    fieldErrors,
+    isClientError,
+    isNotFound,
+} from "./errors";

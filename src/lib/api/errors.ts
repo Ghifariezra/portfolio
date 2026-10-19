@@ -1,7 +1,14 @@
+export interface ApiErrorDetail {
+    path: string;
+    message: string;
+}
+
 export class ApiError extends Error {
     constructor(
         readonly status: number,
         message: string,
+        /** Rincian validasi per field dari 422 ({ path, message }); kosong untuk error lain. */
+        readonly details: ApiErrorDetail[] = [],
     ) {
         super(message);
         this.name = "ApiError";
@@ -28,4 +35,38 @@ export function extractErrorMessage(body: unknown, fallback: string): string {
         }
     }
     return fallback;
+}
+
+/** details hanya dipakai kalau berupa array { path, message } (422 validasi); error Postgres mengirim string. */
+export function extractErrorDetails(body: unknown): ApiErrorDetail[] {
+    if (!body || typeof body !== "object" || !("error" in body)) return [];
+    const err = (body as { error: unknown }).error;
+    if (!err || typeof err !== "object" || !("details" in err) || !Array.isArray(err.details)) return [];
+
+    return err.details.filter(
+        (d): d is ApiErrorDetail =>
+            !!d && typeof d === "object" && typeof d.path === "string" && typeof d.message === "string",
+    );
+}
+
+export async function errorFromResponse(res: Response): Promise<ApiError> {
+    const fallback = `Request failed (${res.status})`;
+    try {
+        const body: unknown = await res.json();
+        return new ApiError(res.status, extractErrorMessage(body, fallback), extractErrorDetails(body));
+    } catch {
+        return new ApiError(res.status, fallback);
+    }
+}
+
+/** Pesan pertama per field. Path "bullets.3" dipetakan ke "bullets". */
+export function fieldErrors(error: unknown): Record<string, string> {
+    const out: Record<string, string> = {};
+    if (error instanceof ApiError) {
+        for (const d of error.details) {
+            const key = d.path.split(".")[0] || "_";
+            out[key] ??= d.message;
+        }
+    }
+    return out;
 }

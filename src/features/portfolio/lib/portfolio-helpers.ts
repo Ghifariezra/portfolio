@@ -34,3 +34,16 @@ export function groupSkillsByCategory(skills: readonly Skill[]): SkillGroup[] {
     }
     return [...groups].map(([category, items]) => ({ category, skills: items }));
 }
+
+export interface EducationGroups {
+    formal: Education[];
+    training: Education[];
+}
+
+/** Pisahkan pendidikan formal dan training/bootcamp. Urutan dari API (sort_order) dipertahankan di tiap grup. */
+export function splitEducationByKind(education: readonly Education[]): EducationGroups {
+    return {
+        formal: education.filter((e) => e.kind === "formal"),
+        training: education.filter((e) => e.kind === "training"),
+    };
+}

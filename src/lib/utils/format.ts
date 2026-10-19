@@ -11,8 +11,16 @@ export function formatMonth(iso: string): string {
         : d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 }
 
-/** "Aug 2026 – Present" / "Aug 2026 – Oct 2026". null kalau tanggal mulai tidak ada. */
+/**
+ * "Aug 2026 – Present" / "Aug 2026 – Oct 2026". Kalau awal dan akhir jatuh di bulan yang sama
+ * (kursus satu bulan), cukup satu bulan: "Oct 2022". null kalau tanggal mulai tidak ada.
+ */
 export function formatRange(start: string | null, end: string | null): string | null {
     if (!start) return null;
-    return `${formatMonth(start)} – ${end ? formatMonth(end) : "Present"}`;
+
+    const from = formatMonth(start);
+    if (!end) return `${from} – Present`;
+
+    const to = formatMonth(end);
+    return from === to ? from : `${from} – ${to}`;
 }

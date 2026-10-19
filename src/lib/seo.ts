@@ -9,3 +9,10 @@ export function pageHead(title: string, description?: string) {
         ],
     };
 }
+
+/** Home tidak punya judul halaman sendiri, jadi judulnya "<Nama Lengkap> | Portfolio". */
+export function homeHead(description: string) {
+    return {
+        meta: [{ title: `${SITE.fullName} | Portfolio` }, { name: "description", content: description }],
+    };
+}
