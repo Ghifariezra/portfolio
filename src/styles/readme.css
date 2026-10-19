@@ -60,6 +60,8 @@
     background: none;
 }
 .readme img {
+    display: inline-block;
+    vertical-align: middle;
     max-width: 100%;
     height: auto;
 }
@@ -81,4 +83,14 @@
 .readme hr {
     border: 0;
     border-top: 2px solid var(--border);
+}
+
+/* Warna syntax highlight (shiki), dua tema lewat CSS variable */
+.shiki,
+.shiki span {
+    color: var(--shiki-light);
+}
+.dark .shiki,
+.dark .shiki span {
+    color: var(--shiki-dark);
 }

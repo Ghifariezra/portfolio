@@ -2,6 +2,7 @@ import { GithubLogo, Globe, LinkedinLogo } from "@phosphor-icons/react";
 import { ErrorState } from "@/components/ui/error-state";
 import { IconLink } from "@/components/ui/icon-link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DownloadCvButton } from "@/features/cv/components/download-cv-button";
 import { isHttpUrl } from "@/lib/utils";
 import { useProfile } from "../hooks/use-portfolio";
 import { joinParts } from "../lib/portfolio-helpers";
@@ -34,7 +35,7 @@ export function ProfileHeader() {
                     </p>
                 )}
 
-                <div className="mt-5 flex gap-2">
+                <div className="mt-5 flex flex-wrap items-center gap-3">
                     {isHttpUrl(data.github_url) && (
                         <IconLink href={data.github_url} label="GitHub profile">
                             <GithubLogo size={18} weight="bold" />
@@ -50,6 +51,7 @@ export function ProfileHeader() {
                             <Globe size={18} weight="bold" />
                         </IconLink>
                     )}
+                    <DownloadCvButton />
                 </div>
             </div>
         </header>
