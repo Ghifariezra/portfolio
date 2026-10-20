@@ -3,6 +3,8 @@ name: E2E Tests
 on:
     pull_request:
         branches: ["main"]
+        paths-ignore:
+            - "README.md"
     workflow_call:
     workflow_dispatch:
 

@@ -1,171 +1,284 @@
-# 🚀 Personal Portfolio
+<div align="center">
 
-Website portofolio full-stack dengan **dashboard admin**, blog/notes berbasis rich-text, direktori aplikasi dengan metrik Microsoft Store, dan halaman aktivitas GitHub. Dibangun dengan ekosistem React modern dan arsitektur **type-safe** end-to-end (TanStack + Zod).
+# Personal Portfolio
+
+A React portfolio site with an admin dashboard, live GitHub data on project pages, a Microsoft Store app directory, and a CV generated as a PDF in the browser.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
 ![Biome](https://img.shields.io/badge/Biome-2-60A5FA?logo=biome&logoColor=white)
 
-## ✨ Fitur
+[Live site](https://ezdev.xyz) · [Features](#features) · [Architecture](#architecture) · [Getting started](#getting-started) · [Testing](#testing) · [CI/CD](#cicd)
 
-### Halaman publik
-- **Home** — hero, featured projects, sertifikasi (dikelompokkan dengan collapsible), ringkasan GitHub.
-- **Projects & Notes** — daftar dan halaman detail per slug, dengan konten rich-text yang dirender aman (XSS-sanitized).
-- **Apps** — direktori aplikasi dengan metrik lifetime dari Microsoft Store.
-- **GitHub** — grafik kontribusi, feed aktivitas yang bisa difilter, dan repo paling aktif.
-- **Contact** — form validasi dengan TanStack Form + Zod.
-- Desain neo-brutalist, navbar responsif untuk mobile, dark mode, dan halaman 404 kustom.
+</div>
 
-### Reader konten (blog & project)
-Konten BlockNote dirender dengan blok khusus:
-- Diagram **ERD / React Flow** dengan auto-layout (dagre)
-- **File tree** interaktif
-- Embed **Google Colab / GitHub Gist**
-- Preview **PDF** dan **Google Slides** (termasuk deteksi link Slides langsung)
-- Syntax highlighting dengan **Shiki**, markdown dengan `react-markdown` + `remark-gfm`
+---
 
-### Dashboard admin
-Terproteksi login (`/auth/admin`), berisi modul:
+## Table of contents
 
-| Modul | Fungsi |
+- [Personal Portfolio](#personal-portfolio)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Features](#features)
+    - [Public pages](#public-pages)
+    - [README viewer](#readme-viewer)
+    - [CV generator](#cv-generator)
+    - [Admin dashboard](#admin-dashboard)
+  - [Tech stack](#tech-stack)
+  - [Architecture](#architecture)
+    - [API surfaces](#api-surfaces)
+    - [Caching](#caching)
+    - [Admin internals](#admin-internals)
+  - [Project structure](#project-structure)
+  - [Getting started](#getting-started)
+  - [Scripts](#scripts)
+  - [Testing](#testing)
+  - [Performance and SEO](#performance-and-seo)
+  - [CI/CD](#cicd)
+  - [Conventions](#conventions)
+
+## Overview
+
+This is the frontend of my personal portfolio. It talks to a separate API (`portfolio-api`: Hono on Cloudflare Workers with Supabase) and validates every response with Zod at runtime, so a change in the API contract shows up in one place instead of breaking the UI quietly.
+
+Content (projects, apps, experience, education, certifications, skills, CV variants) is managed from a built-in admin dashboard rather than hard-coded.
+
+## Features
+
+### Public pages
+
+| Route | What it shows |
 |---|---|
-| Overview | Ringkasan analitik |
-| Posts | CRUD blog dengan rich-text editor (BlockNote), upload gambar, tag |
-| Projects | CRUD project, tag, kolaborator, gambar |
-| Apps | Kelola direktori aplikasi dan tag |
-| Collaborators | Kolaborator beserta link |
-| Taxonomies | Kategori dan tag |
-| Settings | Profil, skills, dan sertifikat |
+| `/` | Hero, featured projects, skills, current role, certifications, contact |
+| `/about` | Profile, skills by category, experience, education, certifications, CV download |
+| `/projects` | Project cards with live GitHub stats (stars, forks, top language, last push), filterable by status and language |
+| `/projects/:slug` | Highlights and stack, plus GitHub details: README, language bar, contributors, repo stats |
+| `/apps` | Windows apps with lifetime install metrics from the Microsoft Store |
 
-Konten dapat dikunci/dibuka (lock/unlock), dan jadwal (schedules) dikelola dari API yang sama.
+Home and About load each section's data independently, so a failing endpoint affects only its own section. The UI is neo-brutalist, with dark mode by default, a theme toggle, a responsive navbar, and a custom 404 page.
 
-## 💻 Tech Stack
+### README viewer
 
-| Area | Teknologi |
+The README of each linked GitHub repository is rendered inside the project page:
+
+- GitHub Flavored Markdown (`react-markdown`, `remark-gfm`) with heading anchors
+- Syntax highlighting with Shiki, light and dark themes via CSS variables
+- Mermaid diagrams, rendered client-side with `securityLevel: "strict"`; an invalid diagram falls back to a code block
+- Folder-structure code blocks shown as a file tree
+- Raw HTML is dropped (`skipHtml`), and relative links and images are rewritten to point at the repo on GitHub
+
+### CV generator
+
+The default CV variant is fetched from the API and turned into a PDF in the browser with `@react-pdf/renderer`. The library is imported dynamically, so it is only downloaded the first time the download button is clicked.
+
+### Admin dashboard
+
+Available at `/admin/login` with an admin token.
+
+| Module | Purpose |
+|---|---|
+| Dashboard | Per-resource counts and quick links |
+| Projects | Highlights, linked skills, image, GitHub repo, status |
+| Apps | App directory and Store IDs |
+| Experience | Work history with bullets and skills |
+| Education | Education entries |
+| Certifications | Certifications shown on Home and About |
+| Skills | Skill catalog with categories |
+| CV | Variants (`en` / `id`): pick and order items, mark one as default, preview the resolved result |
+
+## Tech stack
+
+| Area | Technology |
 |---|---|
 | Framework | React 19, TypeScript 6 |
-| Bundler | Vite 8 (+ `@vitejs/plugin-react`) |
-| Routing | TanStack Router (file-based, auto code-splitting) |
-| Data | TanStack React Query 5 (server state), Zustand 5 (client state), Axios |
-| Form & validasi | TanStack Form, Zod 4 |
-| Styling | Tailwind CSS v4, `tw-animate-css`, `next-themes` |
-| UI | shadcn (Radix UI), animate-ui, Phosphor Icons, Lucide, Motion |
-| Editor & visual | BlockNote, Shiki, React Flow (`@xyflow/react`) + dagre, React Markdown |
-| Keamanan | Sanitasi XSS (`xss`), auth store dengan Zustand |
-| Testing | Vitest 4, React Testing Library, jsdom |
-| Kualitas kode | Biome 2 (lint + format + organize imports) |
-| CI/CD | GitHub Actions → GitHub Pages |
+| Build | Vite 8 |
+| Routing | TanStack Router (file-based, intent preloading) |
+| Data | TanStack Query 5 with `queryOptions` factories, native `fetch` |
+| Validation | Zod 4 |
+| Styling | Tailwind CSS v4, `tw-animate-css`, shadcn tokens, `next-themes` |
+| Icons and fonts | Phosphor Icons, Inter, Space Grotesk, JetBrains Mono |
+| Content | `react-markdown`, `remark-gfm`, `rehype-slug`, Shiki, Mermaid |
+| PDF | `@react-pdf/renderer` |
+| Testing | Playwright |
+| Quality | Biome 2 (lint, format, organize imports) |
+| CI/CD | GitHub Actions, GitHub Pages |
 
-## 🏗️ Arsitektur
+## Architecture
 
-Frontend ini berpasangan dengan **API terpisah** (`portfolio-api`: Hono di Cloudflare Workers dengan Supabase). Tanggung jawab dipisah per lapisan:
+Code is organized by feature. Each feature follows the same layering:
 
+```mermaid
+flowchart TD
+    R["Route<br/>src/routes"] --> P["Page<br/>features/x/pages"]
+    P --> C["Components and hooks"]
+    C --> Q["Query<br/>features/x/api"]
+    Q --> A["API client<br/>lib/api"]
+    A -->|"parse"| S["Zod schema<br/>features/x/schemas"]
 ```
-Route (TanStack Router)
-  └─ Feature (src/lib/features)       ← komposisi halaman
-       └─ Hook (src/lib/hooks)        ← logika UI + form
-            └─ Action (src/lib/actions)   ← React Query: query keys, useQuery/useMutation, invalidasi
-                 └─ Service (src/lib/services) ← singleton pemanggil API (Axios)
-                      └─ Schema (src/lib/schemas) ← validasi Zod
-```
 
-### Strategi cache & invalidasi
+Routes stay thin (SEO `head()`, optional loader, render a page). Queries are `queryOptions` factories with their own keys. The API client does the `fetch`, unwraps the `{ data }` envelope, validates the result, and throws a typed `ApiError`.
 
-Supaya perubahan di dashboard langsung terlihat:
+### API surfaces
 
-- **Client:** setiap mutation konten memanggil `invalidateContent()` (`src/lib/actions/invalidate.ts`) yang me-refetch list dashboard dan semua query halaman publik (kecuali data GitHub).
-- **API (dashboard):** endpoint GET yang dipakai dashboard mengirim `Cache-Control: no-store`.
-- **API (publik):** response di-cache di edge dengan `s-maxage` dan `max-age=0`, lalu cache dibersihkan otomatis setiap ada operasi tulis (purge-on-write).
+| Surface | Path | Auth | Used for |
+|---|---|---|---|
+| Public data | `/api/v1/public/*` | none | Projects, apps, profile, skills, experience, education, certifications, CV |
+| Admin | `/api/v1/admin/*` | `Authorization: Bearer <token>` | Dashboard CRUD, including hidden data |
+| Live data | `/projects/:repo`, `/azure/apps/:id/analytics` | none | GitHub repo details, Microsoft Store analytics |
 
-## 🚄 Struktur Proyek
+The API returns errors in two shapes (`{ error: "..." }` and `{ error: { message, details } }`). Both are normalized into `ApiError`, and 422 validation details are mapped to per-field form errors.
+
+### Caching
+
+`staleTime` values in `src/config/cache.ts` follow the cache TTLs documented for the API:
+
+| Data | Stale time |
+|---|---|
+| Portfolio data | 5 minutes |
+| GitHub repo data | 10 minutes |
+| Store analytics | 60 minutes |
+
+- GitHub data is fetched separately from database data, so a project page can still render if GitHub is unavailable. The list and detail pages use the same query key, so they share a cache entry.
+- 4xx errors are not retried; 5xx errors are retried once.
+- Admin queries have no `staleTime` and use `cache: "no-store"`.
+- After an admin write, the `["admin"]` and `["portfolio"]` queries are invalidated. GitHub queries are left alone.
+
+### Admin internals
+
+- `createAdminResource(path, schema)` produces query keys, list/detail queries, and create, update, delete, replace-bullets, and replace-skills requests, so each admin feature reuses the same pattern.
+- `saveResource` saves an entity in up to three requests (main row, bullets, skills). `useResourceForm` handles the case where the main row saved but a later step failed, so a retry sends `PATCH` instead of creating a duplicate.
+- The admin token is not a `VITE_*` variable, since those are bundled into the public build. It is entered on the login page, checked against the API, and stored in `sessionStorage` with an in-memory fallback. A `401` clears it and returns you to login. The route guard is a UX convenience; the server is what enforces access.
+
+## Project structure
+
+<details>
+<summary>Show the source tree</summary>
 
 ```
 src/
+├── app/                 # providers, query client, router
 ├── components/
-│   ├── animate-ui/     # primitives & komponen animasi
-│   ├── contact/        # bagian form kontak
-│   ├── settings/       # section profil, skills, sertifikat
-│   ├── shared/         # navbar, footer, reader, blok embed (PDF, Slides, Gist, ERD, file tree)
-│   └── ui/             # komponen dasar (shadcn) & rich-text editor
-├── hooks/              # custom hooks lintas fitur
+│   ├── layout/          # navbar, nav items, theme toggle, 404
+│   ├── markdown/        # markdown renderer, code block, mermaid, file tree
+│   └── ui/              # shared primitives
+├── config/              # env (API prefixes), cache (stale times), site metadata
+├── features/
+│   ├── admin/           # shell, login, dashboard, one folder per resource
+│   ├── apps/            # app directory and Store metrics
+│   ├── cv/              # PDF document, download button, CV query
+│   ├── home/            # home page sections
+│   ├── portfolio/       # about page sections
+│   └── projects/        # list, filters, detail, GitHub sections, README viewer
+├── hooks/               # shared hooks
 ├── lib/
-│   ├── actions/        # React Query actions + query keys (+ invalidate.ts)
-│   ├── features/       # domain tiap fitur (home, projects, notes, apps, github, contact, dashboard, admin)
-│   ├── hooks/          # hooks per domain (use-blog, use-project, use-apps, ...)
-│   ├── schemas/        # skema Zod
-│   ├── services/       # singleton API services
-│   └── stores/         # Zustand (auth)
-├── routes/             # definisi route (folder-based, TanStack Router)
-└── utils/              # xss, middleware (Axios), logger
-test/                   # actions, services, schemas, stores, utils
+│   ├── api/             # public client, admin client, typed errors
+│   ├── auth/            # admin token store
+│   ├── markdown/        # Shiki highlighter, file-tree parser
+│   ├── schemas/         # shared Zod schemas
+│   ├── utils/           # cn, formatting, url helpers
+│   └── seo.ts           # head and meta helpers
+├── routes/              # file-based routes (public and admin/_authed/*)
+└── styles/              # globals, theme tokens, README styling
 ```
 
-## 🛠️ Scripts
+Inside a feature: `api/` (queries), `components/`, `hooks/`, `lib/` (pure helpers), `pages/`, `schemas/`.
 
-Proyek ini memakai **pnpm**.
+</details>
 
-| Perintah | Fungsi |
-|---|---|
-| `pnpm dev` | Dev server |
-| `pnpm build` | Type-check (`tsc -b`) + build production |
-| `pnpm preview` | Pratinjau hasil build |
-| `pnpm check` | Lint + format + organize imports (Biome) |
-| `pnpm lint` | Linter saja |
-| `pnpm format` | Format ulang file |
-| `pnpm fix` | Auto-fix masalah Biome |
-| `pnpm test` | Vitest (watch mode) |
-| `pnpm test:run` | Vitest sekali jalan (dipakai CI) |
-| `pnpm test:ui` | UI interaktif Vitest |
+## Getting started
 
-## 📔 Memulai
-
-1. Clone repositori, lalu install dependency:
-   ```bash
-   pnpm install
-   ```
-2. Buat file `.env` dan isi alamat API:
-   ```env
-   VITE_API_URL=<alamat-api-kamu>/api/v1
-   ```
-3. Jalankan development server:
-   ```bash
-   pnpm dev
-   ```
-4. Buka `http://localhost:5173`.
-
-## 🧪 Testing
-
-Test mencakup lapisan **actions, services, schemas, stores, dan utils** (39 file test) dengan Vitest + jsdom + React Testing Library. Hook React Query diuji bersama perilaku invalidasinya, jadi perubahan pada strategi cache langsung tertangkap.
+**Requirements:** Node.js (LTS) and [pnpm](https://pnpm.io) 10.
 
 ```bash
-pnpm test:run
+# 1. Install dependencies
+pnpm install
+
+# 2. Start the dev server
+pnpm dev
 ```
 
-## ⚡ Performa & SEO
+Then open `http://localhost:5173`.
 
-- **Code splitting terarah:** chunk terpisah untuk editor, markdown, React Flow, router, query, ikon, UI, dan state; ditambah auto code-splitting dari TanStack Router.
-- **Build bersih:** `console.*` dan `logger.*` (non-error) dihapus saat production lewat opsi `pure` esbuild.
-- **Tree-shaking aman:** modul dengan side-effect global (font, `@xyflow`, BlockNote) dipertahankan.
-- **Sitemap dinamis:** `vite-plugin-sitemap` mengambil slug project dan blog dari API saat build, lalu membuat `sitemap.xml` dan `robots.txt` (route `/auth/admin` dan `/dashboard` dikecualikan).
-- **Metadata SEO:** title, description, Open Graph, dan Twitter Cards per route.
+**API address.** `VITE_API_URL` is optional in development: it defaults to `/api`, which the Vite dev server proxies, so no CORS setup is needed. For a production build, set it to the Worker URL.
 
-## 🚢 CI/CD
+```env
+VITE_API_URL=<your-api-url>
+```
 
-Setiap push ke `main` menjalankan pipeline GitHub Actions:
+**Admin.** Go to `/admin/login` and enter the API's admin token.
 
-1. **test** — `pnpm test:run`
-2. **build** — `pnpm build` (membaca `VITE_API_URL` dari repository variables), lalu `404.html` disalin dari `index.html` agar routing SPA bekerja
-3. **deploy** — publikasi ke GitHub Pages
+## Scripts
 
-Build hanya berjalan kalau test lolos.
+| Command | Purpose |
+|---|---|
+| `pnpm dev` | Start the dev server |
+| `pnpm build` | Type-check (`tsc -b`) and build for production |
+| `pnpm preview` | Preview the production build |
+| `pnpm check` | Biome: lint, format, organize imports |
+| `pnpm lint` | Linter only |
+| `pnpm format` | Format files |
+| `pnpm fix` | Auto-fix Biome issues |
 
-## 📒 Konvensi
+## Testing
 
-- **Biome** sebagai satu-satunya linter + formatter: indentasi tab, tanda kutip ganda, import otomatis terurut, dan `noUnusedImports`/`noUnusedVariables` sebagai error.
-- **Singleton service** untuk semua pemanggilan API; error handling terpusat di middleware Axios.
-- **Pemisahan tanggung jawab** ketat antara route, feature, hook, action, service, schema, dan store.
-- **DRY:** logika invalidasi cache dipusatkan di `invalidateContent()` alih-alih disalin per mutation.
-- **Commit** mengikuti Conventional Commits (`feat`, `fix`, `test`, `chore`, `style`, ...).
+End-to-end tests use Playwright and run against five projects: `chromium`, `firefox`, `webkit`, `mobile-chrome`, and `mobile-safari`.
+
+```bash
+# one-time: download browsers
+pnpm exec playwright install --with-deps
+
+# run everything
+pnpm exec playwright test
+
+# run one project
+pnpm exec playwright test --project=chromium
+```
+
+The tests use `VITE_API_URL`, so point it at the API you want to test against. The HTML report is written to `playwright-report/`, and failed runs leave traces in `test-results/`.
+
+## Performance and SEO
+
+- **Lazy loading of heavy dependencies:** Mermaid loads only when a README has a diagram, `@react-pdf/renderer` loads on the first CV download, and Shiki loads each language grammar on first use.
+- **Router:** routes preload on intent, and the project detail loader fills the same Query cache the page reads from, so the page does not fetch the project twice.
+- **Per-route metadata:** title, description, canonical URL, Open Graph, and Twitter Cards through `src/lib/seo.ts`. Project pages use the project's own image and description.
+- **Structured data:** JSON-LD `Person` markup on the home page.
+- **Crawler tags:** `scripts/prerender-seo.mjs` adds SEO tags to the static HTML. They are removed at startup, after which the router's `head()` manages them.
+
+## CI/CD
+
+Two GitHub Actions workflows, using pnpm 10 and Node LTS.
+
+```mermaid
+flowchart LR
+    PR["Pull request to main"] --> E2E["E2E tests<br/>5 Playwright projects"]
+    Push["Push to main"] --> E2E2["E2E tests<br/>(reused workflow)"]
+    E2E2 -->|"pass"| Build["Build<br/>+ 404.html copy"]
+    Build --> Deploy["Deploy to GitHub Pages"]
+```
+
+**E2E Tests** (`tests.e2e.yml`)
+- Triggers: pull requests to `main`, manual runs, and calls from the deploy workflow.
+- A matrix runs the five Playwright projects in parallel. `fail-fast` is off, so one failure does not hide the results of the others. Each job has a 20-minute timeout.
+- The HTML report is uploaded for every run (14 days), and traces on failure (7 days).
+- A newer run on the same ref cancels the previous one.
+
+**Deploy to GitHub Pages**
+1. **e2e:** reuses the workflow above.
+2. **build:** runs only if e2e passes. It builds with `VITE_API_URL` from repository variables, then copies `404.html` from `index.html` so SPA routing works on Pages.
+3. **deploy:** publishes the build.
+
+It runs on pushes to `main` and manual runs. Because deploy depends on e2e, a failing Playwright project blocks the release.
+
+**README-only changes skip CI.** A push or pull request that touches only `README.md` does not trigger either workflow. If the same commit also changes other files, the workflows run normally.
+
+## Conventions
+
+- **Biome** is the only linter and formatter. Imports are organized automatically, and each `biome-ignore` comes with a reason.
+- **Feature first:** a feature owns its pages, components, hooks, queries, and schemas. Only code shared across features lives in `components/`, `hooks/`, and `lib/`.
+- **Validate at the boundary:** responses go through a Zod schema in `lib/api`.
+- **One place per concern:** providers in `app/providers.tsx`, nav items in `nav-items.ts` and `admin-nav-items.ts`, stale times in `config/cache.ts`, site metadata in `config/site.ts`.
+- **Admin CRUD:** new admin resources use `createAdminResource` and `useResourceForm` instead of copying the pattern.
+- **Commits** follow Conventional Commits (`feat`, `fix`, `test`, `chore`, `style`, ...).
