@@ -9,63 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
-import { Route as AppsIndexRouteImport } from './routes/apps/index'
-import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
-import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminAuthedRouteRouteImport } from './routes/admin/_authed/route'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AppsIndexRouteImport } from './routes/apps/index'
+import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
+import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
 import { Route as AdminAuthedIndexRouteImport } from './routes/admin/_authed/index'
-import { Route as AdminAuthedSkillsIndexRouteImport } from './routes/admin/_authed/skills/index'
-import { Route as AdminAuthedProjectsIndexRouteImport } from './routes/admin/_authed/projects/index'
-import { Route as AdminAuthedProfileIndexRouteImport } from './routes/admin/_authed/profile/index'
-import { Route as AdminAuthedExperiencesIndexRouteImport } from './routes/admin/_authed/experiences/index'
-import { Route as AdminAuthedEducationIndexRouteImport } from './routes/admin/_authed/education/index'
-import { Route as AdminAuthedCvIndexRouteImport } from './routes/admin/_authed/cv/index'
-import { Route as AdminAuthedCertificationsIndexRouteImport } from './routes/admin/_authed/certifications/index'
 import { Route as AdminAuthedAppsIndexRouteImport } from './routes/admin/_authed/apps/index'
-import { Route as AdminAuthedProjectsNewRouteImport } from './routes/admin/_authed/projects/new'
-import { Route as AdminAuthedProjectsIdRouteImport } from './routes/admin/_authed/projects/$id'
-import { Route as AdminAuthedExperiencesNewRouteImport } from './routes/admin/_authed/experiences/new'
-import { Route as AdminAuthedExperiencesIdRouteImport } from './routes/admin/_authed/experiences/$id'
-import { Route as AdminAuthedEducationNewRouteImport } from './routes/admin/_authed/education/new'
-import { Route as AdminAuthedEducationIdRouteImport } from './routes/admin/_authed/education/$id'
-import { Route as AdminAuthedCvNewRouteImport } from './routes/admin/_authed/cv/new'
-import { Route as AdminAuthedCvIdRouteImport } from './routes/admin/_authed/cv/$id'
-import { Route as AdminAuthedCertificationsNewRouteImport } from './routes/admin/_authed/certifications/new'
-import { Route as AdminAuthedCertificationsIdRouteImport } from './routes/admin/_authed/certifications/$id'
-import { Route as AdminAuthedAppsNewRouteImport } from './routes/admin/_authed/apps/new'
 import { Route as AdminAuthedAppsIdRouteImport } from './routes/admin/_authed/apps/$id'
+import { Route as AdminAuthedAppsNewRouteImport } from './routes/admin/_authed/apps/new'
+import { Route as AdminAuthedCertificationsIndexRouteImport } from './routes/admin/_authed/certifications/index'
+import { Route as AdminAuthedCertificationsIdRouteImport } from './routes/admin/_authed/certifications/$id'
+import { Route as AdminAuthedCertificationsNewRouteImport } from './routes/admin/_authed/certifications/new'
+import { Route as AdminAuthedCvIndexRouteImport } from './routes/admin/_authed/cv/index'
+import { Route as AdminAuthedCvIdRouteImport } from './routes/admin/_authed/cv/$id'
+import { Route as AdminAuthedCvNewRouteImport } from './routes/admin/_authed/cv/new'
+import { Route as AdminAuthedEducationIndexRouteImport } from './routes/admin/_authed/education/index'
+import { Route as AdminAuthedEducationIdRouteImport } from './routes/admin/_authed/education/$id'
+import { Route as AdminAuthedEducationNewRouteImport } from './routes/admin/_authed/education/new'
+import { Route as AdminAuthedExperiencesIndexRouteImport } from './routes/admin/_authed/experiences/index'
+import { Route as AdminAuthedExperiencesIdRouteImport } from './routes/admin/_authed/experiences/$id'
+import { Route as AdminAuthedExperiencesNewRouteImport } from './routes/admin/_authed/experiences/new'
+import { Route as AdminAuthedProfileIndexRouteImport } from './routes/admin/_authed/profile/index'
+import { Route as AdminAuthedProjectsIndexRouteImport } from './routes/admin/_authed/projects/index'
+import { Route as AdminAuthedProjectsIdRouteImport } from './routes/admin/_authed/projects/$id'
+import { Route as AdminAuthedProjectsNewRouteImport } from './routes/admin/_authed/projects/new'
+import { Route as AdminAuthedSkillsIndexRouteImport } from './routes/admin/_authed/skills/index'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
-  id: '/projects/',
-  path: '/projects/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppsIndexRoute = AppsIndexRouteImport.update({
-  id: '/apps/',
-  path: '/apps/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
-  id: '/projects/$slug',
-  path: '/projects/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminLoginRoute = AdminLoginRouteImport.update({
-  id: '/admin/login',
-  path: '/admin/login',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminAuthedRouteRoute = AdminAuthedRouteRouteImport.update({
@@ -73,42 +53,44 @@ const AdminAuthedRouteRoute = AdminAuthedRouteRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsIndexRoute = AppsIndexRouteImport.update({
+  id: '/apps/',
+  path: '/apps/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
+  id: '/projects/$slug',
+  path: '/projects/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminAuthedIndexRoute = AdminAuthedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const AdminAuthedSkillsIndexRoute = AdminAuthedSkillsIndexRouteImport.update({
-  id: '/skills/',
-  path: '/skills/',
+const AdminAuthedAppsIndexRoute = AdminAuthedAppsIndexRouteImport.update({
+  id: '/apps/',
+  path: '/apps/',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const AdminAuthedProjectsIndexRoute =
-  AdminAuthedProjectsIndexRouteImport.update({
-    id: '/projects/',
-    path: '/projects/',
-    getParentRoute: () => AdminAuthedRouteRoute,
-  } as any)
-const AdminAuthedProfileIndexRoute = AdminAuthedProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
+const AdminAuthedAppsIdRoute = AdminAuthedAppsIdRouteImport.update({
+  id: '/apps/$id',
+  path: '/apps/$id',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const AdminAuthedExperiencesIndexRoute =
-  AdminAuthedExperiencesIndexRouteImport.update({
-    id: '/experiences/',
-    path: '/experiences/',
-    getParentRoute: () => AdminAuthedRouteRoute,
-  } as any)
-const AdminAuthedEducationIndexRoute =
-  AdminAuthedEducationIndexRouteImport.update({
-    id: '/education/',
-    path: '/education/',
-    getParentRoute: () => AdminAuthedRouteRoute,
-  } as any)
-const AdminAuthedCvIndexRoute = AdminAuthedCvIndexRouteImport.update({
-  id: '/cv/',
-  path: '/cv/',
+const AdminAuthedAppsNewRoute = AdminAuthedAppsNewRouteImport.update({
+  id: '/apps/new',
+  path: '/apps/new',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
 const AdminAuthedCertificationsIndexRoute =
@@ -117,25 +99,53 @@ const AdminAuthedCertificationsIndexRoute =
     path: '/certifications/',
     getParentRoute: () => AdminAuthedRouteRoute,
   } as any)
-const AdminAuthedAppsIndexRoute = AdminAuthedAppsIndexRouteImport.update({
-  id: '/apps/',
-  path: '/apps/',
+const AdminAuthedCertificationsIdRoute =
+  AdminAuthedCertificationsIdRouteImport.update({
+    id: '/certifications/$id',
+    path: '/certifications/$id',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedCertificationsNewRoute =
+  AdminAuthedCertificationsNewRouteImport.update({
+    id: '/certifications/new',
+    path: '/certifications/new',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedCvIndexRoute = AdminAuthedCvIndexRouteImport.update({
+  id: '/cv/',
+  path: '/cv/',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const AdminAuthedProjectsNewRoute = AdminAuthedProjectsNewRouteImport.update({
-  id: '/projects/new',
-  path: '/projects/new',
+const AdminAuthedCvIdRoute = AdminAuthedCvIdRouteImport.update({
+  id: '/cv/$id',
+  path: '/cv/$id',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const AdminAuthedProjectsIdRoute = AdminAuthedProjectsIdRouteImport.update({
-  id: '/projects/$id',
-  path: '/projects/$id',
+const AdminAuthedCvNewRoute = AdminAuthedCvNewRouteImport.update({
+  id: '/cv/new',
+  path: '/cv/new',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const AdminAuthedExperiencesNewRoute =
-  AdminAuthedExperiencesNewRouteImport.update({
-    id: '/experiences/new',
-    path: '/experiences/new',
+const AdminAuthedEducationIndexRoute =
+  AdminAuthedEducationIndexRouteImport.update({
+    id: '/education/',
+    path: '/education/',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedEducationIdRoute = AdminAuthedEducationIdRouteImport.update({
+  id: '/education/$id',
+  path: '/education/$id',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedEducationNewRoute = AdminAuthedEducationNewRouteImport.update({
+  id: '/education/new',
+  path: '/education/new',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedExperiencesIndexRoute =
+  AdminAuthedExperiencesIndexRouteImport.update({
+    id: '/experiences/',
+    path: '/experiences/',
     getParentRoute: () => AdminAuthedRouteRoute,
   } as any)
 const AdminAuthedExperiencesIdRoute =
@@ -144,46 +154,36 @@ const AdminAuthedExperiencesIdRoute =
     path: '/experiences/$id',
     getParentRoute: () => AdminAuthedRouteRoute,
   } as any)
-const AdminAuthedEducationNewRoute = AdminAuthedEducationNewRouteImport.update({
-  id: '/education/new',
-  path: '/education/new',
-  getParentRoute: () => AdminAuthedRouteRoute,
-} as any)
-const AdminAuthedEducationIdRoute = AdminAuthedEducationIdRouteImport.update({
-  id: '/education/$id',
-  path: '/education/$id',
-  getParentRoute: () => AdminAuthedRouteRoute,
-} as any)
-const AdminAuthedCvNewRoute = AdminAuthedCvNewRouteImport.update({
-  id: '/cv/new',
-  path: '/cv/new',
-  getParentRoute: () => AdminAuthedRouteRoute,
-} as any)
-const AdminAuthedCvIdRoute = AdminAuthedCvIdRouteImport.update({
-  id: '/cv/$id',
-  path: '/cv/$id',
-  getParentRoute: () => AdminAuthedRouteRoute,
-} as any)
-const AdminAuthedCertificationsNewRoute =
-  AdminAuthedCertificationsNewRouteImport.update({
-    id: '/certifications/new',
-    path: '/certifications/new',
+const AdminAuthedExperiencesNewRoute =
+  AdminAuthedExperiencesNewRouteImport.update({
+    id: '/experiences/new',
+    path: '/experiences/new',
     getParentRoute: () => AdminAuthedRouteRoute,
   } as any)
-const AdminAuthedCertificationsIdRoute =
-  AdminAuthedCertificationsIdRouteImport.update({
-    id: '/certifications/$id',
-    path: '/certifications/$id',
-    getParentRoute: () => AdminAuthedRouteRoute,
-  } as any)
-const AdminAuthedAppsNewRoute = AdminAuthedAppsNewRouteImport.update({
-  id: '/apps/new',
-  path: '/apps/new',
+const AdminAuthedProfileIndexRoute = AdminAuthedProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
-const AdminAuthedAppsIdRoute = AdminAuthedAppsIdRouteImport.update({
-  id: '/apps/$id',
-  path: '/apps/$id',
+const AdminAuthedProjectsIndexRoute =
+  AdminAuthedProjectsIndexRouteImport.update({
+    id: '/projects/',
+    path: '/projects/',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedProjectsIdRoute = AdminAuthedProjectsIdRouteImport.update({
+  id: '/projects/$id',
+  path: '/projects/$id',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedProjectsNewRoute = AdminAuthedProjectsNewRouteImport.update({
+  id: '/projects/new',
+  path: '/projects/new',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedSkillsIndexRoute = AdminAuthedSkillsIndexRouteImport.update({
+  id: '/skills/',
+  path: '/skills/',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
 
@@ -381,13 +381,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -395,32 +388,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/': {
-      id: '/projects/'
-      path: '/projects'
-      fullPath: '/projects/'
-      preLoaderRoute: typeof ProjectsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/apps/': {
-      id: '/apps/'
-      path: '/apps'
-      fullPath: '/apps/'
-      preLoaderRoute: typeof AppsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects/$slug': {
-      id: '/projects/$slug'
-      path: '/projects/$slug'
-      fullPath: '/projects/$slug'
-      preLoaderRoute: typeof ProjectsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/login': {
-      id: '/admin/login'
-      path: '/admin/login'
-      fullPath: '/admin/login'
-      preLoaderRoute: typeof AdminLoginRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/_authed': {
@@ -430,60 +402,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/': {
+      id: '/apps/'
+      path: '/apps'
+      fullPath: '/apps/'
+      preLoaderRoute: typeof AppsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/': {
+      id: '/projects/'
+      path: '/projects'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/$slug': {
+      id: '/projects/$slug'
+      path: '/projects/$slug'
+      fullPath: '/projects/$slug'
+      preLoaderRoute: typeof ProjectsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/_authed/': {
       id: '/admin/_authed/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminAuthedIndexRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/skills/': {
-      id: '/admin/_authed/skills/'
-      path: '/skills'
-      fullPath: '/admin/skills/'
-      preLoaderRoute: typeof AdminAuthedSkillsIndexRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/projects/': {
-      id: '/admin/_authed/projects/'
-      path: '/projects'
-      fullPath: '/admin/projects/'
-      preLoaderRoute: typeof AdminAuthedProjectsIndexRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/profile/': {
-      id: '/admin/_authed/profile/'
-      path: '/profile'
-      fullPath: '/admin/profile/'
-      preLoaderRoute: typeof AdminAuthedProfileIndexRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/experiences/': {
-      id: '/admin/_authed/experiences/'
-      path: '/experiences'
-      fullPath: '/admin/experiences/'
-      preLoaderRoute: typeof AdminAuthedExperiencesIndexRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/education/': {
-      id: '/admin/_authed/education/'
-      path: '/education'
-      fullPath: '/admin/education/'
-      preLoaderRoute: typeof AdminAuthedEducationIndexRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/cv/': {
-      id: '/admin/_authed/cv/'
-      path: '/cv'
-      fullPath: '/admin/cv/'
-      preLoaderRoute: typeof AdminAuthedCvIndexRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/certifications/': {
-      id: '/admin/_authed/certifications/'
-      path: '/certifications'
-      fullPath: '/admin/certifications/'
-      preLoaderRoute: typeof AdminAuthedCertificationsIndexRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
     '/admin/_authed/apps/': {
@@ -493,74 +444,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthedAppsIndexRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/admin/_authed/projects/new': {
-      id: '/admin/_authed/projects/new'
-      path: '/projects/new'
-      fullPath: '/admin/projects/new'
-      preLoaderRoute: typeof AdminAuthedProjectsNewRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/projects/$id': {
-      id: '/admin/_authed/projects/$id'
-      path: '/projects/$id'
-      fullPath: '/admin/projects/$id'
-      preLoaderRoute: typeof AdminAuthedProjectsIdRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/experiences/new': {
-      id: '/admin/_authed/experiences/new'
-      path: '/experiences/new'
-      fullPath: '/admin/experiences/new'
-      preLoaderRoute: typeof AdminAuthedExperiencesNewRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/experiences/$id': {
-      id: '/admin/_authed/experiences/$id'
-      path: '/experiences/$id'
-      fullPath: '/admin/experiences/$id'
-      preLoaderRoute: typeof AdminAuthedExperiencesIdRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/education/new': {
-      id: '/admin/_authed/education/new'
-      path: '/education/new'
-      fullPath: '/admin/education/new'
-      preLoaderRoute: typeof AdminAuthedEducationNewRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/education/$id': {
-      id: '/admin/_authed/education/$id'
-      path: '/education/$id'
-      fullPath: '/admin/education/$id'
-      preLoaderRoute: typeof AdminAuthedEducationIdRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/cv/new': {
-      id: '/admin/_authed/cv/new'
-      path: '/cv/new'
-      fullPath: '/admin/cv/new'
-      preLoaderRoute: typeof AdminAuthedCvNewRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/cv/$id': {
-      id: '/admin/_authed/cv/$id'
-      path: '/cv/$id'
-      fullPath: '/admin/cv/$id'
-      preLoaderRoute: typeof AdminAuthedCvIdRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/certifications/new': {
-      id: '/admin/_authed/certifications/new'
-      path: '/certifications/new'
-      fullPath: '/admin/certifications/new'
-      preLoaderRoute: typeof AdminAuthedCertificationsNewRouteImport
-      parentRoute: typeof AdminAuthedRouteRoute
-    }
-    '/admin/_authed/certifications/$id': {
-      id: '/admin/_authed/certifications/$id'
-      path: '/certifications/$id'
-      fullPath: '/admin/certifications/$id'
-      preLoaderRoute: typeof AdminAuthedCertificationsIdRouteImport
+    '/admin/_authed/apps/$id': {
+      id: '/admin/_authed/apps/$id'
+      path: '/apps/$id'
+      fullPath: '/admin/apps/$id'
+      preLoaderRoute: typeof AdminAuthedAppsIdRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
     '/admin/_authed/apps/new': {
@@ -570,11 +458,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthedAppsNewRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
-    '/admin/_authed/apps/$id': {
-      id: '/admin/_authed/apps/$id'
-      path: '/apps/$id'
-      fullPath: '/admin/apps/$id'
-      preLoaderRoute: typeof AdminAuthedAppsIdRouteImport
+    '/admin/_authed/certifications/': {
+      id: '/admin/_authed/certifications/'
+      path: '/certifications'
+      fullPath: '/admin/certifications/'
+      preLoaderRoute: typeof AdminAuthedCertificationsIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/certifications/$id': {
+      id: '/admin/_authed/certifications/$id'
+      path: '/certifications/$id'
+      fullPath: '/admin/certifications/$id'
+      preLoaderRoute: typeof AdminAuthedCertificationsIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/certifications/new': {
+      id: '/admin/_authed/certifications/new'
+      path: '/certifications/new'
+      fullPath: '/admin/certifications/new'
+      preLoaderRoute: typeof AdminAuthedCertificationsNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/cv/': {
+      id: '/admin/_authed/cv/'
+      path: '/cv'
+      fullPath: '/admin/cv/'
+      preLoaderRoute: typeof AdminAuthedCvIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/cv/$id': {
+      id: '/admin/_authed/cv/$id'
+      path: '/cv/$id'
+      fullPath: '/admin/cv/$id'
+      preLoaderRoute: typeof AdminAuthedCvIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/cv/new': {
+      id: '/admin/_authed/cv/new'
+      path: '/cv/new'
+      fullPath: '/admin/cv/new'
+      preLoaderRoute: typeof AdminAuthedCvNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/education/': {
+      id: '/admin/_authed/education/'
+      path: '/education'
+      fullPath: '/admin/education/'
+      preLoaderRoute: typeof AdminAuthedEducationIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/education/$id': {
+      id: '/admin/_authed/education/$id'
+      path: '/education/$id'
+      fullPath: '/admin/education/$id'
+      preLoaderRoute: typeof AdminAuthedEducationIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/education/new': {
+      id: '/admin/_authed/education/new'
+      path: '/education/new'
+      fullPath: '/admin/education/new'
+      preLoaderRoute: typeof AdminAuthedEducationNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/experiences/': {
+      id: '/admin/_authed/experiences/'
+      path: '/experiences'
+      fullPath: '/admin/experiences/'
+      preLoaderRoute: typeof AdminAuthedExperiencesIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/experiences/$id': {
+      id: '/admin/_authed/experiences/$id'
+      path: '/experiences/$id'
+      fullPath: '/admin/experiences/$id'
+      preLoaderRoute: typeof AdminAuthedExperiencesIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/experiences/new': {
+      id: '/admin/_authed/experiences/new'
+      path: '/experiences/new'
+      fullPath: '/admin/experiences/new'
+      preLoaderRoute: typeof AdminAuthedExperiencesNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/profile/': {
+      id: '/admin/_authed/profile/'
+      path: '/profile'
+      fullPath: '/admin/profile/'
+      preLoaderRoute: typeof AdminAuthedProfileIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/projects/': {
+      id: '/admin/_authed/projects/'
+      path: '/projects'
+      fullPath: '/admin/projects/'
+      preLoaderRoute: typeof AdminAuthedProjectsIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/projects/$id': {
+      id: '/admin/_authed/projects/$id'
+      path: '/projects/$id'
+      fullPath: '/admin/projects/$id'
+      preLoaderRoute: typeof AdminAuthedProjectsIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/projects/new': {
+      id: '/admin/_authed/projects/new'
+      path: '/projects/new'
+      fullPath: '/admin/projects/new'
+      preLoaderRoute: typeof AdminAuthedProjectsNewRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/skills/': {
+      id: '/admin/_authed/skills/'
+      path: '/skills'
+      fullPath: '/admin/skills/'
+      preLoaderRoute: typeof AdminAuthedSkillsIndexRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
   }
