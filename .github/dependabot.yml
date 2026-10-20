@@ -33,3 +33,7 @@ updates:
           interval: "monthly"
       commit-message:
           prefix: "chore(ci)"
+      groups:
+          actions:
+              patterns:
+                  - "*"

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+    pull_request:
+        branches: ["main"]
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    check:
+        name: check (lint, test, build)
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+                  cache: "pnpm"
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            # biome check: lint + format + organize imports
+            - name: Lint and format (Biome)
+              run: pnpm check
+
+            # vitest run (sekali jalan, tanpa watch mode).
+            # passWithNoTests diatur di vite.config.ts, jadi aman walau tests/unit/ kosong.
+            - name: Unit tests (Vitest)
+              run: pnpm test:run
+
+            # build = tsc -b && vite build && node scripts/prerender-seo.mjs
+            - name: Type-check and build
+              run: pnpm build
+              env:
+                  VITE_API_URL: ${{ vars.VITE_API_URL }}
