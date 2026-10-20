@@ -9,6 +9,7 @@ export function ExperienceSection() {
     return (
         <AboutSection
             title="Experience"
+            id="experience"
             isPending={isPending}
             isError={isError}
             onRetry={() => refetch()}

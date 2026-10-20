@@ -9,6 +9,7 @@ export const certificationSchema = z.object({
     expires_date: z.string().nullable(),
     credential_id: z.string().nullable(),
     credential_url: z.string().nullable(),
+    report_url: z.string().nullable(),
     summary: z.string().nullable(),
     sort_order: z.number(),
 });

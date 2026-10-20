@@ -13,30 +13,36 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
+	* {
+		@apply border-border outline-ring/50;
+	}
 
-    body {
-        /* Menggunakan font-sans (Inter) sebagai standar pembacaan jarak panjang */
-        @apply bg-background text-foreground font-sans antialiased;
-    }
+	body {
+		/* Menggunakan font-sans (Inter) sebagai standar pembacaan jarak panjang */
+		@apply bg-background text-foreground font-sans antialiased;
+	}
 
-    /* Mengaplikasikan Space Grotesk ke semua elemen heading */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @apply font-heading tracking-tight;
-    }
+	/* Mengaplikasikan Space Grotesk ke semua elemen heading */
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-heading tracking-tight;
+	}
 
-    /* JetBrains Mono untuk code block atau elemen label spesifik */
-    code,
-    pre,
-    kbd,
-    samp {
-        @apply font-mono;
-    }
+	/* JetBrains Mono untuk code block atau elemen label spesifik */
+	code,
+	pre,
+	kbd,
+	samp {
+		@apply font-mono;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
+	}
 }

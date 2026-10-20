@@ -38,7 +38,7 @@ export function SkillsHighlightSection() {
         <HomeSection
             title="What I work with"
             action={
-                <Link to="/about" className={HOME_LINK_CLASS}>
+                <Link to="/about" hash="skills" hashScrollIntoView={{ behavior: "smooth" }} className={HOME_LINK_CLASS}>
                     All skills →
                 </Link>
             }

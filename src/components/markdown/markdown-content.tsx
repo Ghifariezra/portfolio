@@ -1,5 +1,6 @@
 import { Children, isValidElement, type ReactNode } from "react";
 import Markdown, { type Components, type UrlTransform } from "react-markdown";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { isFileTree, parseFileTree } from "@/lib/markdown/parse-file-tree";
 import { CodeBlock } from "./code-block";
@@ -40,6 +41,7 @@ export function MarkdownContent({ children, urlTransform }: { children: string; 
         <div className="readme">
             <Markdown
                 remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeSlug]}
                 components={components}
                 urlTransform={urlTransform}
                 // Tanpa rehype-raw, HTML mentah di README (mis. <p align="center">) dibuang, bukan dieksekusi.

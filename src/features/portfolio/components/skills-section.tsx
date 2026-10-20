@@ -11,6 +11,7 @@ export function SkillsSection() {
     return (
         <AboutSection
             title="Skills"
+            id="skills"
             isPending={isPending}
             isError={isError}
             onRetry={() => refetch()}

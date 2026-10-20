@@ -128,6 +128,21 @@ export function CertificationForm({ initial, certificationId }: CertificationFor
                         className={inputClass}
                     />
                 </FormField>
+                <FormField
+                    label="Learning report URL"
+                    htmlFor="report_url"
+                    hint="Opsional. Link PDF final report yang kamu host sendiri (mis. Supabase Storage atau R2)."
+                    error={errors.report_url}
+                >
+                    <input
+                        id="report_url"
+                        type="url"
+                        value={form.report_url}
+                        onChange={(e) => set("report_url", e.target.value)}
+                        aria-invalid={!!errors.report_url}
+                        className={inputClass}
+                    />
+                </FormField>
             </div>
 
             <FormField label="Summary" htmlFor="summary" error={errors.summary}>

@@ -3,12 +3,16 @@ import { useCertifications } from "../hooks/use-portfolio";
 import { joinParts } from "../lib/portfolio-helpers";
 import { AboutSection } from "./about-section";
 
+const LINK_CLASS =
+    "font-mono text-xs font-semibold text-muted-foreground underline underline-offset-4 hover:text-primary";
+
 export function CertificationsSection() {
     const { data, isPending, isError, refetch } = useCertifications();
 
     return (
         <AboutSection
             title="Certifications"
+            id="certifications"
             isPending={isPending}
             isError={isError}
             onRetry={() => refetch()}
@@ -35,15 +39,19 @@ export function CertificationsSection() {
                             {cert.summary && (
                                 <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{cert.summary}</p>
                             )}
-                            {isHttpUrl(cert.credential_url) && (
-                                <a
-                                    href={cert.credential_url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="mt-2 w-fit font-mono text-xs font-semibold text-muted-foreground underline underline-offset-4 hover:text-primary"
-                                >
-                                    View credential
-                                </a>
+                            {(isHttpUrl(cert.credential_url) || isHttpUrl(cert.report_url)) && (
+                                <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                                    {isHttpUrl(cert.credential_url) && (
+                                        <a href={cert.credential_url} target="_blank" rel="noreferrer" className={LINK_CLASS}>
+                                            View credential
+                                        </a>
+                                    )}
+                                    {isHttpUrl(cert.report_url) && (
+                                        <a href={cert.report_url} target="_blank" rel="noreferrer" className={LINK_CLASS}>
+                                            Learning report
+                                        </a>
+                                    )}
+                                </div>
                             )}
                         </li>
                     );
