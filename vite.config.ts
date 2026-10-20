@@ -14,14 +14,14 @@ export default defineConfig({
     esbuild: {
         pure: isProd
             ? [
-                "console.log",
-                "console.info",
-                "console.debug",
-                "console.warn",
-                "logger.info",
-                "logger.debug",
-                "logger.warn",
-            ]
+                  "console.log",
+                  "console.info",
+                  "console.debug",
+                  "console.warn",
+                  "logger.info",
+                  "logger.debug",
+                  "logger.warn",
+              ]
             : [],
     },
 
@@ -48,7 +48,7 @@ export default defineConfig({
         globals: true,
         environment: "jsdom",
         // setupFiles: ["./test/setup.ts"],
-        include: ["src/**/*.{test,spec}.{ts,tsx}", "test/**/*.{test,spec}.{ts,tsx}"],
+        include: ["src/**/*.{test,spec}.{ts,tsx}", "tests/unit/**/*.{test,spec}.{ts,tsx}"],
         exclude: ["node_modules", "dist"],
         passWithNoTests: true,
         coverage: {

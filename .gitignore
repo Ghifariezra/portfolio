@@ -29,3 +29,7 @@ codebase-dump.txt
 scripts/*
 !scripts/prerender-seo.mjs
 .env
+
+test-results/
+playwright-report/
+playwright/.cache/
