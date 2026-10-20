@@ -36,6 +36,9 @@ A React portfolio site with an admin dashboard, live GitHub data on project page
   - [Getting started](#getting-started)
   - [Scripts](#scripts)
   - [Testing](#testing)
+    - [What is covered](#what-is-covered)
+    - [How the tests get their data](#how-the-tests-get-their-data)
+    - [Not covered yet](#not-covered-yet)
   - [Performance and SEO](#performance-and-seo)
   - [CI/CD](#cicd)
   - [Conventions](#conventions)
@@ -102,7 +105,7 @@ Available at `/admin/login` with an admin token.
 | Icons and fonts | Phosphor Icons, Inter, Space Grotesk, JetBrains Mono |
 | Content | `react-markdown`, `remark-gfm`, `rehype-slug`, Shiki, Mermaid |
 | PDF | `@react-pdf/renderer` |
-| Testing | Playwright |
+| Testing | Playwright (E2E, page object pattern) |
 | Quality | Biome 2 (lint, format, organize imports) |
 | CI/CD | GitHub Actions, GitHub Pages |
 
@@ -186,6 +189,16 @@ src/
 
 Inside a feature: `api/` (queries), `components/`, `hooks/`, `lib/` (pure helpers), `pages/`, `schemas/`.
 
+```
+tests/
+└── e2e/
+    ├── fixtures/        # test.extend: one fixture per page (homePage, aboutPage, ...)
+    ├── helpers/         # route matchers and mock helpers (api-mocks.ts)
+    ├── locators/        # locators per page, based on roles and accessible names
+    ├── pages/           # page objects (goto + locators)
+    └── specs/           # *.spec.ts, one per page
+```
+
 </details>
 
 ## Getting started
@@ -221,23 +234,53 @@ VITE_API_URL=<your-api-url>
 | `pnpm lint` | Linter only |
 | `pnpm format` | Format files |
 | `pnpm fix` | Auto-fix Biome issues |
+| `pnpm test:e2e:fast` | Run the E2E tests on Chromium only |
 
 ## Testing
 
-End-to-end tests use Playwright and run against five projects: `chromium`, `firefox`, `webkit`, `mobile-chrome`, and `mobile-safari`.
+End-to-end tests use Playwright with the page object pattern. In CI they run against five projects: `chromium`, `firefox`, `webkit`, `mobile-chrome`, and `mobile-safari`.
 
 ```bash
 # one-time: download browsers
 pnpm exec playwright install --with-deps
 
-# run everything
+# fast local run (Chromium only)
+pnpm test:e2e:fast
+
+# all five projects
 pnpm exec playwright test
 
-# run one project
-pnpm exec playwright test --project=chromium
+# one file, or the interactive UI
+pnpm exec playwright test tests/e2e/specs/home.spec.ts
+pnpm exec playwright test --ui
+
+# open the last HTML report
+pnpm exec playwright show-report
 ```
 
-The tests use `VITE_API_URL`, so point it at the API you want to test against. The HTML report is written to `playwright-report/`, and failed runs leave traces in `test-results/`.
+Playwright builds and serves the app by itself, so `pnpm dev` does not need to be running. The API address comes from `VITE_API_URL`, which `playwright.config.ts` defaults to the live API. Set the variable to test against another backend. The HTML report is written to `playwright-report/`, and failed runs leave traces in `test-results/`.
+
+### What is covered
+
+| Page | Specs |
+|---|---|
+| Home | Hero, featured projects, current role, skills, certifications, contact, and every "see all" link |
+| About | Profile header, experience, education, skills, certifications, and the CV download |
+| Projects | Project list, status filters, opening a project, empty and error states |
+| Project detail | Header and external links, back navigation, 404 and 500 handling, GitHub section fallbacks |
+| Apps | App list, external links, Store metrics, and 404 and 502 fallbacks |
+
+The CV download test checks the file name and that the file is a valid PDF. The file is saved under `test-results/` and attached to the HTML report, so you can open it after a run.
+
+### How the tests get their data
+
+- **Happy paths use the real API**, so the data they read must exist: at least one project, app, experience, education entry, skill group, and certification.
+- **Empty and error states are mocked** with `page.route`, using the helpers in `tests/e2e/helpers/api-mocks.ts`. This covers 404, 500, and 502 responses without touching the real backend, and external calls (GitHub, Partner Center) never fire in these tests.
+- **Some tests skip themselves** when the data cannot support them: the status filter needs at least two project statuses, the app-to-project link needs a linked project, and the Store metrics test needs an app that is Live.
+
+### Not covered yet
+
+The admin dashboard, the 404 page, the theme toggle, and the successful GitHub detail view (stats, languages, contributors, README). `tests/unit/` is empty.
 
 ## Performance and SEO
 
@@ -281,4 +324,5 @@ It runs on pushes to `main` and manual runs. Because deploy depends on e2e, a fa
 - **Validate at the boundary:** responses go through a Zod schema in `lib/api`.
 - **One place per concern:** providers in `app/providers.tsx`, nav items in `nav-items.ts` and `admin-nav-items.ts`, stale times in `config/cache.ts`, site metadata in `config/site.ts`.
 - **Admin CRUD:** new admin resources use `createAdminResource` and `useResourceForm` instead of copying the pattern.
+- **Tests:** each page gets one page object, one locators file, and one spec. Locators prefer roles and accessible names over CSS classes, and error or empty states are mocked through the helpers in `tests/e2e/helpers` instead of the real backend.
 - **Commits** follow Conventional Commits (`feat`, `fix`, `test`, `chore`, `style`, ...).

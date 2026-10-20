@@ -17,7 +17,7 @@ export function ProfileForm({ initial, profileId }: ProfileFormProps) {
     const { form, set, submit, savedId, partial, errors, mutation } = useResourceForm({
         initial,
         id: profileId,
-        onSaved: () => { },
+        onSaved: () => {},
         save: ({ form: values }) => updateProfile(toProfilePayload(values)),
     });
 

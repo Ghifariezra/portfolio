@@ -61,14 +61,7 @@ const rankIn = (order: readonly string[], category: string) => {
     return i === -1 ? order.length : i;
 };
 
-export type SectionKey =
-    | "summary"
-    | "experience"
-    | "projects"
-    | "education"
-    | "training"
-    | "skills"
-    | "certifications";
+export type SectionKey = "summary" | "experience" | "projects" | "education" | "training" | "skills" | "certifications";
 
 /** Opsi render per varian CV. Semua opsional; tanpa opsi, hasilnya sama seperti sebelumnya. */
 export interface CvRenderOptions {
