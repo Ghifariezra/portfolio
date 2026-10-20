@@ -1,6 +1,7 @@
 /** Tambah halaman admin baru di sini setelah route-nya dibuat; sidebar merender dari daftar ini. */
 export const ADMIN_NAV_ITEMS = [
     { to: "/admin", label: "Dashboard", exact: true },
+    { to: "/admin/profile", label: "Profile", exact: false },
     { to: "/admin/projects", label: "Projects", exact: false },
     { to: "/admin/apps", label: "Apps", exact: false },
     { to: "/admin/experiences", label: "Experience", exact: false },

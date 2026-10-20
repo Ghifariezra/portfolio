@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 import { z } from "zod";
 import { adminCvVariantSchema, cvResolvedSchema } from "@/features/admin/cv/schemas/admin-cv-variant.schema";
 import { createAdminResource } from "@/features/admin/lib/admin-resource";
+import { cvDocumentSchema } from "@/features/cv/schemas/cv.schema";
 import { adminGet, adminRequest } from "@/lib/api";
 
 export interface CvItems {
@@ -27,10 +28,17 @@ export const cvResource = {
         adminRequest("PUT", `/cv-variants/${encodeURIComponent(id)}/items`, z.unknown(), items),
     setDefault: (id: string) =>
         adminRequest("POST", `/cv-variants/${encodeURIComponent(id)}/default`, adminCvVariantSchema),
+    documentQuery: (id: string) =>
+        queryOptions({
+            queryKey: [...base.keys.detail(id), "document"] as const,
+            queryFn: ({ signal }) =>
+                adminGet(`/cv-variants/${encodeURIComponent(id)}/resolved`, cvDocumentSchema, signal),
+        }),
 };
 
 export const adminCvVariantsQuery = cvResource.listQuery;
 export const adminCvVariantQuery = cvResource.detailQuery;
+export const cvDocumentQuery = cvResource.documentQuery;
 
 export interface SaveCvVariantInput {
     id: string | null;

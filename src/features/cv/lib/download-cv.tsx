@@ -14,12 +14,15 @@ export function cvFileName(fullName: string): string {
  * @react-pdf/renderer (besar) di-import dinamis: baru diunduh saat tombol pertama kali diklik.
  */
 export async function downloadCvPdf(cv: CvDocument): Promise<void> {
-    const [{ pdf }, { CvPdfDocument }] = await Promise.all([
+    const [{ pdf }, { CvPdfDocument, CV_PRESETS }] = await Promise.all([
         import("@react-pdf/renderer"),
         import("@/features/cv/components/cv-pdf-document"),
     ]);
 
-    const blob = await pdf(<CvPdfDocument cv={cv} />).toBlob();
+    // Preset dipilih dari nama varian; varian lain tetap render default.
+    const options = cv.variant.name === "QA Engineer Intern" ? CV_PRESETS.qaIntern : undefined;
+
+    const blob = await pdf(<CvPdfDocument cv={cv} options={options} />).toBlob();
 
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");

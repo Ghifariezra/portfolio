@@ -19,6 +19,7 @@ import { Route as AdminAuthedRouteRouteImport } from './routes/admin/_authed/rou
 import { Route as AdminAuthedIndexRouteImport } from './routes/admin/_authed/index'
 import { Route as AdminAuthedSkillsIndexRouteImport } from './routes/admin/_authed/skills/index'
 import { Route as AdminAuthedProjectsIndexRouteImport } from './routes/admin/_authed/projects/index'
+import { Route as AdminAuthedProfileIndexRouteImport } from './routes/admin/_authed/profile/index'
 import { Route as AdminAuthedExperiencesIndexRouteImport } from './routes/admin/_authed/experiences/index'
 import { Route as AdminAuthedEducationIndexRouteImport } from './routes/admin/_authed/education/index'
 import { Route as AdminAuthedCvIndexRouteImport } from './routes/admin/_authed/cv/index'
@@ -88,6 +89,11 @@ const AdminAuthedProjectsIndexRoute =
     path: '/projects/',
     getParentRoute: () => AdminAuthedRouteRoute,
   } as any)
+const AdminAuthedProfileIndexRoute = AdminAuthedProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
 const AdminAuthedExperiencesIndexRoute =
   AdminAuthedExperiencesIndexRouteImport.update({
     id: '/experiences/',
@@ -207,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/admin/cv/': typeof AdminAuthedCvIndexRoute
   '/admin/education/': typeof AdminAuthedEducationIndexRoute
   '/admin/experiences/': typeof AdminAuthedExperiencesIndexRoute
+  '/admin/profile/': typeof AdminAuthedProfileIndexRoute
   '/admin/projects/': typeof AdminAuthedProjectsIndexRoute
   '/admin/skills/': typeof AdminAuthedSkillsIndexRoute
 }
@@ -235,6 +242,7 @@ export interface FileRoutesByTo {
   '/admin/cv': typeof AdminAuthedCvIndexRoute
   '/admin/education': typeof AdminAuthedEducationIndexRoute
   '/admin/experiences': typeof AdminAuthedExperiencesIndexRoute
+  '/admin/profile': typeof AdminAuthedProfileIndexRoute
   '/admin/projects': typeof AdminAuthedProjectsIndexRoute
   '/admin/skills': typeof AdminAuthedSkillsIndexRoute
 }
@@ -265,6 +273,7 @@ export interface FileRoutesById {
   '/admin/_authed/cv/': typeof AdminAuthedCvIndexRoute
   '/admin/_authed/education/': typeof AdminAuthedEducationIndexRoute
   '/admin/_authed/experiences/': typeof AdminAuthedExperiencesIndexRoute
+  '/admin/_authed/profile/': typeof AdminAuthedProfileIndexRoute
   '/admin/_authed/projects/': typeof AdminAuthedProjectsIndexRoute
   '/admin/_authed/skills/': typeof AdminAuthedSkillsIndexRoute
 }
@@ -296,6 +305,7 @@ export interface FileRouteTypes {
     | '/admin/cv/'
     | '/admin/education/'
     | '/admin/experiences/'
+    | '/admin/profile/'
     | '/admin/projects/'
     | '/admin/skills/'
   fileRoutesByTo: FileRoutesByTo
@@ -324,6 +334,7 @@ export interface FileRouteTypes {
     | '/admin/cv'
     | '/admin/education'
     | '/admin/experiences'
+    | '/admin/profile'
     | '/admin/projects'
     | '/admin/skills'
   id:
@@ -353,6 +364,7 @@ export interface FileRouteTypes {
     | '/admin/_authed/cv/'
     | '/admin/_authed/education/'
     | '/admin/_authed/experiences/'
+    | '/admin/_authed/profile/'
     | '/admin/_authed/projects/'
     | '/admin/_authed/skills/'
   fileRoutesById: FileRoutesById
@@ -437,6 +449,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/admin/projects/'
       preLoaderRoute: typeof AdminAuthedProjectsIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/profile/': {
+      id: '/admin/_authed/profile/'
+      path: '/profile'
+      fullPath: '/admin/profile/'
+      preLoaderRoute: typeof AdminAuthedProfileIndexRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
     '/admin/_authed/experiences/': {
@@ -580,6 +599,7 @@ interface AdminAuthedRouteRouteChildren {
   AdminAuthedCvIndexRoute: typeof AdminAuthedCvIndexRoute
   AdminAuthedEducationIndexRoute: typeof AdminAuthedEducationIndexRoute
   AdminAuthedExperiencesIndexRoute: typeof AdminAuthedExperiencesIndexRoute
+  AdminAuthedProfileIndexRoute: typeof AdminAuthedProfileIndexRoute
   AdminAuthedProjectsIndexRoute: typeof AdminAuthedProjectsIndexRoute
   AdminAuthedSkillsIndexRoute: typeof AdminAuthedSkillsIndexRoute
 }
@@ -603,6 +623,7 @@ const AdminAuthedRouteRouteChildren: AdminAuthedRouteRouteChildren = {
   AdminAuthedCvIndexRoute: AdminAuthedCvIndexRoute,
   AdminAuthedEducationIndexRoute: AdminAuthedEducationIndexRoute,
   AdminAuthedExperiencesIndexRoute: AdminAuthedExperiencesIndexRoute,
+  AdminAuthedProfileIndexRoute: AdminAuthedProfileIndexRoute,
   AdminAuthedProjectsIndexRoute: AdminAuthedProjectsIndexRoute,
   AdminAuthedSkillsIndexRoute: AdminAuthedSkillsIndexRoute,
 }

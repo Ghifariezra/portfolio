@@ -1,4 +1,5 @@
 import { Document, Font, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { Fragment, type ReactNode } from "react";
 import type { CvDocument } from "@/features/cv/schemas/cv.schema";
 import { formatMonth } from "@/lib/utils";
 
@@ -38,6 +39,7 @@ const LABELS = {
 type Labels = Record<keyof (typeof LABELS)["en"], string>;
 const labelsFor = (locale: string): Labels => (locale === "id" ? LABELS.id : LABELS.en);
 
+// Urutan key di sini = urutan default kategori di CV (yang paling relevan untuk QA di atas).
 const SKILL_CATEGORY_LABEL: Record<string, string> = {
     testing: "Testing",
     practice: "Practices",
@@ -52,10 +54,56 @@ const SKILL_CATEGORY_LABEL: Record<string, string> = {
 };
 
 const SKILL_CATEGORY_ORDER = Object.keys(SKILL_CATEGORY_LABEL);
-const categoryRank = (category: string) => {
-    const i = SKILL_CATEGORY_ORDER.indexOf(category);
-    return i === -1 ? SKILL_CATEGORY_ORDER.length : i;
+
+// Kategori yang tidak ada di `order` otomatis jatuh ke paling bawah.
+const rankIn = (order: readonly string[], category: string) => {
+    const i = order.indexOf(category);
+    return i === -1 ? order.length : i;
 };
+
+export type SectionKey =
+    | "summary"
+    | "experience"
+    | "projects"
+    | "education"
+    | "training"
+    | "skills"
+    | "certifications";
+
+/** Opsi render per varian CV. Semua opsional; tanpa opsi, hasilnya sama seperti sebelumnya. */
+export interface CvRenderOptions {
+    /** Urutan section. Section yang tidak disebut tidak ditampilkan. */
+    sections?: SectionKey[];
+    /** Whitelist sekaligus urutan kategori skill. Kosong = semua kategori, urutan default. */
+    skillCategories?: string[];
+    /** Batas bullet per entry (experience, project, education, training). */
+    maxBullets?: number;
+    /** Sembunyikan credential ID di sertifikasi. */
+    hideCredentialId?: boolean;
+}
+
+const DEFAULT_SECTIONS: SectionKey[] = [
+    "summary",
+    "experience",
+    "projects",
+    "education",
+    "training",
+    "skills",
+    "certifications",
+];
+
+/** Preset siap pakai. Contoh: <CvPdfDocument cv={cv} options={CV_PRESETS.qaIntern} /> */
+export const CV_PRESETS = {
+    qaIntern: {
+        sections: ["summary", "skills", "projects", "training", "experience", "education", "certifications"],
+        skillCategories: ["testing", "practice", "language", "devops", "database"],
+        maxBullets: 4,
+    },
+    fullStack: {
+        sections: ["summary", "experience", "projects", "skills", "education", "training", "certifications"],
+        skillCategories: ["language", "framework", "database", "devops", "ai", "testing"],
+    },
+} satisfies Record<string, CvRenderOptions>;
 
 type Part = string | null | undefined | false;
 const join = (parts: Part[], separator = " | ") => parts.filter(Boolean).join(separator);
@@ -166,7 +214,7 @@ function Entry({ heading, title, meta, summary, bullets }: EntryProps) {
     );
 }
 
-export function CvPdfDocument({ cv }: { cv: CvDocument }) {
+export function CvPdfDocument({ cv, options = {} }: { cv: CvDocument; options?: CvRenderOptions }) {
     const t = labelsFor(cv.variant.locale);
     const { basics } = cv;
 
@@ -179,7 +227,13 @@ export function CvPdfDocument({ cv }: { cv: CvDocument }) {
         basics.website_url && displayUrl(basics.website_url),
     ]);
 
-    const skillGroups = Object.entries(cv.skills).sort(([a], [b]) => categoryRank(a) - categoryRank(b));
+    const limit = (bullets: readonly string[]) => (options.maxBullets ? bullets.slice(0, options.maxBullets) : bullets);
+
+    // Whitelist + urutan kategori skill; tanpa opsi, pakai semua kategori dengan urutan default.
+    const categoryOrder = options.skillCategories ?? SKILL_CATEGORY_ORDER;
+    const skillGroups = Object.entries(cv.skills)
+        .filter(([category]) => !options.skillCategories || options.skillCategories.includes(category))
+        .sort(([a], [b]) => rankIn(categoryOrder, a) - rankIn(categoryOrder, b));
 
     // Satu data, dua section: pendidikan formal dan training/bootcamp (urutan dari API dipertahankan).
     const formal = cv.education.filter((e) => !isTraining(e));
@@ -193,6 +247,91 @@ export function CvPdfDocument({ cv }: { cv: CvDocument }) {
             e.grade && `${t.grade} ${e.grade}`,
         ]);
 
+    // Satu section = satu entri. Fragment tidak membuat View baru, jadi semua blok tetap
+    // anak langsung <Page> (penting supaya page break tidak membuat teks bertumpuk).
+    const blocks: Record<SectionKey, ReactNode> = {
+        summary: basics.summary ? (
+            <View style={styles.blockFirst} wrap={false}>
+                <Heading title={t.summary} />
+                <Text>{basics.summary}</Text>
+            </View>
+        ) : null,
+
+        experience: cv.experiences.map((e, i) => (
+            <Entry
+                key={e.id}
+                heading={i === 0 ? t.experience : undefined}
+                title={e.position}
+                meta={join([e.company, e.location, monthRange(e.start_date, e.end_date, t.present)])}
+                summary={e.summary}
+                bullets={limit(e.bullets)}
+            />
+        )),
+
+        projects: cv.projects.map((p, i) => {
+            const link = p.repo_url ?? p.live_url;
+            return (
+                <Entry
+                    key={p.id}
+                    heading={i === 0 ? t.projects : undefined}
+                    title={p.title}
+                    meta={join([link && displayUrl(link), monthRange(p.start_date, p.end_date, t.present)])}
+                    summary={p.description}
+                    bullets={limit(p.bullets)}
+                />
+            );
+        }),
+
+        education: formal.map((e, i) => (
+            <Entry
+                key={e.id}
+                heading={i === 0 ? t.education : undefined}
+                title={e.program}
+                meta={educationMeta(e)}
+                summary={e.summary}
+                bullets={limit(e.bullets)}
+            />
+        )),
+
+        training: training.map((e, i) => (
+            <Entry
+                key={e.id}
+                heading={i === 0 ? t.training : undefined}
+                title={e.program}
+                meta={educationMeta(e)}
+                summary={e.summary}
+                bullets={limit(e.bullets)}
+            />
+        )),
+
+        skills: skillGroups.map(([category, names], i) => (
+            <View key={category} style={i === 0 ? styles.blockFirst : undefined} wrap={false}>
+                {i === 0 ? <Heading title={t.skills} /> : null}
+                <Text style={styles.line}>
+                    <Text style={styles.title}>{SKILL_CATEGORY_LABEL[category] ?? category}: </Text>
+                    {names.join(", ")}
+                </Text>
+            </View>
+        )),
+
+        certifications: cv.certifications.map((c, i) => (
+            <View key={c.id} style={i === 0 ? styles.blockFirst : styles.block} wrap={false}>
+                {i === 0 ? <Heading title={t.certifications} /> : null}
+                <Text>
+                    <Text style={styles.title}>{c.name}</Text>
+                    {` - ${c.issuer}`}
+                </Text>
+                <Text style={styles.meta}>
+                    {join([
+                        c.issued_date && `${t.issued} ${formatMonth(c.issued_date)}`,
+                        c.expires_date && `${t.expires} ${formatMonth(c.expires_date)}`,
+                        !options.hideCredentialId && c.credential_id && `ID ${c.credential_id}`,
+                    ])}
+                </Text>
+            </View>
+        )),
+    };
+
     return (
         <Document title={`${basics.full_name} - CV`} author={basics.full_name}>
             <Page size="A4" style={styles.page}>
@@ -201,85 +340,8 @@ export function CvPdfDocument({ cv }: { cv: CvDocument }) {
                 {basics.headline && <Text style={styles.headline}>{basics.headline}</Text>}
                 {contact && <Text style={styles.contact}>{contact}</Text>}
 
-                {basics.summary && (
-                    <View style={styles.blockFirst} wrap={false}>
-                        <Heading title={t.summary} />
-                        <Text>{basics.summary}</Text>
-                    </View>
-                )}
-
-                {cv.experiences.map((e, i) => (
-                    <Entry
-                        key={e.id}
-                        heading={i === 0 ? t.experience : undefined}
-                        title={e.position}
-                        meta={join([e.company, e.location, monthRange(e.start_date, e.end_date, t.present)])}
-                        summary={e.summary}
-                        bullets={e.bullets}
-                    />
-                ))}
-
-                {cv.projects.map((p, i) => {
-                    const link = p.repo_url ?? p.live_url;
-                    return (
-                        <Entry
-                            key={p.id}
-                            heading={i === 0 ? t.projects : undefined}
-                            title={p.title}
-                            meta={join([link && displayUrl(link), monthRange(p.start_date, p.end_date, t.present)])}
-                            summary={p.description}
-                            bullets={p.bullets}
-                        />
-                    );
-                })}
-
-                {formal.map((e, i) => (
-                    <Entry
-                        key={e.id}
-                        heading={i === 0 ? t.education : undefined}
-                        title={e.program}
-                        meta={educationMeta(e)}
-                        summary={e.summary}
-                        bullets={e.bullets}
-                    />
-                ))}
-
-                {training.map((e, i) => (
-                    <Entry
-                        key={e.id}
-                        heading={i === 0 ? t.training : undefined}
-                        title={e.program}
-                        meta={educationMeta(e)}
-                        summary={e.summary}
-                        bullets={e.bullets}
-                    />
-                ))}
-
-                {skillGroups.map(([category, names], i) => (
-                    <View key={category} style={i === 0 ? styles.blockFirst : undefined} wrap={false}>
-                        {i === 0 ? <Heading title={t.skills} /> : null}
-                        <Text style={styles.line}>
-                            <Text style={styles.title}>{SKILL_CATEGORY_LABEL[category] ?? category}: </Text>
-                            {names.join(", ")}
-                        </Text>
-                    </View>
-                ))}
-
-                {cv.certifications.map((c, i) => (
-                    <View key={c.id} style={i === 0 ? styles.blockFirst : styles.block} wrap={false}>
-                        {i === 0 ? <Heading title={t.certifications} /> : null}
-                        <Text>
-                            <Text style={styles.title}>{c.name}</Text>
-                            {` - ${c.issuer}`}
-                        </Text>
-                        <Text style={styles.meta}>
-                            {join([
-                                c.issued_date && `${t.issued} ${formatMonth(c.issued_date)}`,
-                                c.expires_date && `${t.expires} ${formatMonth(c.expires_date)}`,
-                                c.credential_id && `ID ${c.credential_id}`,
-                            ])}
-                        </Text>
-                    </View>
+                {(options.sections ?? DEFAULT_SECTIONS).map((key) => (
+                    <Fragment key={key}>{blocks[key]}</Fragment>
                 ))}
             </Page>
         </Document>
