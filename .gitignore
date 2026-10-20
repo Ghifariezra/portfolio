@@ -26,5 +26,6 @@ docs/*
 
 changes_current_branch.txt
 codebase-dump.txt
-scripts/
+scripts/*
+!scripts/prerender-seo.mjs
 .env
