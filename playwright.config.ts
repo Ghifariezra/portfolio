@@ -33,5 +33,6 @@ export default defineConfig({
             VITE_API_URL: process.env.VITE_API_URL ?? "https://api.ezdev.xyz",
         },
     },
-    expect: { timeout: 10_000 },
+    timeout: 60_000,
+    expect: { timeout: 15_000 },
 });

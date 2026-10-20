@@ -10,6 +10,34 @@ const PUBLIC = "/api/v1/public";
 // Request dokumen halaman (/projects/<slug>) jangan ikut dicegat, hanya fetch/xhr
 const isApiCall = (route: Route) => ["fetch", "xhr"].includes(route.request().resourceType());
 
+/**
+ * route.fetch() jalan di Node.js, yang tidak bisa men-decompress zstd.
+ * Firefox mengiklankan zstd di Accept-Encoding, jadi server membalas dengan zstd
+ * dan response.json() akan mem-parse bytes mentah (SyntaxError).
+ * Paksa encoding yang didukung Node supaya body selalu bisa dibaca.
+ */
+const fetchDecodable = (route: Route) =>
+    route.fetch({
+        timeout: 20_000,
+        headers: {
+            ...route.request().headers(),
+            "accept-encoding": "gzip, deflate, br",
+        },
+    });
+
+/**
+ * Fulfill dengan body JSON baru berdasarkan response asli.
+ * Header content-encoding dan content-length dibuang karena body baru berupa JSON polos
+ * (tidak terkompresi) dengan panjang yang berbeda dari response asli.
+ */
+function fulfillPatchedJson(route: Route, response: Awaited<ReturnType<typeof fetchDecodable>>, json: unknown) {
+    const headers = { ...response.headers() };
+    delete headers["content-encoding"];
+    delete headers["content-length"];
+
+    return route.fulfill({ response, headers, json });
+}
+
 /** GET .../api/v1/public/projects */
 export const isProjectsList = (url: URL) => url.pathname.replace(/\/+$/, "").endsWith(`${PUBLIC}/projects`);
 
@@ -42,11 +70,11 @@ export async function forceGithubRepo(page: Page, repo = "octocat/hello-world") 
     await page.route(isProjectDetail, async (route) => {
         if (!isApiCall(route)) return route.fallback();
 
-        const response = await route.fetch();
+        const response = await fetchDecodable(route);
         if (!response.ok()) return route.fulfill({ response });
 
         const body = (await response.json()) as { data: Record<string, unknown> };
-        return route.fulfill({ response, json: { ...body, data: { ...body.data, github_repo: repo } } });
+        return fulfillPatchedJson(route, response, { ...body, data: { ...body.data, github_repo: repo } });
     });
 }
 
@@ -58,13 +86,13 @@ export async function patchFirstApp(page: Page, overrides: Record<string, unknow
     await page.route(isAppsList, async (route) => {
         if (!isApiCall(route)) return route.fallback();
 
-        const response = await route.fetch();
+        const response = await fetchDecodable(route);
         if (!response.ok()) return route.fulfill({ response });
 
         const body = (await response.json()) as { data: Record<string, unknown>[] };
         const [first, ...rest] = body.data;
         if (!first) return route.fulfill({ response });
 
-        return route.fulfill({ response, json: { ...body, data: [{ ...first, ...overrides }, ...rest] } });
+        return fulfillPatchedJson(route, response, { ...body, data: [{ ...first, ...overrides }, ...rest] });
     });
 }

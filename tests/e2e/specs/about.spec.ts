@@ -38,10 +38,15 @@ test.describe("About page", () => {
     test.describe("Download CV", () => {
         const CV_API = "**/api/v1/public/cv-variants/default";
 
+        // Firefox bisa lambat merender halaman about (cold start + request API asli),
+        // jadi tunggu tombol muncul dulu sebelum waitForEvent/click memakan budget timeout test.
+        const BUTTON_READY = { timeout: 20_000 };
+
         test("should download a valid PDF named after the profile", async ({ aboutPage }, testInfo) => {
             const { heading, downloadCvButton } = aboutPage.locators;
 
             await expect(heading).toBeVisible();
+            await expect(downloadCvButton).toBeVisible(BUTTON_READY);
             const fullName = (await heading.innerText()).trim();
 
             const downloadPromise = aboutPage.page.waitForEvent("download", { timeout: 15_000 });
@@ -75,6 +80,8 @@ test.describe("About page", () => {
                 await route.continue();
             });
 
+            await expect(locators.downloadCvButton).toBeVisible(BUTTON_READY);
+
             const downloadPromise = page.waitForEvent("download", { timeout: 15_000 });
             await locators.downloadCvButton.click();
 
@@ -91,6 +98,7 @@ test.describe("About page", () => {
 
             await page.route(CV_API, (route) => route.abort());
 
+            await expect(locators.downloadCvButton).toBeVisible(BUTTON_READY);
             await locators.downloadCvButton.click();
 
             await expect(locators.downloadCvError).toHaveText("Could not generate the CV. Try again.", {
