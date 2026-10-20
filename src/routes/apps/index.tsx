@@ -7,6 +7,7 @@ export const Route = createFileRoute("/apps/")({
         pageHead(
             "Apps",
             "Windows apps by Ghifari Ezra Ramadhan, with install numbers straight from the Microsoft Store.",
+            "/apps",
         ),
     component: AppsPage,
 });

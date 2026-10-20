@@ -3,7 +3,6 @@ import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
-import Sitemap from "vite-plugin-sitemap";
 import { defineConfig } from "vitest/config";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -26,16 +25,7 @@ export default defineConfig({
             : [],
     },
 
-    plugins: [
-        TanStackRouterVite({ autoCodeSplitting: true }),
-        react(),
-        tailwindcss(),
-        Sitemap({
-            hostname: "https://ezdev.xyz",
-            generateRobotsTxt: true,
-            robots: [{ userAgent: "*", allow: "/" }],
-        }),
-    ],
+    plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react(), tailwindcss()],
 
     resolve: {
         alias: { "@": path.resolve(__dirname, "./src") },
