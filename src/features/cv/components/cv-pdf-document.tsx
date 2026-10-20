@@ -39,16 +39,22 @@ type Labels = Record<keyof (typeof LABELS)["en"], string>;
 const labelsFor = (locale: string): Labels => (locale === "id" ? LABELS.id : LABELS.en);
 
 const SKILL_CATEGORY_LABEL: Record<string, string> = {
-    language: "Languages",
-    framework: "Frameworks",
     testing: "Testing",
     practice: "Practices",
-    database: "Databases",
+    language: "Languages",
     devops: "DevOps",
-    data: "Data",
+    framework: "Frameworks",
+    database: "Databases",
     ai: "AI",
+    data: "Data",
     design: "Design",
     other: "Other",
+};
+
+const SKILL_CATEGORY_ORDER = Object.keys(SKILL_CATEGORY_LABEL);
+const categoryRank = (category: string) => {
+    const i = SKILL_CATEGORY_ORDER.indexOf(category);
+    return i === -1 ? SKILL_CATEGORY_ORDER.length : i;
 };
 
 type Part = string | null | undefined | false;
@@ -173,7 +179,7 @@ export function CvPdfDocument({ cv }: { cv: CvDocument }) {
         basics.website_url && displayUrl(basics.website_url),
     ]);
 
-    const skillGroups = Object.entries(cv.skills);
+    const skillGroups = Object.entries(cv.skills).sort(([a], [b]) => categoryRank(a) - categoryRank(b));
 
     // Satu data, dua section: pendidikan formal dan training/bootcamp (urutan dari API dipertahankan).
     const formal = cv.education.filter((e) => !isTraining(e));
