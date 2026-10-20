@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { ErrorState } from "@/components/ui/error-state";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminProjectQuery } from "@/features/admin/projects/api/project-admin-api";
+import { ProjectForm } from "@/features/admin/projects/components/project-form";
+import { emptyProjectForm, toFormState } from "@/features/admin/projects/lib/project-form-state";
 import { isNotFound } from "@/lib/api";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { adminProjectQuery } from "../api/project-admin-api";
-import { ProjectForm } from "../components/project-form";
-import { emptyProjectForm, toFormState } from "../lib/project-form-state";
 
 export function NewProjectPage() {
     return (

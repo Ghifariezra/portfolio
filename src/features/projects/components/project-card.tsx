@@ -3,11 +3,11 @@ import { Link } from "@tanstack/react-router";
 import { IconLink } from "@/components/ui/icon-link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TagList } from "@/components/ui/tag-list";
+import type { RepoState } from "@/features/projects/hooks/use-github-repos";
+import { resolveProjectDisplay } from "@/features/projects/lib/project-helpers";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
+import type { ProjectItem } from "@/features/projects/schemas/project.schema";
 import { formatMonth, formatNumber, formatRange } from "@/lib/utils";
-import type { RepoState } from "../hooks/use-github-repos";
-import { resolveProjectDisplay } from "../lib/project-helpers";
-import type { GithubRepo } from "../schemas/github.schema";
-import type { ProjectItem } from "../schemas/project.schema";
 import { FeaturedBadge, StatusBadge } from "./project-badges";
 
 /** Footer live dari GitHub. Project tanpa repo atau yang gagal dimuat tidak punya footer. */

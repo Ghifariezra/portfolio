@@ -5,7 +5,7 @@ import {
     experiencesQuery,
     profileQuery,
     skillsQuery,
-} from "../api/portfolio-queries";
+} from "@/features/portfolio/api/portfolio-queries";
 
 export const useProfile = () => useQuery(profileQuery());
 export const useSkills = () => useQuery(skillsQuery());

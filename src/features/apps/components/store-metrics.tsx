@@ -1,8 +1,8 @@
 import { Download, Globe, MapPin } from "@phosphor-icons/react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useStoreAnalytics } from "@/features/apps/hooks/use-store-analytics";
 import { isNotFound } from "@/lib/api";
 import { formatNumber } from "@/lib/utils";
-import { useStoreAnalytics } from "../hooks/use-store-analytics";
 
 const TOP_REGIONS = 3;
 

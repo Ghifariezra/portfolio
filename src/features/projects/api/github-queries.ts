@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { STALE_TIME } from "@/config/cache";
+import { githubRepoSchema } from "@/features/projects/schemas/github.schema";
 import { apiGet } from "@/lib/api";
-import { githubRepoSchema } from "../schemas/github.schema";
 
 export const githubKeys = {
     repo: (repo: string) => ["github", "repo", repo] as const,

@@ -3,9 +3,9 @@ import { Link } from "@tanstack/react-router";
 import { ErrorState } from "@/components/ui/error-state";
 import { PageContainer } from "@/components/ui/page-container";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ProjectDetail } from "@/features/projects/components/project-detail";
+import { useProject } from "@/features/projects/hooks/use-projects";
 import { isNotFound } from "@/lib/api";
-import { ProjectDetail } from "../components/project-detail";
-import { useProject } from "../hooks/use-projects";
 
 /** Menerima slug lewat props (bukan membaca route sendiri), jadi halaman ini tidak terikat ke file route. */
 export function ProjectDetailPage({ slug }: { slug: string }) {

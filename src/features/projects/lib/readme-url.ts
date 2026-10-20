@@ -1,5 +1,5 @@
 import { defaultUrlTransform } from "react-markdown";
-import type { GithubRepo } from "../schemas/github.schema";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 
 const ABSOLUTE_URL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
 

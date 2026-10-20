@@ -1,10 +1,10 @@
 import { PageContainer } from "@/components/ui/page-container";
-import { CertificationsHighlightSection } from "../components/certifications-highlight-section";
-import { ContactSection } from "../components/contact-section";
-import { CurrentRoleSection } from "../components/current-role-section";
-import { FeaturedProjectsSection } from "../components/featured-projects-section";
-import { HeroSection } from "../components/hero-section";
-import { SkillsHighlightSection } from "../components/skills-highlight-section";
+import { CertificationsHighlightSection } from "@/features/home/components/certifications-highlight-section";
+import { ContactSection } from "@/features/home/components/contact-section";
+import { CurrentRoleSection } from "@/features/home/components/current-role-section";
+import { FeaturedProjectsSection } from "@/features/home/components/featured-projects-section";
+import { HeroSection } from "@/features/home/components/hero-section";
+import { SkillsHighlightSection } from "@/features/home/components/skills-highlight-section";
 
 /** Tiap section memuat datanya sendiri, jadi satu endpoint yang gagal tidak menjatuhkan halaman. */
 export function HomePage() {

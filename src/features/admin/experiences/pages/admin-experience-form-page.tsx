@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { AdminEditGate } from "../../components/admin-edit-gate";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { adminExperienceQuery } from "../api/experience-admin-api";
-import { ExperienceForm } from "../components/experience-form";
-import { emptyExperienceForm, toExperienceForm } from "../lib/experience-form-state";
+import { AdminEditGate } from "@/features/admin/components/admin-edit-gate";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminExperienceQuery } from "@/features/admin/experiences/api/experience-admin-api";
+import { ExperienceForm } from "@/features/admin/experiences/components/experience-form";
+import { emptyExperienceForm, toExperienceForm } from "@/features/admin/experiences/lib/experience-form-state";
 
 export function NewExperiencePage() {
     return (

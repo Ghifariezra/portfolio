@@ -1,8 +1,8 @@
 import { queryOptions } from "@tanstack/react-query";
 import { z } from "zod";
 import { STALE_TIME } from "@/config/cache";
+import { appItemSchema } from "@/features/apps/schemas/app.schema";
 import { fetchPublic } from "@/lib/api";
-import { appItemSchema } from "../schemas/app.schema";
 
 export const appKeys = {
     all: ["portfolio", "apps"] as const,

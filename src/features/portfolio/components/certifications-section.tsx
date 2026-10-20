@@ -1,6 +1,6 @@
+import { useCertifications } from "@/features/portfolio/hooks/use-portfolio";
+import { joinParts } from "@/features/portfolio/lib/portfolio-helpers";
 import { formatMonth, isHttpUrl } from "@/lib/utils";
-import { useCertifications } from "../hooks/use-portfolio";
-import { joinParts } from "../lib/portfolio-helpers";
 import { AboutSection } from "./about-section";
 
 const LINK_CLASS =

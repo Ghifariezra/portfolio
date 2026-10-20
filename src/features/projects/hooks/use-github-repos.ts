@@ -1,8 +1,8 @@
 import { type UseQueryResult, useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { githubRepoQuery } from "../api/github-queries";
-import type { GithubRepo } from "../schemas/github.schema";
-import type { ProjectItem } from "../schemas/project.schema";
+import { githubRepoQuery } from "@/features/projects/api/github-queries";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
+import type { ProjectItem } from "@/features/projects/schemas/project.schema";
 
 /**
  * Status detail GitHub per repo.

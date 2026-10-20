@@ -1,6 +1,6 @@
 import { GitFork, Star } from "@phosphor-icons/react";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 import { formatMonth, formatNumber } from "@/lib/utils";
-import type { GithubRepo } from "../schemas/github.schema";
 
 export function RepoStats({ repo }: { repo: GithubRepo }) {
     return (

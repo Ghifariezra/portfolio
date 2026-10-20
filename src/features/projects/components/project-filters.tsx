@@ -1,6 +1,6 @@
 import { FilterChip } from "@/components/ui/filter-chip";
-import { STATUS_LABEL } from "../lib/project-helpers";
-import type { ProjectStatus } from "../schemas/project.schema";
+import { STATUS_LABEL } from "@/features/projects/lib/project-helpers";
+import type { ProjectStatus } from "@/features/projects/schemas/project.schema";
 
 interface ProjectFiltersProps {
     /** Jumlah seluruh project (untuk chip "All"). */

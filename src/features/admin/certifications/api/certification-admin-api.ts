@@ -1,5 +1,5 @@
+import { adminCertificationSchema } from "@/features/admin/certifications/schemas/admin-certification.schema";
 import { createAdminResource } from "@/features/admin/lib/admin-resource";
-import { adminCertificationSchema } from "../schemas/admin-certification.schema";
 
 export const certificationResource = createAdminResource("certifications", adminCertificationSchema);
 

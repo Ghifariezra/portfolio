@@ -1,4 +1,4 @@
-import type { GithubRepo } from "../schemas/github.schema";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 
 export function LanguageBar({ languages }: { languages: GithubRepo["languages"] }) {
     if (languages.length === 0) return null;

@@ -1,10 +1,7 @@
 @theme inline {
     --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-    --font-heading:
-        "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
-    --font-mono:
-        "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco,
-        Consolas, monospace;
+    --font-heading: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
     /* Custom Shadows untuk efek Neo-Brutalist */
     --shadow-brutal: 4px 4px 0px 0px var(--color-foreground);

@@ -1,7 +1,7 @@
 import type { TagItem } from "@/components/ui/tag-list";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
+import type { ProjectItem, ProjectStatus } from "@/features/projects/schemas/project.schema";
 import { isHttpUrl } from "@/lib/utils";
-import type { GithubRepo } from "../schemas/github.schema";
-import type { ProjectItem, ProjectStatus } from "../schemas/project.schema";
 
 export const STATUS_LABEL: Record<ProjectStatus, string> = {
     in_progress: "In progress",

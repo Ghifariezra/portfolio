@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { AdminEditGate } from "../../components/admin-edit-gate";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { adminCertificationQuery } from "../api/certification-admin-api";
-import { CertificationForm } from "../components/certification-form";
-import { emptyCertificationForm, toCertificationForm } from "../lib/certification-form-state";
+import { adminCertificationQuery } from "@/features/admin/certifications/api/certification-admin-api";
+import { CertificationForm } from "@/features/admin/certifications/components/certification-form";
+import {
+    emptyCertificationForm,
+    toCertificationForm,
+} from "@/features/admin/certifications/lib/certification-form-state";
+import { AdminEditGate } from "@/features/admin/components/admin-edit-gate";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
 
 export function NewCertificationPage() {
     return (

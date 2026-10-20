@@ -5,10 +5,14 @@ import { inputClass } from "@/components/ui/form-styles";
 import { saveResource } from "@/features/admin/lib/admin-resource";
 import { parseSortOrder } from "@/features/admin/lib/form-utils";
 import { useResourceForm } from "@/features/admin/lib/use-resource-form";
+import { skillResource } from "@/features/admin/skills/api/skill-admin-queries";
+import {
+    SKILL_CATEGORY_OPTIONS,
+    type SkillCategory,
+    type SkillFormState,
+} from "@/features/admin/skills/lib/skill-options";
 import { getSkillCategoryMeta } from "@/features/portfolio/lib/skill-categories";
 import { ApiError } from "@/lib/api";
-import { skillResource } from "../api/skill-admin-queries";
-import { SKILL_CATEGORY_OPTIONS, type SkillCategory, type SkillFormState } from "../lib/skill-options";
 
 interface SkillEditorProps {
     /** null = skill baru. */

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { ErrorState } from "@/components/ui/error-state";
 import { FilterChip } from "@/components/ui/filter-chip";
+import { adminSkillsQuery } from "@/features/admin/skills/api/skill-admin-queries";
 import { groupSkillsByCategory } from "@/features/portfolio/lib/portfolio-helpers";
 import { getSkillCategoryMeta } from "@/features/portfolio/lib/skill-categories";
-import { adminSkillsQuery } from "../skills/api/skill-admin-queries";
 
 interface SkillPickerProps {
     value: string[];

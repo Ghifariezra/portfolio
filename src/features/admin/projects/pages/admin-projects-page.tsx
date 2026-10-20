@@ -6,11 +6,11 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { FilterChip } from "@/components/ui/filter-chip";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminProjectsQuery } from "@/features/admin/projects/api/project-admin-api";
+import { useDeleteProject, useToggleProject } from "@/features/admin/projects/api/use-project-mutations";
 import { StatusBadge } from "@/features/projects/components/project-badges";
 import { cn } from "@/lib/utils";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { adminProjectsQuery } from "../api/project-admin-api";
-import { useDeleteProject, useToggleProject } from "../api/use-project-mutations";
 
 export function AdminProjectsPage() {
     const { data, isPending, isError, refetch } = useQuery(adminProjectsQuery());

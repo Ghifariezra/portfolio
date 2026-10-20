@@ -3,14 +3,14 @@ import { useState } from "react";
 import { ConfirmButton } from "@/components/ui/confirm-button";
 import { ErrorState } from "@/components/ui/error-state";
 import { FilterChip } from "@/components/ui/filter-chip";
+import { AdminList, AdminListRow, AdminQueryState } from "@/features/admin/components/admin-list";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { useDeleteResource, useToggleResource } from "@/features/admin/lib/admin-resource";
+import { adminSkillsQuery, skillResource } from "@/features/admin/skills/api/skill-admin-queries";
+import { SkillEditor } from "@/features/admin/skills/components/skill-editor";
+import { emptySkillForm, type SkillCategory } from "@/features/admin/skills/lib/skill-options";
 import { groupSkillsByCategory } from "@/features/portfolio/lib/portfolio-helpers";
 import { getSkillCategoryMeta } from "@/features/portfolio/lib/skill-categories";
-import { AdminList, AdminListRow, AdminQueryState } from "../../components/admin-list";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { useDeleteResource, useToggleResource } from "../../lib/admin-resource";
-import { adminSkillsQuery, skillResource } from "../api/skill-admin-queries";
-import { SkillEditor } from "../components/skill-editor";
-import { emptySkillForm, type SkillCategory } from "../lib/skill-options";
 
 export function AdminSkillsPage() {
     const query = useQuery(adminSkillsQuery());

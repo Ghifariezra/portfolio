@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { AdminEditGate } from "../../components/admin-edit-gate";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { adminCvVariantQuery } from "../api/cv-variant-admin-api";
-import { CvPreview } from "../components/cv-preview";
-import { CvVariantForm } from "../components/cv-variant-form";
-import { emptyCvForm, toCvForm } from "../lib/cv-form-state";
+import { AdminEditGate } from "@/features/admin/components/admin-edit-gate";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminCvVariantQuery } from "@/features/admin/cv/api/cv-variant-admin-api";
+import { CvPreview } from "@/features/admin/cv/components/cv-preview";
+import { CvVariantForm } from "@/features/admin/cv/components/cv-variant-form";
+import { emptyCvForm, toCvForm } from "@/features/admin/cv/lib/cv-form-state";
 
 export function NewCvVariantPage() {
     return (

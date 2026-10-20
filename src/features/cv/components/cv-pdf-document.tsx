@@ -1,7 +1,7 @@
 import { Document, Font, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
+import type { CvDocument } from "@/features/cv/schemas/cv.schema";
 import { formatMonth } from "@/lib/utils";
-import type { CvDocument } from "../schemas/cv.schema";
 
 // ATS membaca teks PDF apa adanya. Tanpa ini, react-pdf memenggal kata dengan tanda hubung di akhir baris
 // ("Auto-" / "mation"), dan itu merusak pencocokan keyword.

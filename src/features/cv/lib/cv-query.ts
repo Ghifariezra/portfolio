@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
+import { cvDocumentSchema } from "@/features/cv/schemas/cv.schema";
 import { apiData } from "@/lib/api"; // sesuaikan kalau helper fetch envelope { data } lu ada di file lain
-import { cvDocumentSchema } from "../schemas/cv.schema";
 
 const FIVE_MINUTES = 5 * 60 * 1000;
 

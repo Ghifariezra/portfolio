@@ -1,6 +1,6 @@
 import { TagList } from "@/components/ui/tag-list";
+import { joinParts } from "@/features/portfolio/lib/portfolio-helpers";
 import type { SkillRef } from "@/lib/schemas/skill-ref.schema";
-import { joinParts } from "../lib/portfolio-helpers";
 
 interface TimelineEntryProps {
     title: string;

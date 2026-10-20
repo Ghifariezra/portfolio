@@ -1,8 +1,8 @@
 import { useMemo } from "react";
+import { useEducation } from "@/features/portfolio/hooks/use-portfolio";
+import { splitEducationByKind } from "@/features/portfolio/lib/portfolio-helpers";
+import type { Education } from "@/features/portfolio/schemas/education.schema";
 import { formatRange } from "@/lib/utils";
-import { useEducation } from "../hooks/use-portfolio";
-import { splitEducationByKind } from "../lib/portfolio-helpers";
-import type { Education } from "../schemas/education.schema";
 import { AboutSection } from "./about-section";
 import { TimelineEntry, TimelineList } from "./timeline-entry";
 

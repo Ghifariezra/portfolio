@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { useSkills } from "../hooks/use-portfolio";
-import { groupSkillsByCategory } from "../lib/portfolio-helpers";
+import { useSkills } from "@/features/portfolio/hooks/use-portfolio";
+import { groupSkillsByCategory } from "@/features/portfolio/lib/portfolio-helpers";
 import { AboutSection } from "./about-section";
 import { SkillGroupCard } from "./skill-group-card";
 

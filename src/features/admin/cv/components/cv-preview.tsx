@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { ErrorState } from "@/components/ui/error-state";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cvResource } from "../api/cv-variant-admin-api";
+import { cvResource } from "@/features/admin/cv/api/cv-variant-admin-api";
 
 /** Data siap render (apa adanya yang akan dipakai generator CV/ATS). Baru dimuat setelah dibuka. */
 export function CvPreview({ id }: { id: string }) {

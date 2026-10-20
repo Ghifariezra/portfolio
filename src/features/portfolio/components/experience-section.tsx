@@ -1,6 +1,6 @@
+import { useExperiences } from "@/features/portfolio/hooks/use-portfolio";
+import { EMPLOYMENT_LABEL } from "@/features/portfolio/lib/portfolio-helpers";
 import { formatRange } from "@/lib/utils";
-import { useExperiences } from "../hooks/use-portfolio";
-import { EMPLOYMENT_LABEL } from "../lib/portfolio-helpers";
 import { AboutSection } from "./about-section";
 import { TimelineEntry, TimelineList } from "./timeline-entry";
 

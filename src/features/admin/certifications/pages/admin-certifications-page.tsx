@@ -4,12 +4,15 @@ import { brutalButtonClass } from "@/components/ui/button-styles";
 import { ConfirmButton } from "@/components/ui/confirm-button";
 import { ErrorState } from "@/components/ui/error-state";
 import { FilterChip } from "@/components/ui/filter-chip";
+import {
+    adminCertificationsQuery,
+    certificationResource,
+} from "@/features/admin/certifications/api/certification-admin-api";
+import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "@/features/admin/components/admin-list";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { useDeleteResource, useToggleResource } from "@/features/admin/lib/admin-resource";
 import { joinParts } from "@/features/portfolio/lib/portfolio-helpers";
 import { formatMonth } from "@/lib/utils";
-import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "../../components/admin-list";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { useDeleteResource, useToggleResource } from "../../lib/admin-resource";
-import { adminCertificationsQuery, certificationResource } from "../api/certification-admin-api";
 
 export function AdminCertificationsPage() {
     const query = useQuery(adminCertificationsQuery());

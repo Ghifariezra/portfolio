@@ -5,12 +5,12 @@ import { ConfirmButton } from "@/components/ui/confirm-button";
 import { ErrorState } from "@/components/ui/error-state";
 import { FilterChip } from "@/components/ui/filter-chip";
 import { Tag } from "@/components/ui/tag-list";
+import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "@/features/admin/components/admin-list";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminEducationListQuery, educationResource } from "@/features/admin/education/api/education-admin-api";
+import { useDeleteResource, useToggleResource } from "@/features/admin/lib/admin-resource";
 import { EDUCATION_KIND_LABEL, joinParts } from "@/features/portfolio/lib/portfolio-helpers";
 import { formatRange } from "@/lib/utils";
-import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "../../components/admin-list";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { useDeleteResource, useToggleResource } from "../../lib/admin-resource";
-import { adminEducationListQuery, educationResource } from "../api/education-admin-api";
 
 export function AdminEducationPage() {
     const query = useQuery(adminEducationListQuery());

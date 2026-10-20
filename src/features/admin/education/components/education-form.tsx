@@ -5,13 +5,17 @@ import { FormField } from "@/components/ui/form-field";
 import { inputClass } from "@/components/ui/form-styles";
 import { FormFooter } from "@/features/admin/components/form-footer";
 import { SkillPicker } from "@/features/admin/components/skill-picker";
+import { educationResource } from "@/features/admin/education/api/education-admin-api";
+import {
+    type EducationFormState,
+    type EducationKind,
+    toEducationPayload,
+} from "@/features/admin/education/lib/education-form-state";
 import { saveResource } from "@/features/admin/lib/admin-resource";
 import { parseLines } from "@/features/admin/lib/form-utils";
 import { useResourceForm } from "@/features/admin/lib/use-resource-form";
 import { EDUCATION_KIND_LABEL } from "@/features/portfolio/lib/portfolio-helpers";
 import { EDUCATION_KINDS } from "@/features/portfolio/schemas/education.schema";
-import { educationResource } from "../api/education-admin-api";
-import { type EducationFormState, type EducationKind, toEducationPayload } from "../lib/education-form-state";
 
 interface EducationFormProps {
     initial: EducationFormState;

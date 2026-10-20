@@ -1,6 +1,6 @@
-import type { Education } from "../schemas/education.schema";
-import type { Experience } from "../schemas/experience.schema";
-import type { Skill } from "../schemas/skill.schema";
+import type { Education } from "@/features/portfolio/schemas/education.schema";
+import type { Experience } from "@/features/portfolio/schemas/experience.schema";
+import type { Skill } from "@/features/portfolio/schemas/skill.schema";
 
 export const EMPLOYMENT_LABEL: Record<Experience["employment_type"], string> = {
     full_time: "Full-time",

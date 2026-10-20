@@ -1,6 +1,6 @@
+import type { ProjectPayload } from "@/features/admin/projects/api/project-admin-api";
+import type { AdminProject } from "@/features/admin/projects/schemas/admin-project.schema";
 import type { ProjectStatus } from "@/features/projects/schemas/project.schema";
-import type { ProjectPayload } from "../api/project-admin-api";
-import type { AdminProject } from "../schemas/admin-project.schema";
 
 /** State form: semua input berupa string supaya cocok dengan <input>; diubah ke tipe API di toPayload(). */
 export interface ProjectFormState {

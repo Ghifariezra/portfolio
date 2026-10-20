@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { Tag, TagList } from "@/components/ui/tag-list";
+import { selectCurrentExperience } from "@/features/home/lib/home-helpers";
 import { useExperiences } from "@/features/portfolio/hooks/use-portfolio";
 import { EMPLOYMENT_LABEL } from "@/features/portfolio/lib/portfolio-helpers";
 import { formatRange } from "@/lib/utils";
-import { selectCurrentExperience } from "../lib/home-helpers";
 import { HOME_LINK_CLASS, HomeSection } from "./home-section";
 
 const MAX_SKILL_TAGS = 6;

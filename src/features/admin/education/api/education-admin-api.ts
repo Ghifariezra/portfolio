@@ -1,5 +1,5 @@
+import { adminEducationSchema } from "@/features/admin/education/schemas/admin-education.schema";
 import { createAdminResource } from "@/features/admin/lib/admin-resource";
-import { adminEducationSchema } from "../schemas/admin-education.schema";
 
 export const educationResource = createAdminResource("education", adminEducationSchema);
 

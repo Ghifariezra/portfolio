@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { selectFeaturedProjects } from "@/features/home/lib/home-helpers";
 import { ProjectCard } from "@/features/projects/components/project-card";
 import { useGithubRepos } from "@/features/projects/hooks/use-github-repos";
 import { useProjects } from "@/features/projects/hooks/use-projects";
-import { selectFeaturedProjects } from "../lib/home-helpers";
 import { HOME_LINK_CLASS, HomeSection } from "./home-section";
 
 const PLACEHOLDER_KEYS = ["first", "second", "third"] as const;

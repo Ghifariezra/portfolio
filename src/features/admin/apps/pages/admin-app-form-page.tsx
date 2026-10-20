@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { AdminEditGate } from "../../components/admin-edit-gate";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { adminAppQuery } from "../api/app-admin-api";
-import { AppForm } from "../components/app-form";
-import { emptyAppForm, toAppForm } from "../lib/app-form-state";
+import { adminAppQuery } from "@/features/admin/apps/api/app-admin-api";
+import { AppForm } from "@/features/admin/apps/components/app-form";
+import { emptyAppForm, toAppForm } from "@/features/admin/apps/lib/app-form-state";
+import { AdminEditGate } from "@/features/admin/components/admin-edit-gate";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
 
 export function NewAppPage() {
     return (

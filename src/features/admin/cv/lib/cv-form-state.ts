@@ -1,6 +1,6 @@
+import type { CvItems } from "@/features/admin/cv/api/cv-variant-admin-api";
+import type { AdminCvVariant, CvLocale } from "@/features/admin/cv/schemas/admin-cv-variant.schema";
 import { orNull } from "@/features/admin/lib/form-utils";
-import type { CvItems } from "../api/cv-variant-admin-api";
-import type { AdminCvVariant, CvLocale } from "../schemas/admin-cv-variant.schema";
 
 /** Field yang dikirim ke POST/PATCH. is_default sengaja tidak ada: diubah lewat POST /:id/default. */
 export interface CvVariantPayload {

@@ -1,5 +1,5 @@
 import { createAdminResource } from "@/features/admin/lib/admin-resource";
-import { adminSkillSchema } from "../schemas/admin-skill.schema";
+import { adminSkillSchema } from "@/features/admin/skills/schemas/admin-skill.schema";
 
 export const skillResource = createAdminResource("skills", adminSkillSchema);
 

@@ -4,6 +4,8 @@ import { brutalButtonClass } from "@/components/ui/button-styles";
 import { CheckboxField } from "@/components/ui/checkbox-field";
 import { FormField } from "@/components/ui/form-field";
 import { inputClass } from "@/components/ui/form-styles";
+import { appResource } from "@/features/admin/apps/api/app-admin-api";
+import { type AppFormState, toAppPayload } from "@/features/admin/apps/lib/app-form-state";
 import { FormFooter } from "@/features/admin/components/form-footer";
 import { SkillPicker } from "@/features/admin/components/skill-picker";
 import { saveResource } from "@/features/admin/lib/admin-resource";
@@ -11,8 +13,6 @@ import { useResourceForm } from "@/features/admin/lib/use-resource-form";
 import { adminProjectsQuery } from "@/features/admin/projects/api/project-admin-api";
 import { APP_STATUS_LABEL } from "@/features/apps/lib/app-helpers";
 import { APP_STATUSES, type AppStatus } from "@/features/apps/schemas/app.schema";
-import { appResource } from "../api/app-admin-api";
-import { type AppFormState, toAppPayload } from "../lib/app-form-state";
 
 interface AppFormProps {
     initial: AppFormState;

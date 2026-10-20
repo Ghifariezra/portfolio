@@ -1,8 +1,8 @@
 import { queryOptions } from "@tanstack/react-query";
 import { z } from "zod";
+import { adminCvVariantSchema, cvResolvedSchema } from "@/features/admin/cv/schemas/admin-cv-variant.schema";
 import { createAdminResource } from "@/features/admin/lib/admin-resource";
 import { adminGet, adminRequest } from "@/lib/api";
-import { adminCvVariantSchema, cvResolvedSchema } from "../schemas/admin-cv-variant.schema";
 
 export interface CvItems {
     experience_ids: string[];
