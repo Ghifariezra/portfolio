@@ -1,13 +1,35 @@
 import type { Locator, Page } from "@playwright/test";
 
 export const homeLocators = (page: Page) => {
-    const intro = page.getByRole("region", { name: "Introduction" });
+    // `exact: true` supaya nama region tidak ke-match secara substring
+    const region = (name: string) => page.getByRole("region", { name, exact: true });
+
+    // Introduction
+    const intro = region("Introduction");
     const paragraphs = intro.locator("p");
-    const featuredProjects = page.getByRole("region", { name: "Featured projects" });
+
+    // Featured projects
+    const featuredProjects = region("Featured projects");
     const projectCards = featuredProjects.getByRole("article");
+
+    // Currently
+    const currentRole = region("Currently");
+    const currentRoleCard = currentRole.getByRole("article");
+
+    // What I work with
+    const skills = region("What I work with");
+    const skillCards = skills.getByRole("article");
+
+    // Certifications
+    const certifications = region("Certifications");
+    const certificationItems = certifications.getByRole("listitem");
+
+    // Contact
+    const contact = region("Contact");
 
     return {
         // Introduction
+        intro,
         heading: intro.getByRole("heading", { level: 1 }),
         location: paragraphs.nth(0),
         jobTitle: intro.locator("h1 + p"),
@@ -16,17 +38,39 @@ export const homeLocators = (page: Page) => {
         aboutLink: intro.getByRole("link", { name: "About me" }),
         githubLink: intro.getByRole("link", { name: "GitHub profile" }),
         linkedinLink: intro.getByRole("link", { name: "LinkedIn profile" }),
+        websiteLink: intro.getByRole("link", { name: "Website" }),
 
         // Featured projects
         featuredProjects,
         projectCards,
+        allProjectsLink: featuredProjects.getByRole("link", { name: /all projects/i }),
         projectCard: (title: string): Locator =>
             projectCards.filter({ has: page.getByRole("heading", { name: title }) }),
 
-        // Sections
-        skills: page.getByRole("region", { name: "What I work with" }),
-        certifications: page.getByRole("region", { name: "Certifications" }),
-        contact: page.getByRole("region", { name: "Contact" }),
+        // Currently
+        currentRole,
+        currentRoleCard,
+        currentRolePosition: currentRoleCard.getByRole("heading", { level: 3 }),
+        currentRoleCompany: currentRoleCard.locator("h3 + p"),
+        fullBackgroundLink: currentRole.getByRole("link", { name: /full background/i }),
+
+        // Skills
+        skills,
+        skillCards,
+        skillCardTitles: skillCards.getByRole("heading", { level: 3 }),
+        allSkillsLink: skills.getByRole("link", { name: /all skills/i }),
+
+        // Certifications
+        certifications,
+        certificationItems,
+        certificationTitles: certificationItems.getByRole("heading", { level: 3 }),
+        allCertificationsLink: certifications.getByRole("link", { name: /all certifications/i }),
+
+        // Contact
+        contact,
+        contactHeading: contact.getByRole("heading", { name: "Get in touch" }),
+        contactLinkedinLink: contact.getByRole("link", { name: "LinkedIn" }),
+        contactGithubLink: contact.getByRole("link", { name: "GitHub" }),
     };
 };
 
