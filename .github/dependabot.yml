@@ -1,0 +1,35 @@
+version: 2
+updates:
+    # Dependency npm/pnpm (Dependabot membaca pnpm-lock.yaml lewat ecosystem "npm")
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          interval: "weekly"
+          day: "monday"
+          time: "07:00"
+          timezone: "Asia/Jakarta"
+      open-pull-requests-limit: 5
+      # Tunda versi yang baru dirilis beberapa hari, mengurangi risiko paket yang baru disusupi
+      cooldown:
+          default-days: 3
+      commit-message:
+          prefix: "chore(deps)"
+          prefix-development: "chore(deps-dev)"
+      groups:
+          # Satu PR untuk semua update minor/patch supaya tidak banjir PR
+          minor-and-patch:
+              update-types:
+                  - "minor"
+                  - "patch"
+      ignore:
+          # Major update dikerjakan manual (React, Vite, TypeScript, Tailwind, dll.)
+          - dependency-name: "*"
+            update-types: ["version-update:semver-major"]
+
+    # Versi action di .github/workflows/*.yml (checkout, setup-node, pnpm/action-setup, dll.)
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+          interval: "monthly"
+      commit-message:
+          prefix: "chore(ci)"
