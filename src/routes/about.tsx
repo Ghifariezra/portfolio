@@ -4,10 +4,6 @@ import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
     head: () =>
-        pageHead(
-            "About",
-            "About Ghifari Ezra Ramadhan: skills, experience, education, and certifications.",
-            "/about",
-        ),
+        pageHead("About", "About Ghifari Ezra Ramadhan: skills, experience, education, and certifications.", "/about"),
     component: AboutPage,
 });

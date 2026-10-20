@@ -14,7 +14,12 @@ export function CertificationsHighlightSection() {
         <HomeSection
             title="Certifications"
             action={
-                <Link to="/about" hash="certifications" hashScrollIntoView={{ behavior: "smooth" }} className={HOME_LINK_CLASS}>
+                <Link
+                    to="/about"
+                    hash="certifications"
+                    hashScrollIntoView={{ behavior: "smooth" }}
+                    className={HOME_LINK_CLASS}
+                >
                     All certifications →
                 </Link>
             }

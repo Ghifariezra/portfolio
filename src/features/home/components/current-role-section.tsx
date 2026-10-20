@@ -17,7 +17,12 @@ export function CurrentRoleSection() {
         <HomeSection
             title="Currently"
             action={
-                <Link to="/about" hash="experience" hashScrollIntoView={{ behavior: "smooth" }} className={HOME_LINK_CLASS}>
+                <Link
+                    to="/about"
+                    hash="experience"
+                    hashScrollIntoView={{ behavior: "smooth" }}
+                    className={HOME_LINK_CLASS}
+                >
                     Full background →
                 </Link>
             }

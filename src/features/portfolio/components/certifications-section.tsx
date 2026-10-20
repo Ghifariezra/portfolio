@@ -42,12 +42,22 @@ export function CertificationsSection() {
                             {(isHttpUrl(cert.credential_url) || isHttpUrl(cert.report_url)) && (
                                 <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
                                     {isHttpUrl(cert.credential_url) && (
-                                        <a href={cert.credential_url} target="_blank" rel="noreferrer" className={LINK_CLASS}>
+                                        <a
+                                            href={cert.credential_url}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className={LINK_CLASS}
+                                        >
                                             View credential
                                         </a>
                                     )}
                                     {isHttpUrl(cert.report_url) && (
-                                        <a href={cert.report_url} target="_blank" rel="noreferrer" className={LINK_CLASS}>
+                                        <a
+                                            href={cert.report_url}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className={LINK_CLASS}
+                                        >
                                             Learning report
                                         </a>
                                     )}
