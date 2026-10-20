@@ -14,14 +14,14 @@ export default defineConfig({
     esbuild: {
         pure: isProd
             ? [
-                  "console.log",
-                  "console.info",
-                  "console.debug",
-                  "console.warn",
-                  "logger.info",
-                  "logger.debug",
-                  "logger.warn",
-              ]
+                "console.log",
+                "console.info",
+                "console.debug",
+                "console.warn",
+                "logger.info",
+                "logger.debug",
+                "logger.warn",
+            ]
             : [],
     },
 
@@ -115,7 +115,8 @@ export default defineConfig({
 
                     if (id.includes("zod")) return "validation-vendor";
 
-                    return "vendor";
+                    // Sengaja tanpa catch-all "vendor": mermaid, shiki, dan @react-pdf/renderer di-import
+                    // dinamis, dan chunk gabungan akan memaksa semuanya diunduh di setiap halaman.
                 },
             },
         },
