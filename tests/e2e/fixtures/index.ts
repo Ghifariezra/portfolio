@@ -1,5 +1,5 @@
+import { HomePage } from "@e2e/pages/home.page";
 import { test as base } from "@playwright/test";
-import { HomePage } from "../pages/home.page";
 
 type Fixtures = {
     homePage: HomePage;

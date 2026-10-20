@@ -1,6 +1,6 @@
 import { TagList } from "@/components/ui/tag-list";
-import type { SkillGroup } from "../lib/portfolio-helpers";
-import { getSkillCategoryMeta } from "../lib/skill-categories";
+import type { SkillGroup } from "@/features/portfolio/lib/portfolio-helpers";
+import { getSkillCategoryMeta } from "@/features/portfolio/lib/skill-categories";
 
 export function SkillGroupCard({ group }: { group: SkillGroup }) {
     const { label, icon: CategoryIcon } = getSkillCategoryMeta(group.category);

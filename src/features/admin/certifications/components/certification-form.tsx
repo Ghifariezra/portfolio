@@ -4,12 +4,15 @@ import { brutalButtonClass } from "@/components/ui/button-styles";
 import { CheckboxField } from "@/components/ui/checkbox-field";
 import { FormField } from "@/components/ui/form-field";
 import { inputClass } from "@/components/ui/form-styles";
+import { certificationResource } from "@/features/admin/certifications/api/certification-admin-api";
+import {
+    type CertificationFormState,
+    toCertificationPayload,
+} from "@/features/admin/certifications/lib/certification-form-state";
 import { FormFooter } from "@/features/admin/components/form-footer";
 import { adminEducationListQuery } from "@/features/admin/education/api/education-admin-api";
 import { saveResource } from "@/features/admin/lib/admin-resource";
 import { useResourceForm } from "@/features/admin/lib/use-resource-form";
-import { certificationResource } from "../api/certification-admin-api";
-import { type CertificationFormState, toCertificationPayload } from "../lib/certification-form-state";
 
 interface CertificationFormProps {
     initial: CertificationFormState;

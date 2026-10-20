@@ -4,11 +4,11 @@ import { brutalButtonClass } from "@/components/ui/button-styles";
 import { ConfirmButton } from "@/components/ui/confirm-button";
 import { ErrorState } from "@/components/ui/error-state";
 import { Tag } from "@/components/ui/tag-list";
+import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "@/features/admin/components/admin-list";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminCvVariantsQuery, cvResource } from "@/features/admin/cv/api/cv-variant-admin-api";
+import { useDeleteResource, useRefreshAfterWrite } from "@/features/admin/lib/admin-resource";
 import { joinParts } from "@/features/portfolio/lib/portfolio-helpers";
-import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "../../components/admin-list";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { useDeleteResource, useRefreshAfterWrite } from "../../lib/admin-resource";
-import { adminCvVariantsQuery, cvResource } from "../api/cv-variant-admin-api";
 
 export function AdminCvVariantsPage() {
     const query = useQuery(adminCvVariantsQuery());

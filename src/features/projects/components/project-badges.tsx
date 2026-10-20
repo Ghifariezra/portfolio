@@ -1,6 +1,6 @@
 import { Star } from "@phosphor-icons/react";
-import { STATUS_LABEL } from "../lib/project-helpers";
-import type { ProjectStatus } from "../schemas/project.schema";
+import { STATUS_LABEL } from "@/features/projects/lib/project-helpers";
+import type { ProjectStatus } from "@/features/projects/schemas/project.schema";
 
 export function StatusBadge({ status }: { status: ProjectStatus }) {
     return (

@@ -1,5 +1,5 @@
+import { adminAppSchema } from "@/features/admin/apps/schemas/admin-app.schema";
 import { createAdminResource } from "@/features/admin/lib/admin-resource";
-import { adminAppSchema } from "../schemas/admin-app.schema";
 
 export const appResource = createAdminResource("apps", adminAppSchema);
 

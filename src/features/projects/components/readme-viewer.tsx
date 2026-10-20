@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { MarkdownContent } from "@/components/markdown/markdown-content";
 import { EmptyState } from "@/components/ui/empty-state";
-import { createReadmeUrlTransform } from "../lib/readme-url";
-import type { GithubRepo } from "../schemas/github.schema";
+import { createReadmeUrlTransform } from "@/features/projects/lib/readme-url";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 
 export function ReadmeViewer({ repo }: { repo: GithubRepo }) {
     // README dirender setelah data dimuat, jadi hash di URL (/projects/x#overview) harus digulung manual.

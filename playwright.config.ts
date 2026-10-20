@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
     testDir: "./tests/e2e/specs",
+    tsconfig: "./tsconfig.e2e.json",
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
@@ -28,5 +29,8 @@ export default defineConfig({
         url: "http://localhost:4173",
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
+        env: {
+            VITE_API_URL: process.env.VITE_API_URL ?? "https://api.ezdev.xyz",
+        },
     },
 });

@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { TagList } from "@/components/ui/tag-list";
+import { pickSkillGroups } from "@/features/home/lib/home-helpers";
 import { useSkills } from "@/features/portfolio/hooks/use-portfolio";
 import { groupSkillsByCategory, type SkillGroup } from "@/features/portfolio/lib/portfolio-helpers";
 import { getSkillCategoryMeta } from "@/features/portfolio/lib/skill-categories";
-import { pickSkillGroups } from "../lib/home-helpers";
 import { HOME_LINK_CLASS, HomeSection } from "./home-section";
 
 const MAX_TAGS_PER_GROUP = 8;

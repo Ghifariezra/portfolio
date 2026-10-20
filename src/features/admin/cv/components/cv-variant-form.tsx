@@ -6,14 +6,14 @@ import { inputClass } from "@/components/ui/form-styles";
 import { adminCertificationsQuery } from "@/features/admin/certifications/api/certification-admin-api";
 import { FormFooter } from "@/features/admin/components/form-footer";
 import { OrderedPicker, type PickerOption } from "@/features/admin/components/ordered-picker";
+import { saveCvVariant } from "@/features/admin/cv/api/cv-variant-admin-api";
+import { type CvFormState, toCvItems, toCvPayload } from "@/features/admin/cv/lib/cv-form-state";
+import { CV_LOCALES, type CvLocale } from "@/features/admin/cv/schemas/admin-cv-variant.schema";
 import { adminEducationListQuery } from "@/features/admin/education/api/education-admin-api";
 import { adminExperiencesQuery } from "@/features/admin/experiences/api/experience-admin-api";
 import { useResourceForm } from "@/features/admin/lib/use-resource-form";
 import { adminProjectsQuery } from "@/features/admin/projects/api/project-admin-api";
 import { adminSkillsQuery } from "@/features/admin/skills/api/skill-admin-queries";
-import { saveCvVariant } from "../api/cv-variant-admin-api";
-import { type CvFormState, toCvItems, toCvPayload } from "../lib/cv-form-state";
-import { CV_LOCALES, type CvLocale } from "../schemas/admin-cv-variant.schema";
 
 const LOCALE_LABEL: Record<CvLocale, string> = { en: "English", id: "Bahasa Indonesia" };
 

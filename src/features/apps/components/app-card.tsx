@@ -2,9 +2,9 @@ import { Globe, WindowsLogo } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { IconLink } from "@/components/ui/icon-link";
 import { Tag } from "@/components/ui/tag-list";
+import { APP_STATUS_LABEL, getStoreId } from "@/features/apps/lib/app-helpers";
+import type { AppItem } from "@/features/apps/schemas/app.schema";
 import { formatMonth } from "@/lib/utils";
-import { APP_STATUS_LABEL, getStoreId } from "../lib/app-helpers";
-import type { AppItem } from "../schemas/app.schema";
 import { StoreMetrics } from "./store-metrics";
 
 export function AppCard({ app }: { app: AppItem }) {

@@ -1,8 +1,8 @@
 import { queryOptions } from "@tanstack/react-query";
 import { z } from "zod";
 import { STALE_TIME } from "@/config/cache";
+import { projectItemSchema } from "@/features/projects/schemas/project.schema";
 import { fetchPublic } from "@/lib/api";
-import { projectItemSchema } from "../schemas/project.schema";
 
 export const projectKeys = {
     all: ["portfolio", "projects"] as const,

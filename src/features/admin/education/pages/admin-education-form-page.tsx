@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { AdminEditGate } from "../../components/admin-edit-gate";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { adminEducationQuery } from "../api/education-admin-api";
-import { EducationForm } from "../components/education-form";
-import { emptyEducationForm, toEducationForm } from "../lib/education-form-state";
+import { AdminEditGate } from "@/features/admin/components/admin-edit-gate";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminEducationQuery } from "@/features/admin/education/api/education-admin-api";
+import { EducationForm } from "@/features/admin/education/components/education-form";
+import { emptyEducationForm, toEducationForm } from "@/features/admin/education/lib/education-form-state";
 
 export function NewEducationPage() {
     return (

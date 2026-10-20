@@ -6,11 +6,11 @@ import { ErrorState } from "@/components/ui/error-state";
 import { FilterChip } from "@/components/ui/filter-chip";
 import { FormField } from "@/components/ui/form-field";
 import { inputClass } from "@/components/ui/form-styles";
+import { useSaveProject } from "@/features/admin/projects/api/use-project-mutations";
+import { type ProjectFormState, parseBullets, toPayload } from "@/features/admin/projects/lib/project-form-state";
+import { adminSkillsQuery } from "@/features/admin/skills/api/skill-admin-queries";
 import { PROJECT_STATUSES, type ProjectStatus } from "@/features/projects/schemas/project.schema";
 import { fieldErrors } from "@/lib/api";
-import { adminSkillsQuery } from "../../skills/api/skill-admin-queries";
-import { useSaveProject } from "../api/use-project-mutations";
-import { type ProjectFormState, parseBullets, toPayload } from "../lib/project-form-state";
 
 interface ProjectFormProps {
     initial: ProjectFormState;

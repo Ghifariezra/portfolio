@@ -5,12 +5,12 @@ import { ConfirmButton } from "@/components/ui/confirm-button";
 import { ErrorState } from "@/components/ui/error-state";
 import { FilterChip } from "@/components/ui/filter-chip";
 import { Tag } from "@/components/ui/tag-list";
+import { adminAppsQuery, appResource } from "@/features/admin/apps/api/app-admin-api";
+import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "@/features/admin/components/admin-list";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { useDeleteResource, useToggleResource } from "@/features/admin/lib/admin-resource";
 import { APP_STATUS_LABEL } from "@/features/apps/lib/app-helpers";
 import { joinParts } from "@/features/portfolio/lib/portfolio-helpers";
-import { ADMIN_ACTION_CLASS, AdminList, AdminListRow, AdminQueryState } from "../../components/admin-list";
-import { AdminPageHeader } from "../../components/admin-page-header";
-import { useDeleteResource, useToggleResource } from "../../lib/admin-resource";
-import { adminAppsQuery, appResource } from "../api/app-admin-api";
 
 export function AdminAppsPage() {
     const query = useQuery(adminAppsQuery());

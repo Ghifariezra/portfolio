@@ -1,7 +1,7 @@
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGithubRepo } from "@/features/projects/hooks/use-github-repo";
 import { isNotFound } from "@/lib/api";
-import { useGithubRepo } from "../hooks/use-github-repo";
 import { GithubDetail } from "./github-detail";
 
 /** Dimuat terpisah dari data DB, jadi kegagalan GitHub (502) tidak menjatuhkan seluruh halaman. */

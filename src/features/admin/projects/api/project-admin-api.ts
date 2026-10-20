@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { z } from "zod";
+import { adminProjectSchema } from "@/features/admin/projects/schemas/admin-project.schema";
 import { adminGet, adminRequest } from "@/lib/api";
-import { adminProjectSchema } from "../schemas/admin-project.schema";
 
 export const adminProjectKeys = {
     all: ["admin", "projects"] as const,

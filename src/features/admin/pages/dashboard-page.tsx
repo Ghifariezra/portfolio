@@ -2,15 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
-import { adminAppsQuery } from "../apps/api/app-admin-api";
-import { adminCertificationsQuery } from "../certifications/api/certification-admin-api";
-import type { ADMIN_NAV_ITEMS } from "../components/admin-nav-items";
-import { AdminPageHeader } from "../components/admin-page-header";
-import { adminCvVariantsQuery } from "../cv/api/cv-variant-admin-api";
-import { adminEducationListQuery } from "../education/api/education-admin-api";
-import { adminExperiencesQuery } from "../experiences/api/experience-admin-api";
-import { adminProjectsQuery } from "../projects/api/project-admin-api";
-import { adminSkillsQuery } from "../skills/api/skill-admin-queries";
+import { adminAppsQuery } from "@/features/admin/apps/api/app-admin-api";
+import { adminCertificationsQuery } from "@/features/admin/certifications/api/certification-admin-api";
+import type { ADMIN_NAV_ITEMS } from "@/features/admin/components/admin-nav-items";
+import { AdminPageHeader } from "@/features/admin/components/admin-page-header";
+import { adminCvVariantsQuery } from "@/features/admin/cv/api/cv-variant-admin-api";
+import { adminEducationListQuery } from "@/features/admin/education/api/education-admin-api";
+import { adminExperiencesQuery } from "@/features/admin/experiences/api/experience-admin-api";
+import { adminProjectsQuery } from "@/features/admin/projects/api/project-admin-api";
+import { adminSkillsQuery } from "@/features/admin/skills/api/skill-admin-queries";
 
 type NavTarget = (typeof ADMIN_NAV_ITEMS)[number]["to"];
 

@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { STALE_TIME } from "@/config/cache";
+import { storeAnalyticsSchema } from "@/features/apps/schemas/store-analytics.schema";
 import { apiGet } from "@/lib/api";
-import { storeAnalyticsSchema } from "../schemas/store-analytics.schema";
 
 export const storeAnalyticsKeys = {
     detail: (storeId: string) => ["azure", "analytics", storeId] as const,

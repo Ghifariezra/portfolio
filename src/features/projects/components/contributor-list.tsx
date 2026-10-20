@@ -1,6 +1,6 @@
 import { SectionHeading } from "@/components/ui/section-heading";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 import { formatNumber } from "@/lib/utils";
-import type { GithubRepo } from "../schemas/github.schema";
 
 const MAX_VISIBLE = 12;
 

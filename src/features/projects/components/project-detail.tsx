@@ -1,5 +1,5 @@
 import { TagList } from "@/components/ui/tag-list";
-import type { ProjectItem } from "../schemas/project.schema";
+import type { ProjectItem } from "@/features/projects/schemas/project.schema";
 import { GithubSection } from "./github-section";
 import { ProjectHeader } from "./project-header";
 

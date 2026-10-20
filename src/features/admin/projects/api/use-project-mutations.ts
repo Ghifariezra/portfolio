@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
+import { type AdminProject, adminProjectSchema } from "@/features/admin/projects/schemas/admin-project.schema";
 import { adminRequest } from "@/lib/api";
-import { type AdminProject, adminProjectSchema } from "../schemas/admin-project.schema";
 import { saveProject } from "./project-admin-api";
 
 /** Setelah tulis: segarkan data admin dan cache query publik, supaya halaman publik tidak menampilkan data lama. */

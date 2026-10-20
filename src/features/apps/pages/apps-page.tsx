@@ -2,8 +2,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { PageContainer, PageHeader } from "@/components/ui/page-container";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AppCard } from "../components/app-card";
-import { useApps } from "../hooks/use-apps";
+import { AppCard } from "@/features/apps/components/app-card";
+import { useApps } from "@/features/apps/hooks/use-apps";
 
 export function AppsPage() {
     const { data: apps, isPending, isError, refetch } = useApps();

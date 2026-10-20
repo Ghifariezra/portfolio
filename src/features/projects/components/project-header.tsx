@@ -1,7 +1,7 @@
 import { GithubLogo, Globe } from "@phosphor-icons/react";
 import { brutalButtonClass } from "@/components/ui/button-styles";
+import type { ProjectItem } from "@/features/projects/schemas/project.schema";
 import { formatRange } from "@/lib/utils";
-import type { ProjectItem } from "../schemas/project.schema";
 import { FeaturedBadge, StatusBadge } from "./project-badges";
 
 export function ProjectHeader({ project }: { project: ProjectItem }) {

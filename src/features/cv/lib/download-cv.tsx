@@ -1,4 +1,4 @@
-import type { CvDocument } from "../schemas/cv.schema";
+import type { CvDocument } from "@/features/cv/schemas/cv.schema";
 
 /** "Ghifari Ezra Ramadhan" -> "Ghifari-Ezra-Ramadhan-CV.pdf" (format nama file yang lazim dipakai rekruter/ATS). */
 export function cvFileName(fullName: string): string {
@@ -16,7 +16,7 @@ export function cvFileName(fullName: string): string {
 export async function downloadCvPdf(cv: CvDocument): Promise<void> {
     const [{ pdf }, { CvPdfDocument }] = await Promise.all([
         import("@react-pdf/renderer"),
-        import("../components/cv-pdf-document"),
+        import("@/features/cv/components/cv-pdf-document"),
     ]);
 
     const blob = await pdf(<CvPdfDocument cv={cv} />).toBlob();

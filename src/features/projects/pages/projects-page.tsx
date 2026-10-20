@@ -2,10 +2,10 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { PageContainer, PageHeader } from "@/components/ui/page-container";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectCard } from "../components/project-card";
-import { ProjectFilters } from "../components/project-filters";
-import { useProjectFilters } from "../hooks/use-project-filters";
-import { useProjects } from "../hooks/use-projects";
+import { ProjectCard } from "@/features/projects/components/project-card";
+import { ProjectFilters } from "@/features/projects/components/project-filters";
+import { useProjectFilters } from "@/features/projects/hooks/use-project-filters";
+import { useProjects } from "@/features/projects/hooks/use-projects";
 
 export function ProjectsPage() {
     const { data, isPending, isError, refetch } = useProjects();

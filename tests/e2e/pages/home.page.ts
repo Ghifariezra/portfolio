@@ -1,5 +1,5 @@
+import { type HomeLocators, homeLocators } from "@e2e/locators/home.locators";
 import type { Page } from "@playwright/test";
-import { type HomeLocators, homeLocators } from "../locators/home.locators";
 
 export class HomePage {
     readonly page: Page;

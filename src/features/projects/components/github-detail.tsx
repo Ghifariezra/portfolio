@@ -1,6 +1,6 @@
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TagList } from "@/components/ui/tag-list";
-import type { GithubRepo } from "../schemas/github.schema";
+import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 import { ContributorList } from "./contributor-list";
 import { LanguageBar } from "./language-bar";
 import { ReadmeViewer } from "./readme-viewer";

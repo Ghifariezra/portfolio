@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
+import { selectTopCertifications } from "@/features/home/lib/home-helpers";
 import { useCertifications } from "@/features/portfolio/hooks/use-portfolio";
 import { joinParts } from "@/features/portfolio/lib/portfolio-helpers";
 import { formatMonth } from "@/lib/utils";
-import { selectTopCertifications } from "../lib/home-helpers";
 import { HOME_LINK_CLASS, HomeSection } from "./home-section";
 
 export function CertificationsHighlightSection() {

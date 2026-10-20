@@ -1,12 +1,12 @@
 import { queryOptions } from "@tanstack/react-query";
 import { z } from "zod";
 import { STALE_TIME } from "@/config/cache";
+import { certificationSchema } from "@/features/portfolio/schemas/certification.schema";
+import { educationSchema } from "@/features/portfolio/schemas/education.schema";
+import { experienceSchema } from "@/features/portfolio/schemas/experience.schema";
+import { profileSchema } from "@/features/portfolio/schemas/profile.schema";
+import { skillSchema } from "@/features/portfolio/schemas/skill.schema";
 import { fetchPublic } from "@/lib/api";
-import { certificationSchema } from "../schemas/certification.schema";
-import { educationSchema } from "../schemas/education.schema";
-import { experienceSchema } from "../schemas/experience.schema";
-import { profileSchema } from "../schemas/profile.schema";
-import { skillSchema } from "../schemas/skill.schema";
 
 // Belum dipakai halaman mana pun; disiapkan untuk Home.
 

@@ -1,6 +1,6 @@
+import type { AdminEducation } from "@/features/admin/education/schemas/admin-education.schema";
 import { orNull, parseSortOrder, toMonthInput } from "@/features/admin/lib/form-utils";
 import type { EDUCATION_KINDS } from "@/features/portfolio/schemas/education.schema";
-import type { AdminEducation } from "../schemas/admin-education.schema";
 
 export type EducationKind = (typeof EDUCATION_KINDS)[number];
 

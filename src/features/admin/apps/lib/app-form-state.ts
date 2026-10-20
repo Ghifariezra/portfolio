@@ -1,6 +1,6 @@
+import type { AdminApp } from "@/features/admin/apps/schemas/admin-app.schema";
 import { orNull, parseSortOrder, slugify } from "@/features/admin/lib/form-utils";
 import type { AppStatus } from "@/features/apps/schemas/app.schema";
-import type { AdminApp } from "../schemas/admin-app.schema";
 
 /** Field yang dikirim ke POST/PATCH. Server memakai strictObject, jadi jangan kirim field lain. */
 export interface AppPayload {

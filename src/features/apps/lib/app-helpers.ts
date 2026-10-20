@@ -1,4 +1,4 @@
-import type { AppItem, AppStatus } from "../schemas/app.schema";
+import type { AppItem, AppStatus } from "@/features/apps/schemas/app.schema";
 
 export const APP_STATUS_LABEL: Record<AppStatus, string> = {
     coming_soon: "Coming soon",

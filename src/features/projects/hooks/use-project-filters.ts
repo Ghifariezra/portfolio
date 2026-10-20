@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
-import { topLanguage } from "../lib/project-helpers";
-import { PROJECT_STATUSES, type ProjectItem, type ProjectStatus } from "../schemas/project.schema";
+import { topLanguage } from "@/features/projects/lib/project-helpers";
+import { PROJECT_STATUSES, type ProjectItem, type ProjectStatus } from "@/features/projects/schemas/project.schema";
 import { type RepoState, useGithubRepos } from "./use-github-repos";
 
 /**

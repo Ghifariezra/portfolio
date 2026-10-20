@@ -3,9 +3,9 @@ import { ErrorState } from "@/components/ui/error-state";
 import { IconLink } from "@/components/ui/icon-link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DownloadCvButton } from "@/features/cv/components/download-cv-button";
+import { useProfile } from "@/features/portfolio/hooks/use-portfolio";
+import { joinParts } from "@/features/portfolio/lib/portfolio-helpers";
 import { isHttpUrl } from "@/lib/utils";
-import { useProfile } from "../hooks/use-portfolio";
-import { joinParts } from "../lib/portfolio-helpers";
 
 export function ProfileHeader() {
     const { data, isPending, isError, refetch } = useProfile();

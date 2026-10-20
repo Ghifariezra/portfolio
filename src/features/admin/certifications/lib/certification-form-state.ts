@@ -1,5 +1,5 @@
+import type { AdminCertification } from "@/features/admin/certifications/schemas/admin-certification.schema";
 import { orNull, parseSortOrder, toMonthInput } from "@/features/admin/lib/form-utils";
-import type { AdminCertification } from "../schemas/admin-certification.schema";
 
 /** Field yang dikirim ke POST/PATCH. Server memakai strictObject, jadi jangan kirim field lain. */
 export interface CertificationPayload {

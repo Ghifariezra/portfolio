@@ -1,5 +1,5 @@
+import { adminExperienceSchema } from "@/features/admin/experiences/schemas/admin-experience.schema";
 import { createAdminResource } from "@/features/admin/lib/admin-resource";
-import { adminExperienceSchema } from "../schemas/admin-experience.schema";
 
 export const experienceResource = createAdminResource("experiences", adminExperienceSchema);
 

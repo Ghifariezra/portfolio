@@ -5,13 +5,17 @@ import { FormField } from "@/components/ui/form-field";
 import { inputClass } from "@/components/ui/form-styles";
 import { FormFooter } from "@/features/admin/components/form-footer";
 import { SkillPicker } from "@/features/admin/components/skill-picker";
+import { experienceResource } from "@/features/admin/experiences/api/experience-admin-api";
+import {
+    type EmploymentType,
+    type ExperienceFormState,
+    toExperiencePayload,
+} from "@/features/admin/experiences/lib/experience-form-state";
 import { saveResource } from "@/features/admin/lib/admin-resource";
 import { parseLines } from "@/features/admin/lib/form-utils";
 import { useResourceForm } from "@/features/admin/lib/use-resource-form";
 import { EMPLOYMENT_LABEL } from "@/features/portfolio/lib/portfolio-helpers";
 import { EMPLOYMENT_TYPES } from "@/features/portfolio/schemas/experience.schema";
-import { experienceResource } from "../api/experience-admin-api";
-import { type EmploymentType, type ExperienceFormState, toExperiencePayload } from "../lib/experience-form-state";
 
 interface ExperienceFormProps {
     initial: ExperienceFormState;
