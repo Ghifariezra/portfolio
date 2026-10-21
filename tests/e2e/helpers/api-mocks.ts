@@ -54,6 +54,12 @@ export const isAppsList = (url: URL) => url.pathname.replace(/\/+$/, "").endsWit
 /** GET <API_BASE_URL>/azure/apps/<storeId>/analytics: data Microsoft Partner Center, tanpa prefix /api/v1/public */
 export const isStoreAnalytics = (url: URL) => /\/azure\/apps\/[^/]+\/analytics\/?$/.test(url.pathname);
 
+/** GET <API_BASE_URL>/contributions/issues: data live GitHub, tanpa prefix /api/v1/public */
+export const isContributions = (url: URL) => url.pathname.replace(/\/+$/, "").endsWith("/contributions/issues");
+
+/** Response valid untuk "belum ada kontribusi". */
+export const EMPTY_CONTRIBUTIONS = { total: 0, issues: [] };
+
 /** Ganti response endpoint yang cocok dengan status dan body tertentu. */
 export async function mockResponse(page: Page, match: (url: URL) => boolean, status: number, body: unknown) {
     await page.route(match, (route) => {

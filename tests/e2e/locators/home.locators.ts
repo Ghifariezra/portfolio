@@ -24,6 +24,10 @@ export const homeLocators = (page: Page) => {
     const certifications = region("Certifications");
     const certificationItems = certifications.getByRole("listitem");
 
+    // Open source
+    const contributions = region("Open source");
+    const contributionItems = contributions.getByRole("listitem");
+
     // Contact
     const contact = region("Contact");
 
@@ -65,6 +69,14 @@ export const homeLocators = (page: Page) => {
         certificationItems,
         certificationTitles: certificationItems.getByRole("heading", { level: 3 }),
         allCertificationsLink: certifications.getByRole("link", { name: /all certifications/i }),
+
+        // Open source
+        contributions,
+        contributionItems,
+        contributionTitles: contributionItems.getByRole("heading", { level: 3 }),
+        contributionStatValues: contributions.locator("dd"),
+        allContributionsLink: contributions.getByRole("link", { name: /all contributions/i }),
+        contributionsErrorMessage: page.getByText("Could not load open source right now."),
 
         // Contact
         contact,

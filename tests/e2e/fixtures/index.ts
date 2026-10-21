@@ -1,5 +1,6 @@
 import { AboutPage } from "@e2e/pages/about.page";
 import { AppsPage } from "@e2e/pages/apps.page";
+import { ContributionsPage } from "@e2e/pages/contributions.page";
 import { HomePage } from "@e2e/pages/home.page";
 import { ProjectDetailPage } from "@e2e/pages/project-detail.page";
 import { ProjectsPage } from "@e2e/pages/projects.page";
@@ -11,6 +12,7 @@ type Fixtures = {
     projectsPage: ProjectsPage;
     projectDetailPage: ProjectDetailPage;
     appsPage: AppsPage;
+    contributionsPage: ContributionsPage;
 };
 
 export const test = base.extend<Fixtures>({
@@ -41,6 +43,11 @@ export const test = base.extend<Fixtures>({
         const appsPage = new AppsPage(page);
         await appsPage.goto();
         await use(appsPage);
+    },
+    contributionsPage: async ({ page }, use) => {
+        const contributionsPage = new ContributionsPage(page);
+        await contributionsPage.goto();
+        await use(contributionsPage);
     },
 });
 

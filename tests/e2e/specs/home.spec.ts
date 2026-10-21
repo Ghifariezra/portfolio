@@ -1,4 +1,6 @@
 import { expect, test } from "@e2e/fixtures";
+import { EMPTY_CONTRIBUTIONS, isContributions, mockResponse } from "@e2e/helpers/api-mocks";
+import { HomePage } from "@e2e/pages/home.page";
 
 test.describe("Home page", () => {
     test.describe("Hero", () => {
@@ -76,6 +78,63 @@ test.describe("Home page", () => {
             await homePage.locators.allSkillsLink.click();
 
             await expect(homePage.page).toHaveURL(/\/about#skills$/);
+        });
+    });
+
+    test.describe("Open source", () => {
+        test("should display latest contributions with stats", async ({ homePage }) => {
+            const { contributionItems, contributionTitles, contributionStatValues } = homePage.locators;
+
+            await expect(contributionItems).not.toHaveCount(0);
+            await expect(contributionItems.first()).toBeVisible();
+            await expect(contributionTitles.first()).not.toBeEmpty();
+            await expect(contributionStatValues).toHaveCount(3);
+        });
+
+        test("should show at most 3 contributions", async ({ homePage }) => {
+            const { contributionItems } = homePage.locators;
+
+            await expect(contributionItems.first()).toBeVisible();
+            expect(await contributionItems.count()).toBeLessThanOrEqual(3);
+        });
+
+        test("should open contribution links safely in a new tab", async ({ homePage }) => {
+            const { contributionItems } = homePage.locators;
+
+            await expect(contributionItems.first()).toBeVisible();
+
+            for (const link of await contributionItems.getByRole("link").all()) {
+                await expect(link).toHaveAttribute("href", /^https?:\/\//);
+                await expect(link).toHaveAttribute("target", "_blank");
+                await expect(link).toHaveAttribute("rel", /noreferrer/);
+            }
+        });
+
+        test("should navigate to contributions page from 'All contributions'", async ({ homePage }) => {
+            await homePage.locators.allContributionsLink.click();
+
+            await expect(homePage.page).toHaveURL(/\/contribute$/);
+        });
+
+        test("should hide the section when there are no contributions", async ({ page }) => {
+            const homePage = new HomePage(page);
+
+            await mockResponse(page, isContributions, 200, EMPTY_CONTRIBUTIONS);
+            await homePage.goto();
+
+            await expect(homePage.locators.heading).toBeVisible();
+            await expect(homePage.locators.contributions).toHaveCount(0);
+        });
+
+        test("should not break the page when contributions fail (500)", async ({ page }) => {
+            const homePage = new HomePage(page);
+
+            await mockResponse(page, isContributions, 500, { error: { message: "Internal error" } });
+            await homePage.goto();
+
+            await expect(homePage.locators.contributionsErrorMessage).toBeVisible({ timeout: 15_000 });
+            // Section lain tetap tampil walau contributions gagal
+            await expect(homePage.locators.heading).toBeVisible();
         });
     });
 

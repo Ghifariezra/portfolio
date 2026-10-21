@@ -36,6 +36,12 @@ const PAGES = [
         title: `Apps | ${SITE.fullName}`,
         description: `Windows apps by ${SITE.fullName}, with install numbers straight from the Microsoft Store.`,
     },
+    {
+        path: "/contribute",
+        file: "contribute.html",
+        title: `Contribute | ${SITE.fullName}`,
+        description: `Open-source issues resolved by ${SITE.fullName}, each with its merged pull request as proof.`,
+    },
 ];
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
