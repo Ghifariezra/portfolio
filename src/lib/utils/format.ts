@@ -11,6 +11,14 @@ export function formatMonth(iso: string): string {
         : d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 }
 
+/** "2026-10-15T11:23:43Z" -> "Oct 15, 2026". Dikunci ke UTC supaya tanggalnya sama di semua zona waktu. */
+export function formatDate(iso: string): string {
+    const d = new Date(iso);
+    return Number.isNaN(d.getTime())
+        ? "-"
+        : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+}
+
 /**
  * "Aug 2026 – Present" / "Aug 2026 – Oct 2026". Kalau awal dan akhir jatuh di bulan yang sama
  * (kursus satu bulan), cukup satu bulan: "Oct 2022". null kalau tanggal mulai tidak ada.

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContributeRouteImport } from './routes/contribute'
 import { Route as AdminAuthedRouteRouteImport } from './routes/admin/_authed/route'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
@@ -46,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContributeRoute = ContributeRouteImport.update({
+  id: '/contribute',
+  path: '/contribute',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminAuthedRouteRoute = AdminAuthedRouteRouteImport.update({
@@ -190,6 +196,7 @@ const AdminAuthedSkillsIndexRoute = AdminAuthedSkillsIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contribute': typeof ContributeRoute
   '/admin': typeof AdminAuthedRouteRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -220,6 +227,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contribute': typeof ContributeRoute
   '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/apps': typeof AppsIndexRoute
@@ -250,6 +258,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contribute': typeof ContributeRoute
   '/admin/_authed': typeof AdminAuthedRouteRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -282,6 +291,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contribute'
     | '/admin'
     | '/admin/login'
     | '/projects/$slug'
@@ -312,6 +322,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/contribute'
     | '/admin/login'
     | '/projects/$slug'
     | '/apps'
@@ -341,6 +352,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/contribute'
     | '/admin/_authed'
     | '/admin/login'
     | '/projects/$slug'
@@ -372,6 +384,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContributeRoute: typeof ContributeRoute
   AdminAuthedRouteRoute: typeof AdminAuthedRouteRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
@@ -393,6 +406,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contribute': {
+      id: '/contribute'
+      path: '/contribute'
+      fullPath: '/contribute'
+      preLoaderRoute: typeof ContributeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/_authed': {
@@ -634,6 +654,7 @@ const AdminAuthedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContributeRoute: ContributeRoute,
   AdminAuthedRouteRoute: AdminAuthedRouteRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,

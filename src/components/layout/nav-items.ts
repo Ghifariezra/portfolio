@@ -4,4 +4,5 @@ export const NAV_ITEMS = [
     { to: "/about", label: "About" },
     { to: "/projects", label: "Projects" },
     { to: "/apps", label: "Apps" },
+    { to: "/contribute", label: "Contribute" },
 ] as const;
