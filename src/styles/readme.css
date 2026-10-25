@@ -72,13 +72,30 @@
 }
 .readme table {
     display: block;
+    width: max-content;
+    max-width: 100%;
     overflow-x: auto;
     border-collapse: collapse;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    -webkit-overflow-scrolling: touch;
 }
 .readme th,
 .readme td {
-    padding: 0.4rem 0.75rem;
+    min-width: 7rem;
+    padding: 0.5rem 0.75rem;
     border: 1px solid var(--border);
+    vertical-align: top;
+    /* Timpa overflow-wrap: anywhere dari .readme, supaya kata tidak dipecah di tengah. */
+    overflow-wrap: normal;
+    word-break: normal;
+}
+.readme th {
+    background: var(--muted);
+}
+.readme td code,
+.readme th code {
+    white-space: nowrap;
 }
 .readme hr {
     border: 0;
