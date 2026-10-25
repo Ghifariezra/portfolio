@@ -22,7 +22,6 @@ jobs:
         uses: ./.github/workflows/tests.e2e.yml
 
     build:
-        needs: e2e
         runs-on: ubuntu-24.04
         steps:
             - name: Checkout
@@ -59,7 +58,7 @@ jobs:
                   path: "./dist"
 
     deploy:
-        needs: build
+        needs: [build, e2e]
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}

@@ -1,21 +1,21 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const isCI = !!process.env.CI;
+
 export default defineConfig({
     testDir: "./tests/e2e/specs",
     tsconfig: "./tsconfig.e2e.json",
     fullyParallel: true,
-    forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 2 : 0,
-    workers: process.env.CI ? 2 : undefined,
-    reporter: [
-        ["list"],
-        ["html", { open: "never" }],
-        ["junit", { outputFile: "test-results/junit.xml" }],
-        ["json", { outputFile: "test-results/results.json" }],
-    ],
+    forbidOnly: isCI,
+    retries: isCI ? 1 : 0,
+    workers: isCI ? 2 : undefined,
+    reporter: isCI
+        ? [["github"], ["html", { open: "never" }], ["junit", { outputFile: "test-results/junit.xml" }]]
+        : [["list"], ["html", { open: "never" }]],
     use: {
         baseURL: "http://localhost:4173",
         trace: "on-first-retry",
+        screenshot: "only-on-failure",
     },
     projects: [
         { name: "chromium", use: { ...devices["Desktop Chrome"] } },
@@ -25,14 +25,15 @@ export default defineConfig({
         { name: "mobile-safari", use: { ...devices["iPhone 15"] } },
     ],
     webServer: {
-        command: "pnpm build && pnpm preview --port 4173",
+        // di CI, dist/ datang dari artifact job build
+        command: isCI ? "pnpm preview --port 4173 --strictPort" : "pnpm build && pnpm preview --port 4173",
         url: "http://localhost:4173",
-        reuseExistingServer: !process.env.CI,
-        timeout: 120_000,
+        reuseExistingServer: !isCI,
+        timeout: 60_000,
         env: {
             VITE_API_URL: process.env.VITE_API_URL ?? "https://api.ezdev.xyz",
         },
     },
-    timeout: 60_000,
-    expect: { timeout: 15_000 },
+    timeout: 30_000,
+    expect: { timeout: 10_000 },
 });
