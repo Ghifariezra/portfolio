@@ -2,6 +2,8 @@ import { Children, isValidElement, type ReactNode } from "react";
 import Markdown, { type Components, type UrlTransform } from "react-markdown";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import { remarkAlert } from "remark-github-blockquote-alert";
+import "remark-github-blockquote-alert/alert.css";
 import { isFileTree, parseFileTree } from "@/lib/markdown/parse-file-tree";
 import { CodeBlock } from "./code-block";
 import { FileTree } from "./file-tree";
@@ -40,7 +42,7 @@ export function MarkdownContent({ children, urlTransform }: { children: string; 
     return (
         <div className="readme">
             <Markdown
-                remarkPlugins={[remarkGfm]}
+                remarkPlugins={[remarkGfm, remarkAlert]}
                 rehypePlugins={[rehypeSlug]}
                 components={components}
                 urlTransform={urlTransform}
