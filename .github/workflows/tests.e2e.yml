@@ -18,6 +18,8 @@ jobs:
         name: build (dist untuk e2e)
         runs-on: ubuntu-24.04
         timeout-minutes: 10
+        outputs:
+            playwright-version: ${{ steps.pw.outputs.version }}
         steps:
             - uses: actions/checkout@v7
             - uses: pnpm/action-setup@v6
@@ -28,6 +30,9 @@ jobs:
                   node-version: lts/*
                   cache: "pnpm"
             - run: pnpm install --frozen-lockfile
+            - name: Playwright version
+              id: pw
+              run: echo "version=$(pnpm exec playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
             - name: Build
               run: pnpm build
               env:
@@ -42,13 +47,16 @@ jobs:
         name: e2e (${{ matrix.project }})
         needs: build
         runs-on: ubuntu-24.04
-        timeout-minutes: 20
+        timeout-minutes: 15
+        container:
+            image: mcr.microsoft.com/playwright:v${{ needs.build.outputs.playwright-version }}-noble
+            options: --user 1001
         strategy:
             fail-fast: false
             matrix:
-                include: ${{ fromJSON(github.event_name == 'pull_request'
-                    && '[{"project":"chromium","browser":"chromium"}]'
-                    || '[{"project":"chromium","browser":"chromium"},{"project":"firefox","browser":"firefox"},{"project":"webkit","browser":"webkit"},{"project":"mobile-chrome","browser":"chromium"},{"project":"mobile-safari","browser":"webkit"}]') }}
+                project: ${{ fromJSON(github.event_name == 'pull_request'
+                    && '["chromium"]'
+                    || '["chromium","firefox","webkit","mobile-chrome","mobile-safari"]') }}
         steps:
             - uses: actions/checkout@v7
             - uses: pnpm/action-setup@v6
@@ -64,37 +72,6 @@ jobs:
               with:
                   name: dist
                   path: dist/
-
-            - name: Playwright version
-              id: pw
-              run: echo "version=$(pnpm exec playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
-
-            - name: Cache browser binaries
-              id: pw-cache
-              uses: actions/cache@v6
-              with:
-                  path: ~/.cache/ms-playwright
-                  key: pw-${{ runner.os }}-${{ steps.pw.outputs.version }}-${{ matrix.browser }}
-
-            - name: Make apt fail fast on stalled mirrors
-              run: |
-                  echo 'Acquire::Retries "3"; Acquire::http::Timeout "30"; Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/80-ci-retries
-
-            - name: Install Playwright system deps (+ browser on cache miss)
-              timeout-minutes: 12
-              env:
-                  CACHE_HIT: ${{ steps.pw-cache.outputs.cache-hit }}
-              run: |
-                  if [ "$CACHE_HIT" = "true" ]; then CMD="install-deps"; else CMD="install --with-deps"; fi
-                  for i in 1 2 3; do
-                      timeout --kill-after=10 180 pnpm exec playwright $CMD ${{ matrix.browser }} && exit 0
-                      echo "attempt $i failed or timed out, cleaning up apt and retrying..."
-                      sudo pkill -KILL -x apt-get || true
-                      sudo pkill -KILL -x apt || true
-                      sudo pkill -KILL -x dpkg || true
-                      sudo dpkg --configure -a || true
-                  done
-                  exit 1
 
             - name: Run E2E tests (${{ matrix.project }})
               run: pnpm exec playwright test --project=${{ matrix.project }}
