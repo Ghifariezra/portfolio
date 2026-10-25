@@ -2,6 +2,17 @@ import { expect, test } from "@e2e/fixtures";
 import { isAppsList, isStoreAnalytics, mockResponse, patchFirstApp } from "@e2e/helpers/api-mocks";
 import { AppsPage } from "@e2e/pages/apps.page";
 
+const STORE_ANALYTICS = {
+    applicationId: "TESTSTORE001",
+    range: { startDate: "2021-10-26", endDate: "2026-10-26" },
+    totalInstalls: 1234,
+    topRegions: [
+        { market: "ID", installCount: 800, percentage: 65 },
+        { market: "US", installCount: 434, percentage: 35 },
+    ],
+    dataFreshnessAt: null,
+};
+
 test.describe("Apps page", () => {
     test.describe("Header", () => {
         test("should render title and description", async ({ appsPage }) => {
@@ -48,15 +59,17 @@ test.describe("Apps page", () => {
     });
 
     test.describe("Store metrics", () => {
-        test("should show installs and markets for a published app", async ({ appsPage }) => {
-            const { cards, publishedCards, installsLabel, marketsLabel } = appsPage.locators;
+        test("should show installs and markets for a published app", async ({ page }) => {
+            const appsPage = new AppsPage(page);
 
-            await expect(cards.first()).toBeVisible();
-            test.skip((await publishedCards.count()) === 0, "Tidak ada app berstatus Live");
+            await patchFirstApp(page, { status: "published", microsoft_store_id: "TESTSTORE001" });
+            await mockResponse(page, isStoreAnalytics, 200, STORE_ANALYTICS);
+            await appsPage.goto();
 
-            // Metrics datang dari request terpisah ke Partner Center lewat backend, jadi beri waktu lebih
-            await expect(installsLabel(publishedCards.first())).toBeVisible({ timeout: 15_000 });
-            await expect(marketsLabel(publishedCards.first())).toBeVisible();
+            const { cards, installsLabel, marketsLabel } = appsPage.locators;
+
+            await expect(installsLabel(cards.first())).toBeVisible();
+            await expect(marketsLabel(cards.first())).toBeVisible();
         });
 
         test("should explain that metrics are not available for an unpublished app", async ({ page }) => {
