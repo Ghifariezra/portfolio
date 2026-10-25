@@ -87,8 +87,12 @@ jobs:
               run: |
                   if [ "$CACHE_HIT" = "true" ]; then CMD="install-deps"; else CMD="install --with-deps"; fi
                   for i in 1 2 3; do
-                      timeout 240 pnpm exec playwright $CMD ${{ matrix.browser }} && exit 0
-                      echo "attempt $i failed or timed out, retrying..."
+                      timeout --kill-after=10 180 pnpm exec playwright $CMD ${{ matrix.browser }} && exit 0
+                      echo "attempt $i failed or timed out, cleaning up apt and retrying..."
+                      sudo pkill -KILL -x apt-get || true
+                      sudo pkill -KILL -x apt || true
+                      sudo pkill -KILL -x dpkg || true
+                      sudo dpkg --configure -a || true
                   done
                   exit 1
 
