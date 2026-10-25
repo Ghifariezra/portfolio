@@ -42,7 +42,7 @@ jobs:
         name: e2e (${{ matrix.project }})
         needs: build
         runs-on: ubuntu-24.04
-        timeout-minutes: 15
+        timeout-minutes: 20
         strategy:
             fail-fast: false
             matrix:
@@ -76,15 +76,21 @@ jobs:
                   path: ~/.cache/ms-playwright
                   key: pw-${{ runner.os }}-${{ steps.pw.outputs.version }}-${{ matrix.browser }}
 
-            - name: Install browser + system deps
-              if: steps.pw-cache.outputs.cache-hit != 'true'
-              timeout-minutes: 5
-              run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
+            - name: Make apt fail fast on stalled mirrors
+              run: |
+                  echo 'Acquire::Retries "3"; Acquire::http::Timeout "30"; Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/80-ci-retries
 
-            - name: Install system deps only
-              if: steps.pw-cache.outputs.cache-hit == 'true'
-              timeout-minutes: 5
-              run: pnpm exec playwright install-deps ${{ matrix.browser }}
+            - name: Install Playwright system deps (+ browser on cache miss)
+              timeout-minutes: 12
+              env:
+                  CACHE_HIT: ${{ steps.pw-cache.outputs.cache-hit }}
+              run: |
+                  if [ "$CACHE_HIT" = "true" ]; then CMD="install-deps"; else CMD="install --with-deps"; fi
+                  for i in 1 2 3; do
+                      timeout 240 pnpm exec playwright $CMD ${{ matrix.browser }} && exit 0
+                      echo "attempt $i failed or timed out, retrying..."
+                  done
+                  exit 1
 
             - name: Run E2E tests (${{ matrix.project }})
               run: pnpm exec playwright test --project=${{ matrix.project }}
