@@ -207,10 +207,11 @@ export function ReadmeViewer({ repo }: { repo: GithubRepo }) {
                                                     aria-current={active ? "location" : undefined}
                                                     onClick={() => goTo(item.id)}
                                                     style={{ paddingLeft: 10 + (item.level - minLevel) * 14 }}
-                                                    className={`line-clamp-2 block w-full border-l-2 py-1.5 pr-2 text-left text-sm leading-snug transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none ${active
+                                                    className={`line-clamp-2 block w-full border-l-2 py-1.5 pr-2 text-left text-sm leading-snug transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none ${
+                                                        active
                                                             ? "border-primary bg-primary/10 font-semibold text-foreground"
                                                             : `border-transparent ${nested ? "text-muted-foreground" : "text-foreground"}`
-                                                        }`}
+                                                    }`}
                                                 >
                                                     {item.text}
                                                 </button>

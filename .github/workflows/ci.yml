@@ -34,9 +34,14 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            # biome check: lint + format + organize imports
-            - name: Lint and format (Biome)
+            - name: Format (Biome)
+              run: pnpm format:check
+
+            - name: Check (Biome, lint + format + organize imports)
               run: pnpm check
+
+            - name: Lint (Biome)
+              run: pnpm lint
 
             # vitest run (sekali jalan, tanpa watch mode).
             # passWithNoTests diatur di vite.config.ts, jadi aman walau tests/unit/ kosong.
