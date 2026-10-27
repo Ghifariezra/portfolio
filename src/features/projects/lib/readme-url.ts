@@ -1,7 +1,7 @@
 import { defaultUrlTransform } from "react-markdown";
 import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 
-const ABSOLUTE_URL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
+export const ABSOLUTE_URL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
 
 /** Link dan gambar relatif di README ("./docs/a.png") diarahkan ke repo di GitHub, kalau tidak, semuanya rusak. */
 export function createReadmeUrlTransform(repo: GithubRepo) {
