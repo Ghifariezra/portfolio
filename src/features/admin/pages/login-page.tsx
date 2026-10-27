@@ -10,7 +10,7 @@ import { adminToken } from "@/lib/auth/admin-token";
 /** Hanya path di dalam /admin yang boleh jadi tujuan setelah login (cegah open redirect). */
 const safeNext = (next?: string) => (next?.startsWith("/admin") ? next : "/admin");
 
-function describe(err: unknown): string {
+function loginErrorMessage(err: unknown): string {
     if (err instanceof ApiError) {
         if (err.status === 401) return "Token ditolak server. Cek lagi nilai ADMIN_API_TOKEN.";
         return err.message; // 503: "ADMIN_API_TOKEN is not configured" / "Profile has not been seeded yet"
@@ -36,7 +36,7 @@ export function LoginPage({ next }: { next?: string }) {
             adminToken.set(value);
             router.history.push(safeNext(next));
         } catch (err) {
-            setError(describe(err));
+            setError(loginErrorMessage(err));
         } finally {
             setBusy(false);
         }
