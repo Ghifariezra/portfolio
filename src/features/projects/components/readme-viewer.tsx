@@ -1,12 +1,14 @@
-import { BookOpen, ListBullets, MagnifyingGlass, RocketLaunch } from "@phosphor-icons/react";
+import { BookOpen, FileText, ListBullets, MagnifyingGlass, RocketLaunch } from "@phosphor-icons/react";
 import { Popover as PopoverPrimitive } from "radix-ui";
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { MarkdownContent } from "@/components/markdown/markdown-content";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { usePostmanCollection } from "@/features/projects/hooks/use-postman-collection";
+import { extractDocPaths } from "@/features/projects/lib/docs-links";
 import { createReadmeUrlTransform } from "@/features/projects/lib/readme-url";
 import type { GithubRepo } from "@/features/projects/schemas/github.schema";
+import { DocsViewer } from "./docs-viewer";
 import { PostmanViewer } from "./postman-viewer";
 
 type OutlineItem = { id: string; text: string; level: number };
@@ -15,10 +17,10 @@ const FILTER_THRESHOLD = 6;
 const SPY_OFFSET = 120;
 
 const headerButton =
-    "inline-flex size-8 items-center justify-center border-2 border-transparent text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:outline-none data-[state=open]:border-border data-[state=open]:bg-muted data-[state=open]:text-foreground";
+    "inline-flex size-8 shrink-0 items-center justify-center border-2 border-transparent text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:outline-none data-[state=open]:border-border data-[state=open]:bg-muted data-[state=open]:text-foreground";
 
 const tabTrigger =
-    "h-auto flex-none gap-2 px-3 py-3 text-sm font-semibold text-foreground after:bg-primary group-data-horizontal/tabs:after:-bottom-0.5 cursor-pointer";
+    "h-auto flex-none cursor-pointer gap-1.5 px-2.5 py-3 text-sm font-semibold text-foreground after:bg-primary group-data-horizontal/tabs:after:bottom-0 sm:gap-2 sm:px-3";
 
 export function ReadmeViewer({ repo }: { repo: GithubRepo }) {
     const bodyRef = useRef<HTMLDivElement>(null);
@@ -32,6 +34,9 @@ export function ReadmeViewer({ repo }: { repo: GithubRepo }) {
     const [activeId, setActiveId] = useState<string>();
 
     const { data: postman } = usePostmanCollection(repo.name);
+
+    // Tab Docs muncul kalau README merujuk file di folder docs/.
+    const docPaths = useMemo(() => extractDocPaths(repo.readme), [repo.readme]);
 
     useEffect(() => {
         if (!repo.readme) return;
@@ -126,19 +131,28 @@ export function ReadmeViewer({ repo }: { repo: GithubRepo }) {
     return (
         <section aria-label="README">
             <Tabs value={tab} onValueChange={setTab} className="gap-0 border-2 border-border bg-card">
-                <div className="flex items-center justify-between border-b-2 border-border bg-card pr-2 pl-2">
-                    <TabsList variant="line" className="group-data-horizontal/tabs:h-auto gap-0 p-0">
-                        <TabsTrigger value="readme" className={tabTrigger}>
-                            <BookOpen weight="bold" />
-                            README
-                        </TabsTrigger>
-                        {postman && (
-                            <TabsTrigger value="postman" className={tabTrigger}>
-                                <RocketLaunch weight="bold" />
-                                Postman
+                <div className="flex items-center justify-between gap-2 border-b-2 border-border bg-card pr-2 pl-2">
+                    {/* Tiga tab bisa melebihi lebar card di layar sempit, jadi daftar tab boleh digeser ke samping. */}
+                    <div className="min-w-0 overflow-x-auto scrollbar-none">
+                        <TabsList variant="line" className="group-data-horizontal/tabs:h-auto gap-0 p-0">
+                            <TabsTrigger value="readme" className={tabTrigger}>
+                                <BookOpen weight="bold" />
+                                README
                             </TabsTrigger>
-                        )}
-                    </TabsList>
+                            {docPaths.length > 0 && (
+                                <TabsTrigger value="docs" className={tabTrigger}>
+                                    <FileText weight="bold" />
+                                    Docs
+                                </TabsTrigger>
+                            )}
+                            {postman && (
+                                <TabsTrigger value="postman" className={tabTrigger}>
+                                    <RocketLaunch weight="bold" />
+                                    Postman
+                                </TabsTrigger>
+                            )}
+                        </TabsList>
+                    </div>
 
                     {tab === "readme" && outline.length > 0 && (
                         <PopoverPrimitive.Root open={outlineOpen} onOpenChange={handleOpenChange}>
@@ -230,6 +244,13 @@ export function ReadmeViewer({ repo }: { repo: GithubRepo }) {
                         <MarkdownContent urlTransform={createReadmeUrlTransform(repo)}>{repo.readme}</MarkdownContent>
                     </div>
                 </TabsContent>
+
+                {/* Tanpa forceMount: id heading dokumen bisa kembar dengan README, jadi hanya di-mount saat tab aktif. */}
+                {docPaths.length > 0 && (
+                    <TabsContent value="docs" className="p-4 text-base sm:p-6">
+                        <DocsViewer repo={repo} />
+                    </TabsContent>
+                )}
 
                 {postman && (
                     <TabsContent value="postman" className="p-4 text-base sm:p-6">
