@@ -49,9 +49,6 @@ jobs:
               env:
                   VITE_API_URL: ${{ vars.VITE_API_URL }}
 
-            - name: Create 404.html for SPA Routing
-              run: cp dist/index.html dist/404.html
-
             - name: Setup Pages
               uses: actions/configure-pages@v6
 
