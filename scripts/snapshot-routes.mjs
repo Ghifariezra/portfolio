@@ -30,7 +30,7 @@ try {
     for (const r of ROUTES) {
         const page = await browser.newPage();
         // Request API digantung: bagian yang belum ada di seed tetap skeleton, bukan state error.
-        await page.route(`${API}/**`, () => { });
+        await page.route(`${API}/**`, () => {});
         await page.goto(`http://localhost:${PORT}${r.path}`, { waitUntil: "domcontentloaded" });
         await page.waitForSelector(r.ready, { timeout: 15000 });
         await page.waitForTimeout(300);
