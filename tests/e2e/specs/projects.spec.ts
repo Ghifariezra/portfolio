@@ -1,5 +1,5 @@
 import { expect, test } from "@e2e/fixtures";
-import { isProjectsList, mockResponse } from "@e2e/helpers/api-mocks";
+import { disableSeed, isProjectsList, mockResponse } from "@e2e/helpers/api-mocks";
 import { ProjectsPage } from "@e2e/pages/projects.page";
 
 // Ambil angka dari label chip, mis. "Done (3)" -> 3
@@ -80,6 +80,7 @@ test.describe("Projects page", () => {
         test("should show an empty state when there are no projects", async ({ page }) => {
             const projectsPage = new ProjectsPage(page);
 
+            await disableSeed(page);
             await mockResponse(page, isProjectsList, 200, { data: [] });
             await projectsPage.goto();
 
@@ -90,6 +91,7 @@ test.describe("Projects page", () => {
         test("should show an error message when projects fail to load", async ({ page }) => {
             const projectsPage = new ProjectsPage(page);
 
+            await disableSeed(page);
             await mockResponse(page, isProjectsList, 500, { error: { message: "Internal error" } });
             await projectsPage.goto();
 
