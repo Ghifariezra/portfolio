@@ -1,7 +1,7 @@
-import { GithubLogo, Globe, LinkedinLogo } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { brutalButtonClass } from "@/components/ui/button-styles";
 import { IconLink } from "@/components/ui/icon-link";
+import { GithubLogo, Globe, LinkedinLogo } from "@/components/ui/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SITE } from "@/config/site";
 import { useProfile } from "@/features/portfolio/hooks/use-portfolio";

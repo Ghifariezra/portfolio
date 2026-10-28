@@ -1,9 +1,10 @@
-import { GitFork, GithubLogo, Globe, Star } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { IconLink } from "@/components/ui/icon-link";
+import { GitFork, GithubLogo, Globe, Star } from "@/components/ui/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TagList } from "@/components/ui/tag-list";
 import type { RepoState } from "@/features/projects/hooks/use-github-repos";
+import { cardImage } from "@/features/projects/lib/image-url";
 import { resolveProjectDisplay } from "@/features/projects/lib/project-helpers";
 import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 import type { ProjectItem } from "@/features/projects/schemas/project.schema";
@@ -29,9 +30,10 @@ function GithubFooter({ gh, language }: { gh: GithubRepo; language: string | nul
 interface ProjectCardProps {
     project: ProjectItem;
     github?: RepoState;
+    priority?: boolean;
 }
 
-export function ProjectCard({ project, github }: ProjectCardProps) {
+export function ProjectCard({ project, github, priority = false }: ProjectCardProps) {
     const gh = github?.data;
     const range = formatRange(project.start_date, project.end_date);
     const { description, repoUrl, liveUrl, tags, language } = resolveProjectDisplay(project, gh);
@@ -40,9 +42,13 @@ export function ProjectCard({ project, github }: ProjectCardProps) {
         <article className="relative flex flex-col border-2 border-border bg-card transition-transform hover:-translate-y-0.5 hover:shadow-brutal dark:hover:shadow-none">
             {project.image_url && (
                 <img
-                    src={project.image_url}
+                    src={cardImage(project.image_url)}
                     alt=""
-                    loading="lazy"
+                    width={640}
+                    height={256}
+                    loading={priority ? "eager" : "lazy"}
+                    fetchPriority={priority ? "high" : "auto"}
+                    decoding="async"
                     className="h-36 w-full border-b-2 border-border object-cover"
                 />
             )}

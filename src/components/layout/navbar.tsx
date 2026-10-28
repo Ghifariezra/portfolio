@@ -1,6 +1,6 @@
-import { List, X } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { List, X } from "@/components/ui/icons";
 import { SITE } from "@/config/site";
 import { NAV_ITEMS } from "./nav-items";
 import { ThemeToggle } from "./theme-toggle";

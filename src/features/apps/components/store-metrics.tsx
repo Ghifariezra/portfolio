@@ -1,4 +1,4 @@
-import { Download, Globe, MapPin } from "@phosphor-icons/react";
+import { Download, Globe, MapPin } from "@/components/ui/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStoreAnalytics } from "@/features/apps/hooks/use-store-analytics";
 import { isNotFound } from "@/lib/api";

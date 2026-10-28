@@ -1,6 +1,6 @@
-import { DownloadSimple } from "@phosphor-icons/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { DownloadSimple } from "@/components/ui/icons";
 import { cvQuery } from "@/features/cv/lib/cv-query";
 import { downloadCvPdf } from "@/features/cv/lib/download-cv";
 

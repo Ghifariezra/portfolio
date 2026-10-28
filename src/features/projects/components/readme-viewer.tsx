@@ -1,8 +1,8 @@
-import { BookOpen, FileText, ListBullets, MagnifyingGlass, RocketLaunch } from "@phosphor-icons/react";
 import { Popover as PopoverPrimitive } from "radix-ui";
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { MarkdownContent } from "@/components/markdown/markdown-content";
 import { EmptyState } from "@/components/ui/empty-state";
+import { BookOpen, FileText, ListBullets, MagnifyingGlass, RocketLaunch } from "@/components/ui/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { usePostmanCollection } from "@/features/projects/hooks/use-postman-collection";
 import { extractDocPaths } from "@/features/projects/lib/docs-links";

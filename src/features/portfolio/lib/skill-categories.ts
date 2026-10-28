@@ -10,7 +10,7 @@ import {
     Sparkle,
     Stack,
     Wrench,
-} from "@phosphor-icons/react";
+} from "@/components/ui/icons";
 
 interface SkillCategoryMeta {
     label: string;

@@ -1,7 +1,7 @@
-import { ArrowSquareOut, Clock, FileText } from "@phosphor-icons/react";
 import { useMemo, useState } from "react";
 import { MarkdownContent } from "@/components/markdown/markdown-content";
 import { EmptyState } from "@/components/ui/empty-state";
+import { ArrowSquareOut, Clock, FileText } from "@/components/ui/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRepoDocs } from "@/features/projects/hooks/use-repo-docs";
 import { createDocUrlTransform, docTitle, readingMinutes } from "@/features/projects/lib/docs-links";

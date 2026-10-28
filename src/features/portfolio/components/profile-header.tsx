@@ -1,6 +1,6 @@
-import { GithubLogo, Globe, LinkedinLogo } from "@phosphor-icons/react";
 import { ErrorState } from "@/components/ui/error-state";
 import { IconLink } from "@/components/ui/icon-link";
+import { GithubLogo, Globe, LinkedinLogo } from "@/components/ui/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DownloadCvButton } from "@/features/cv/components/download-cv-button";
 import { useProfile } from "@/features/portfolio/hooks/use-portfolio";

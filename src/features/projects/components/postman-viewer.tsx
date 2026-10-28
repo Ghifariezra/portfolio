@@ -1,6 +1,6 @@
-import { ArrowSquareOut, CaretRight, FolderSimple } from "@phosphor-icons/react";
 import { CodeBlock } from "@/components/markdown/code-block";
 import { MarkdownContent } from "@/components/markdown/markdown-content";
+import { ArrowSquareOut, CaretRight, FolderSimple } from "@/components/ui/icons";
 import type { PostmanNode, PostmanRequest, PostmanSource } from "@/features/projects/schemas/postman.schema";
 
 const METHOD_STYLES: Record<string, string> = {

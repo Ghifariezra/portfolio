@@ -1,4 +1,4 @@
-import { CheckCircle, FolderSimple, GitMerge } from "@phosphor-icons/react";
+import { CheckCircle, FolderSimple, GitMerge } from "@/components/ui/icons";
 import type { ContributionSummary } from "@/features/contributions/lib/contribution-helpers";
 import { cn, formatNumber } from "@/lib/utils";
 

@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { selectFeaturedProjects } from "@/features/home/lib/home-helpers";
 import { ProjectCard } from "@/features/projects/components/project-card";
+import { ProjectCardSkeleton } from "@/features/projects/components/project-card-skeleton";
 import { useGithubRepos } from "@/features/projects/hooks/use-github-repos";
 import { useProjects } from "@/features/projects/hooks/use-projects";
 import { HOME_LINK_CLASS, HomeSection } from "./home-section";
@@ -24,13 +24,13 @@ export function FeaturedProjectsSection() {
                 </Link>
             }
             isPending={isPending}
-            isError={isError}
+            isError={isError && !data}
             onRetry={() => refetch()}
             isEmpty={projects.length === 0}
             skeleton={
                 <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     {PLACEHOLDER_KEYS.map((key) => (
-                        <Skeleton key={key} className="h-48 border-2 border-border" />
+                        <ProjectCardSkeleton key={key} />
                     ))}
                 </div>
             }
