@@ -11,3 +11,6 @@ overrides:
     browserslist: "^4.28.7"
     baseline-browser-mapping: "^2.11.0"
     "@babel/core": "^7.29.6"
+    compression: "^1.8.2"
+    tmp: "^0.2.6"
+    basic-ftp: "^6.2.1"
