@@ -48,6 +48,7 @@ jobs:
               run: pnpm build
               env:
                   VITE_API_URL: ${{ vars.VITE_API_URL }}
+                  REQUIRE_SNAPSHOT: "1"
 
             - name: Setup Pages
               uses: actions/configure-pages@v6
