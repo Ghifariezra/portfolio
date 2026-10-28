@@ -41,6 +41,10 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
+            - name: Install Chromium (untuk snapshot-routes)
+              if: github.event_name != 'workflow_run'
+              run: pnpm exec playwright install --with-deps chromium
+
             - name: Build (PR / manual)
               if: github.event_name != 'workflow_run'
               run: pnpm build
