@@ -1,6 +1,6 @@
-import { Globe, WindowsLogo } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { IconLink } from "@/components/ui/icon-link";
+import { Globe, WindowsLogo } from "@/components/ui/icons";
 import { Tag } from "@/components/ui/tag-list";
 import { APP_STATUS_LABEL, getStoreId } from "@/features/apps/lib/app-helpers";
 import type { AppItem } from "@/features/apps/schemas/app.schema";

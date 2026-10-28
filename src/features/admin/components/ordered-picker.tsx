@@ -1,5 +1,5 @@
-import { ArrowDown, ArrowUp, X } from "@phosphor-icons/react";
 import { FilterChip } from "@/components/ui/filter-chip";
+import { ArrowDown, ArrowUp, X } from "@/components/ui/icons";
 
 export interface PickerOption {
     id: string;

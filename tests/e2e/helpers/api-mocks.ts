@@ -102,3 +102,12 @@ export async function patchFirstApp(page: Page, overrides: Record<string, unknow
         return fulfillPatchedJson(route, response, { ...body, data: [{ ...first, ...overrides }, ...rest] });
     });
 }
+
+/** Buang <script id="__SEED__"> sebelum main.tsx jalan, supaya query benar-benar fetch dan kena mock. */
+export async function disableSeed(page: Page) {
+    await page.addInitScript(() => {
+        const remove = () => document.getElementById("__SEED__")?.remove();
+        remove();
+        new MutationObserver(remove).observe(document, { childList: true, subtree: true });
+    });
+}

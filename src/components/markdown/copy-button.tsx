@@ -1,5 +1,5 @@
-import { Check, Copy } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
+import { Check, Copy } from "@/components/ui/icons";
 
 export function CopyButton({ text }: { text: string }) {
     const [copied, setCopied] = useState(false);

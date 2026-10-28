@@ -1,8 +1,8 @@
 import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { PageContainer, PageHeader } from "@/components/ui/page-container";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "@/features/projects/components/project-card";
+import { ProjectCardSkeleton } from "@/features/projects/components/project-card-skeleton";
 import { ProjectFilters } from "@/features/projects/components/project-filters";
 import { useProjectFilters } from "@/features/projects/hooks/use-project-filters";
 import { useProjects } from "@/features/projects/hooks/use-projects";
@@ -23,12 +23,12 @@ export function ProjectsPage() {
                 <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     {Array.from({ length: 6 }, (_, i) => (
                         // biome-ignore lint/suspicious/noArrayIndexKey: placeholder statis
-                        <Skeleton key={i} className="h-48 border-2 border-border" />
+                        <ProjectCardSkeleton key={i} />
                     ))}
                 </div>
             )}
 
-            {isError && <ErrorState message="Could not load projects right now." onRetry={() => refetch()} />}
+            {isError && !data && <ErrorState message="Could not load projects right now." onRetry={() => refetch()} />}
 
             {data && (
                 <>
@@ -46,8 +46,13 @@ export function ProjectsPage() {
 
                     {filters.filtered.length > 0 ? (
                         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                            {filters.filtered.map((project) => (
-                                <ProjectCard key={project.id} project={project} github={filters.githubOf(project)} />
+                            {filters.filtered.map((project, i) => (
+                                <ProjectCard
+                                    key={project.id}
+                                    project={project}
+                                    github={filters.githubOf(project)}
+                                    priority={i === 0}
+                                />
                             ))}
                         </div>
                     ) : (

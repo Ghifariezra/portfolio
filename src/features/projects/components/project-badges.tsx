@@ -1,4 +1,4 @@
-import { Star } from "@phosphor-icons/react";
+import { Star } from "@/components/ui/icons";
 import { STATUS_LABEL } from "@/features/projects/lib/project-helpers";
 import type { ProjectStatus } from "@/features/projects/schemas/project.schema";
 

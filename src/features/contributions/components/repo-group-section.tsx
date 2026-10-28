@@ -1,4 +1,4 @@
-import { Star } from "@phosphor-icons/react";
+import { Star } from "@/components/ui/icons";
 import type { RepoGroup } from "@/features/contributions/lib/contribution-helpers";
 import { formatNumber } from "@/lib/utils";
 import { IssueCard } from "./issue-card";

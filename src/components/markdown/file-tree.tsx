@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
     CaretRight,
     File,
@@ -13,8 +14,7 @@ import {
     Folder,
     FolderOpen,
     type Icon,
-} from "@phosphor-icons/react";
-import { useState } from "react";
+} from "@/components/ui/icons";
 import type { TreeNode } from "@/lib/markdown/parse-file-tree";
 import { cn } from "@/lib/utils";
 

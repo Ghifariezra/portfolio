@@ -11,10 +11,12 @@ node_modules
 dist
 dist-ssr
 *.local
+stats.html
 
 # Editor directories and files
 !.vscode/extensions.json
 .idea
+.lighthouseci
 .DS_Store
 *.suo
 *.ntvs*
@@ -27,6 +29,8 @@ changes_current_branch.txt
 codebase-dump.txt
 scripts/*
 !scripts/prerender-seo.mjs
+!scripts/gen-icons.mjs
+!scripts/snapshot-routes.mjs
 .env
 
 test-results/

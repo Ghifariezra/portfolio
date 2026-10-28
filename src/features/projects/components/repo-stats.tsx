@@ -1,4 +1,4 @@
-import { GitFork, Star } from "@phosphor-icons/react";
+import { GitFork, Star } from "@/components/ui/icons";
 import type { GithubRepo } from "@/features/projects/schemas/github.schema";
 import { formatMonth, formatNumber } from "@/lib/utils";
 

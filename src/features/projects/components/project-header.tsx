@@ -1,5 +1,5 @@
-import { GithubLogo, Globe } from "@phosphor-icons/react";
 import { brutalButtonClass } from "@/components/ui/button-styles";
+import { GithubLogo, Globe } from "@/components/ui/icons";
 import type { ProjectItem } from "@/features/projects/schemas/project.schema";
 import { formatRange } from "@/lib/utils";
 import { FeaturedBadge, StatusBadge } from "./project-badges";

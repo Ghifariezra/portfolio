@@ -1,4 +1,4 @@
-import { Moon, Sun } from "@phosphor-icons/react";
+import { Moon, Sun } from "@/components/ui/icons";
 import { useThemeToggle } from "@/hooks/use-theme-toggle";
 
 export function ThemeToggle() {

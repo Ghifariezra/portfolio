@@ -1,4 +1,4 @@
-import { ArrowUpRight, CheckCircle, GitMerge, GitPullRequest } from "@phosphor-icons/react";
+import { ArrowUpRight, CheckCircle, GitMerge, GitPullRequest } from "@/components/ui/icons";
 import { TagList } from "@/components/ui/tag-list";
 import type { ClosedIssue, ContributionPullRequest } from "@/features/contributions/schemas/contribution.schema";
 import { cn, formatDate } from "@/lib/utils";

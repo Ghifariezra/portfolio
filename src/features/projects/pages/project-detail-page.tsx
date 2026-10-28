@@ -1,6 +1,6 @@
-import { ArrowLeft } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { ErrorState } from "@/components/ui/error-state";
+import { ArrowLeft } from "@/components/ui/icons";
 import { PageContainer } from "@/components/ui/page-container";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectDetail } from "@/features/projects/components/project-detail";

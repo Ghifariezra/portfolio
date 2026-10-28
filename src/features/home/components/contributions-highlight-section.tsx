@@ -1,6 +1,6 @@
-import { GitMerge, GitPullRequest } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
+import { GitMerge, GitPullRequest } from "@/components/ui/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ContributionStats } from "@/features/contributions/components/contribution-stats";
 import { useContributions } from "@/features/contributions/hooks/use-contributions";
