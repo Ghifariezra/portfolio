@@ -30,6 +30,8 @@ jobs:
                   node-version: lts/*
                   cache: "pnpm"
             - run: pnpm install --frozen-lockfile
+            - name: Install Chromium (untuk snapshot-routes)
+              run: pnpm exec playwright install --with-deps chromium
             - name: Playwright version
               id: pw
               run: echo "version=$(pnpm exec playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
